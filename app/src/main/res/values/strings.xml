@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MindBin</string>
+    <string name="open_navigation_view">Open Drawer</string>
+    <string name="close_navigation_view">Close Drawer</string>
+</resources>
