@@ -1,7 +1,11 @@
 package com.serbi.mindbin.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +14,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
+import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
 public class CreateNote extends AppCompatActivity {
 
+    private DatabaseHelper databaseHelper;
+    private FloatingActionButton btn_save_note;
     private MaterialToolbar toolbar;
     private TextView tv_note_current_date;
+    private EditText et_note_title, et_note_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +38,38 @@ public class CreateNote extends AppCompatActivity {
             return insets;
         });
 
-        tv_note_current_date = findViewById(R.id.tv_note_current_date);
-        toolbar = findViewById(R.id.toolbar_create_note);
+        initializeComponents();
+        setToolbar();
 
         tv_note_current_date.setText(DateHelper.getCurrentDetailedDate());
+        btn_save_note.setOnClickListener(v -> saveNote());
+    }
 
+    private void saveNote() {
+        String noteTitle = et_note_title.getText().toString();
+        String noteContent = et_note_content.getText().toString();
+        String noteDateCreation = DateHelper.getCurrentSimpleDate();
+        String noteStatus = "normal";
+
+        if (noteTitle.isEmpty() || noteContent.isEmpty()) {
+            Toast.makeText(this, "Note cannot be empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation);
+        finish();
+    }
+
+    private void initializeComponents() {
+        tv_note_current_date = findViewById(R.id.tv_note_current_date);
+        et_note_title = findViewById(R.id.et_note_title);
+        et_note_content = findViewById(R.id.et_note_content);
+        btn_save_note = findViewById(R.id.btn_save_note);
+        toolbar = findViewById(R.id.toolbar_create_note);
+        databaseHelper = new DatabaseHelper(CreateNote.this);
+    }
+
+    private void setToolbar() {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
