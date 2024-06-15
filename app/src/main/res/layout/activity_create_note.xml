@@ -42,12 +42,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/tv_note_current_date"
+                app:layout_constraintTop_toBottomOf="@id/et_note_title"
+                app:layout_constraintStart_toStartOf="@id/et_note_title"
+                android:text="Monday, March 18 2024"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/note_divider"
-                app:layout_constraintTop_toBottomOf="@id/et_note_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_note_current_date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
