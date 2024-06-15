@@ -52,7 +52,7 @@ public class Main extends AppCompatActivity {
             }
             
             if (item.getItemId() == R.id.notes) {
-                toolbar.setTitle("Notes");
+                toolbar.setTitle("MindBin");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();
             }
 
