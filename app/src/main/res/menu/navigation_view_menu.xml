@@ -4,10 +4,17 @@
     <group
         android:id="@+id/group1">
         <item
+            android:id="@+id/profile"
+            android:title="Profile"
+            android:icon="@drawable/baseline_account_circle_24"/>
+
+        <item
             android:id="@+id/notes"
             android:title="Notes"
             android:icon="@drawable/baseline_notes_24"/>
-
+    </group>
+    <group
+        android:id="@+id/group2">
         <item
             android:id="@+id/archive"
             android:title="Archive"
@@ -17,12 +24,5 @@
             android:id="@+id/trash"
             android:title="Trash"
             android:icon="@drawable/baseline_delete_24"/>
-    </group>
-    <group
-        android:id="@+id/group2">
-        <item
-            android:id="@+id/settings"
-            android:title="Settings"
-            android:icon="@drawable/baseline_settings_24"/>
     </group>
 </menu>

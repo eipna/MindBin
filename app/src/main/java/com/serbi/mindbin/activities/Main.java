@@ -2,12 +2,9 @@ package com.serbi.mindbin.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -22,7 +19,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.fragments.Archive;
 import com.serbi.mindbin.fragments.Notes;
-import com.serbi.mindbin.fragments.Settings;
 import com.serbi.mindbin.fragments.Trash;
 
 public class Main extends AppCompatActivity {
@@ -51,6 +47,10 @@ public class Main extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.notes);
 
         navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.profile) {
+                Toast.makeText(this, "Opening profile", Toast.LENGTH_SHORT).show();
+            }
+            
             if (item.getItemId() == R.id.notes) {
                 toolbar.setTitle("Notes");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();
@@ -64,11 +64,6 @@ public class Main extends AppCompatActivity {
             if (item.getItemId() == R.id.trash) {
                 toolbar.setTitle("Trash");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Trash()).commit();
-            }
-
-            if (item.getItemId() == R.id.settings) {
-                toolbar.setTitle("Settings");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Settings()).commit();
             }
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
