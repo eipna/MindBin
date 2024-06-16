@@ -61,12 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TABLE_NOTE_COL_STATUS, status);
         values.put(TABLE_NOTE_COL_DATE, dateCreation);
 
-        long result = database.insert(TABLE_NOTE, null, values);
-        if (result == -1) {
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
-        }
+        database.insert(TABLE_NOTE, null, values);
     }
 
     public void editNote(int id, String title, String content, String status, String dateCreation) {
@@ -78,12 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TABLE_NOTE_COL_STATUS, status);
         values.put(TABLE_NOTE_COL_DATE, dateCreation);
 
-        long result = database.update(TABLE_NOTE, values, "note_id = ?", new String[]{String.valueOf(id)});
-        if (result == -1) {
-            Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Update successful", Toast.LENGTH_SHORT).show();
-        }
+        database.update(TABLE_NOTE, values, "note_id = ?", new String[]{String.valueOf(id)});
     }
 
     public Cursor getAllNotes() {
