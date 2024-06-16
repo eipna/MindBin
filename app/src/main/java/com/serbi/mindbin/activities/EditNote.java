@@ -15,11 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.constants.NoteStatus;
+import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
@@ -112,6 +115,10 @@ public class EditNote extends AppCompatActivity {
 
         if (item.getItemId() == R.id.item_trash) {
             databaseHelper.updateNoteStatus(note_id, NoteStatus.DELETED);
+        }
+
+        if (item.getItemId() == R.id.item_delete) {
+            databaseHelper.deleteNote(note_id);
         }
 
         startActivity(new Intent(EditNote.this, Main.class));

@@ -10,4 +10,8 @@
         android:id="@+id/item_trash"
         android:title="Trash"/>
 
+    <item
+        android:id="@+id/item_delete"
+        android:title="Delete Forever"/>
+
 </menu>

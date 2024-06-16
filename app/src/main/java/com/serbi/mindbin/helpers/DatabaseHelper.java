@@ -93,6 +93,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
+    public void deleteNote(int id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_NOTE, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
     public Cursor getAllNotes() {
         String readAllNotes = "SELECT * FROM " + TABLE_NOTE;
         SQLiteDatabase database = this.getReadableDatabase();
