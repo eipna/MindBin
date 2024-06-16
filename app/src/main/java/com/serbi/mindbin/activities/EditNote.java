@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
+import com.serbi.mindbin.constants.NoteStatus;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
@@ -106,12 +107,15 @@ public class EditNote extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.item_archive) {
-            Toast.makeText(this, "Archiving note", Toast.LENGTH_SHORT).show();
+            databaseHelper.updateNoteStatus(note_id, NoteStatus.ARCHIVED);
         }
 
         if (item.getItemId() == R.id.item_trash) {
-            Toast.makeText(this, "Deleting note", Toast.LENGTH_SHORT).show();
+            databaseHelper.updateNoteStatus(note_id, NoteStatus.DELETED);
         }
+
+        startActivity(new Intent(EditNote.this, Main.class));
+        finish();
         return true;
     }
 }

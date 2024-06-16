@@ -75,7 +75,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TABLE_NOTE_COL_STATUS, status);
         values.put(TABLE_NOTE_COL_DATE, dateCreation);
 
-        database.update(TABLE_NOTE, values, "note_id = ?", new String[]{String.valueOf(id)});
+        database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public void updateNoteStatus(int id, NoteStatus status) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        if (status == NoteStatus.ARCHIVED) {
+            values.put(TABLE_NOTE_COL_STATUS, NoteStatus.ARCHIVED.toString());
+        }
+
+        if (status == NoteStatus.DELETED) {
+            values.put(TABLE_NOTE_COL_STATUS, NoteStatus.DELETED.toString());
+        }
+
+        database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     public Cursor getAllNotes() {
