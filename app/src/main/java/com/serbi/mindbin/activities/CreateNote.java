@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
+import com.serbi.mindbin.constants.NoteStatus;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
@@ -50,7 +51,7 @@ public class CreateNote extends AppCompatActivity {
         String noteTitle = et_note_title.getText().toString();
         String noteContent = et_note_content.getText().toString();
         String noteDateCreation = DateHelper.getCurrentSimpleDate();
-        String noteStatus = "normal";
+        String noteStatus = NoteStatus.NORMAL.toString();
 
         if (noteTitle.isEmpty() || noteContent.isEmpty()) {
             Toast.makeText(this, "Note cannot be empty", Toast.LENGTH_SHORT).show();
