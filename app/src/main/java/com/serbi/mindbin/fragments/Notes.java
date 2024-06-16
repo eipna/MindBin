@@ -17,6 +17,7 @@ import com.serbi.mindbin.R;
 import com.serbi.mindbin.activities.CreateNote;
 import com.serbi.mindbin.adapters.NoteAdapter;
 import com.serbi.mindbin.helpers.DatabaseHelper;
+import com.serbi.mindbin.helpers.DateHelper;
 import com.serbi.mindbin.models.Note;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Notes extends Fragment {
         Cursor cursor = databaseHelper.getAllNotes();
         while (cursor.moveToNext()) {
             notesArrayList.add(new Note(
-                    cursor.getString(1), cursor.getString(2),
+                    cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
                     cursor.getString(3), cursor.getString(4))
             );
         }
