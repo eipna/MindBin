@@ -2,11 +2,15 @@ package com.serbi.mindbin.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -87,5 +91,27 @@ public class EditNote extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_edit_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        if (item.getItemId() == R.id.item_archive) {
+            Toast.makeText(this, "Archiving note", Toast.LENGTH_SHORT).show();
+        }
+
+        if (item.getItemId() == R.id.item_trash) {
+            Toast.makeText(this, "Deleting note", Toast.LENGTH_SHORT).show();
+        }
+        return true;
     }
 }

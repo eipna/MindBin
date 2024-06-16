@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Edit Note"
+        app:menu="@menu/toolbar_edit_menu"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
