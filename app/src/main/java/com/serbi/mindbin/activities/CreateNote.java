@@ -53,9 +53,12 @@ public class CreateNote extends AppCompatActivity {
         String noteDateCreation = DateHelper.getCurrentSimpleDate();
         String noteStatus = NoteStatus.NORMAL.toString();
 
-        if (noteTitle.isEmpty() || noteContent.isEmpty()) {
-            Toast.makeText(this, "Note cannot be empty", Toast.LENGTH_SHORT).show();
-            return;
+        if (noteTitle.isEmpty()) {
+            noteTitle = "Empty note";
+        }
+
+        if (noteContent.isEmpty()) {
+            noteContent = "Empty content";
         }
 
         databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation);
