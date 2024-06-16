@@ -44,7 +44,6 @@ public class Notes extends Fragment {
 
         btn_add_note.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), CreateNote.class));
-            getActivity().finish();
         });
         return view;
     }
