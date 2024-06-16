@@ -9,7 +9,8 @@
     android:layout_marginEnd="10dp"
     android:layout_marginTop="10dp"
     app:cardCornerRadius="10dp"
-    android:backgroundTint="@color/tertiary">
+    app:cardElevation="10dp"
+    android:backgroundTint="@color/secondary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:id="@+id/note_item_title"
             android:text="Title"
             android:textColor="@color/black"
-            android:fontFamily="sans-serif-condensed"
+            android:fontFamily="sans-serif-black"
             android:textStyle="bold"
             android:textSize="28sp"
             android:layout_marginStart="5dp"
