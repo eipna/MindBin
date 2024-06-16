@@ -3,10 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary">#B33B15</color>
-    <color name="secondary">#B88576</color>
-    <color name="tertiary">#A58F44</color>
+    <color name="primary">#63A002</color>
+    <color name="secondary">#85976E</color>
+    <color name="tertiary">#4D9D98</color>
     <color name="error">#FF5449</color>
-    <color name="neutral">#998E8C</color>
-    <color name="neutral_variant">#A08C87</color>
+    <color name="neutral">#91918B</color>
+    <color name="neutral_variant">#8F9285</color>
 </resources>
