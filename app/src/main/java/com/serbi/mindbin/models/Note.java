@@ -2,16 +2,22 @@ package com.serbi.mindbin.models;
 
 public class Note {
 
+    private int id;
     private String title;
     private String content;
     private String status;
     private String dateCreation;
 
-    public Note(String title, String dateCreation, String status, String content) {
+    public Note(int id, String title, String dateCreation, String status, String content) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.status = status;
         this.dateCreation = dateCreation;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

@@ -69,6 +69,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void editNote(int id, String title, String content, String status, String dateCreation) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TABLE_NOTE_COL_TITLE, title);
+        values.put(TABLE_NOTE_COL_CONTENT, content);
+        values.put(TABLE_NOTE_COL_STATUS, status);
+        values.put(TABLE_NOTE_COL_DATE, dateCreation);
+
+        long result = database.update(TABLE_NOTE, values, "note_id = ?", new String[]{String.valueOf(id)});
+        if (result == -1) {
+            Toast.makeText(context, "Update failed", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Update successful", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public Cursor getAllNotes() {
         String readAllNotes = "SELECT * FROM " + TABLE_NOTE;
 

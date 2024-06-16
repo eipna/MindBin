@@ -59,6 +59,7 @@ public class Notes extends Fragment {
         Cursor cursor = databaseHelper.getAllNotes();
         while (cursor.moveToNext()) {
             notesArrayList.add(new Note(
+                    cursor.getInt(0),
                     cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
                     cursor.getString(3), cursor.getString(4))
             );

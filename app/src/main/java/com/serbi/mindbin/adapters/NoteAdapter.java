@@ -1,6 +1,7 @@
 package com.serbi.mindbin.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.serbi.mindbin.R;
+import com.serbi.mindbin.activities.EditNote;
 import com.serbi.mindbin.models.Note;
 
 import java.util.ArrayList;
@@ -37,6 +39,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.et_note_title.setText(noteArrayList.get(position).getTitle());
         holder.et_note_content.setText(noteArrayList.get(position).getContent());
         holder.et_note_creation_date.setText(noteArrayList.get(position).getDateCreation());
+        holder.note_item.setOnClickListener(v -> {
+            Intent editNoteIntent = new Intent(context, EditNote.class);
+            editNoteIntent.putExtra("id", noteArrayList.get(position).getId());
+            editNoteIntent.putExtra("title", noteArrayList.get(position).getTitle());
+            editNoteIntent.putExtra("creation_date", noteArrayList.get(position).getDateCreation());
+            editNoteIntent.putExtra("content", noteArrayList.get(position).getContent());
+            editNoteIntent.putExtra("status", noteArrayList.get(position).getStatus());
+            context.startActivity(editNoteIntent);
+        });
     }
 
     @Override
