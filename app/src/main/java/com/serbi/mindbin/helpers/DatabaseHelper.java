@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.serbi.mindbin.constants.NoteStatus;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -78,8 +80,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getAllNotes() {
         String readAllNotes = "SELECT * FROM " + TABLE_NOTE;
-
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(readAllNotes, null);
+    }
+
+    public Cursor getNormalNotes() {
+        String readNormalNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_STATUS + " = ?";
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readNormalNotes, new String[]{NoteStatus.NORMAL.toString()});
+    }
+
+    public Cursor getArchivedNotes() {
+        String readNormalNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_STATUS + " = ?";
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readNormalNotes, new String[]{NoteStatus.ARCHIVED.toString()});
+    }
+
+    public Cursor getDeletedNotes() {
+        String readNormalNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_STATUS + " = ?";
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readNormalNotes, new String[]{NoteStatus.DELETED.toString()});
     }
 }

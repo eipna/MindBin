@@ -56,7 +56,7 @@ public class Notes extends Fragment {
     }
 
     private void storeNoteData() {
-        Cursor cursor = databaseHelper.getAllNotes();
+        Cursor cursor = databaseHelper.getNormalNotes();
         while (cursor.moveToNext()) {
             notesArrayList.add(new Note(
                     cursor.getInt(0),
