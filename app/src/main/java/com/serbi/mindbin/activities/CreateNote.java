@@ -1,5 +1,6 @@
 package com.serbi.mindbin.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -57,6 +58,7 @@ public class CreateNote extends AppCompatActivity {
         }
 
         databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation);
+        startActivity(new Intent(CreateNote.this, Main.class));
         finish();
     }
 

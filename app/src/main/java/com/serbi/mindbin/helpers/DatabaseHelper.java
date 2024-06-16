@@ -2,6 +2,7 @@ package com.serbi.mindbin.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -66,5 +67,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         } else {
             Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public Cursor getAllNotes() {
+        String readAllNotes = "SELECT * FROM " + TABLE_NOTE;
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readAllNotes, null);
     }
 }

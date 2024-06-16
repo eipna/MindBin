@@ -7,7 +7,7 @@ public class Note {
     private String status;
     private String dateCreation;
 
-    public Note(String title, String content, String status, String dateCreation) {
+    public Note(String title, String dateCreation, String status, String content) {
         this.title = title;
         this.content = content;
         this.status = status;
