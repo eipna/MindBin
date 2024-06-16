@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
@@ -30,6 +31,7 @@ public class Notes extends Fragment {
     private DatabaseHelper databaseHelper;
     private ArrayList<Note> notesArrayList;
     private NoteAdapter adapter;
+    private ImageView iv_no_notes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,17 +54,23 @@ public class Notes extends Fragment {
         btn_add_note = view.findViewById(R.id.btn_add_note);
         recyclerView = view.findViewById(R.id.recycler_view_note);
         databaseHelper = new DatabaseHelper(getContext());
+        iv_no_notes = view.findViewById(R.id.iv_no_notes);
         notesArrayList = new ArrayList<>();
     }
 
     private void storeNoteData() {
         Cursor cursor = databaseHelper.getNormalNotes();
-        while (cursor.moveToNext()) {
-            notesArrayList.add(new Note(
-                    cursor.getInt(0),
-                    cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
-                    cursor.getString(3), cursor.getString(4))
-            );
+        if (cursor.getCount() == 0) {
+            iv_no_notes.setVisibility(View.VISIBLE);
+        } else {
+            iv_no_notes.setVisibility(View.GONE);
+            while (cursor.moveToNext()) {
+                notesArrayList.add(new Note(
+                        cursor.getInt(0),
+                        cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
+                        cursor.getString(3), cursor.getString(4))
+                );
+            }
         }
     }
 }

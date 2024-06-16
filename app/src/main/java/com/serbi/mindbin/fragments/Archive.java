@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.adapters.NoteAdapter;
@@ -26,6 +27,7 @@ public class Archive extends Fragment {
     private DatabaseHelper databaseHelper;
     private NoteAdapter adapter;
     private ArrayList<Note> notesArrayList;
+    private ImageView iv_no_notes_archive;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,17 +44,23 @@ public class Archive extends Fragment {
     private void initializeComponents() {
         recyclerView = view.findViewById(R.id.recycler_view_note_archive);
         databaseHelper = new DatabaseHelper(getContext());
+        iv_no_notes_archive = view.findViewById(R.id.iv_no_notes_archive);
         notesArrayList = new ArrayList<>();
     }
 
     private void storeNoteData() {
         Cursor cursor = databaseHelper.getArchivedNotes();
-        while (cursor.moveToNext()) {
-            notesArrayList.add(new Note(
-                    cursor.getInt(0),
-                    cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
-                    cursor.getString(3), cursor.getString(4))
-            );
+        if (cursor.getCount() == 0) {
+            iv_no_notes_archive.setVisibility(View.VISIBLE);
+        } else {
+            iv_no_notes_archive.setVisibility(View.GONE);
+            while (cursor.moveToNext()) {
+                notesArrayList.add(new Note(
+                        cursor.getInt(0),
+                        cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
+                        cursor.getString(3), cursor.getString(4))
+                );
+            }
         }
     }
 }
