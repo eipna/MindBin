@@ -5,7 +5,7 @@
 MindBin is my first take on making a simple android application.
 
 ### Features
-* Add notes
+* Create notes
 * Edit notes
 * Archive notes
 * Move notes to trash bin
