@@ -1,5 +1,5 @@
 ## MindBin
-<img src="assets/images/Icon.svg" width=50 height=50>
+<img src="assets/images/Icon.svg" width=90 height=90>
 
 ### Background
 MindBin is my first take on making a simple android application.
