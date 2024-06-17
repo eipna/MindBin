@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -47,6 +48,7 @@ public class Main extends AppCompatActivity {
         });
 
         initializeComponents();
+        setSupportActionBar(toolbar);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -90,9 +92,10 @@ public class Main extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation_view_menu, navigationView.getMenu());
-        MenuCompat.setGroupDividerEnabled(navigationView.getMenu(), true);
-        return true;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
