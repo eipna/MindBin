@@ -1,4 +1,4 @@
-<img src="assets/images/Icon.svg"
+<img src="assets/images/Icon.svg">
 # MindBin
 
 ### Background
