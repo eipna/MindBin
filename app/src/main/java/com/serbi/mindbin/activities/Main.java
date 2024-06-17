@@ -2,11 +2,15 @@ package com.serbi.mindbin.activities;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuCompat;
@@ -20,11 +24,14 @@ import com.serbi.mindbin.R;
 import com.serbi.mindbin.fragments.Archive;
 import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.fragments.Trash;
+import com.serbi.mindbin.models.Note;
+
+import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private MaterialToolbar toolbar;
+    private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
 
@@ -84,8 +91,8 @@ public class Main extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navigation_view_menu, menu);
-        MenuCompat.setGroupDividerEnabled(menu, true);
+        getMenuInflater().inflate(R.menu.navigation_view_menu, navigationView.getMenu());
+        MenuCompat.setGroupDividerEnabled(navigationView.getMenu(), true);
         return true;
     }
 }
