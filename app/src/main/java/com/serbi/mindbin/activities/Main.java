@@ -65,6 +65,7 @@ public class Main extends AppCompatActivity {
                 toolbar.setTitle("Trash");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Trash()).commit();
             }
+
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
