@@ -3,31 +3,24 @@ package com.serbi.mindbin.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.fragments.Archive;
 import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.fragments.Trash;
-import com.serbi.mindbin.models.Note;
-
-import java.util.ArrayList;
 
 public class Main extends AppCompatActivity {
 
@@ -35,6 +28,7 @@ public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private Notes notesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +78,7 @@ public class Main extends AppCompatActivity {
         drawerLayout = findViewById(R.id.main);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation_view);
+        notesFragment = new Notes();
 
         toggle = new ActionBarDrawerToggle(
                 Main.this, drawerLayout, toolbar,
@@ -92,23 +87,9 @@ public class Main extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_notes_menu, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (toggle.onOptionsItemSelected(item)) {
             return true;
-        }
-        
-        if (item.getItemId() == R.id.item_sort_asc) {
-            Toast.makeText(this, "Ascending", Toast.LENGTH_SHORT).show();
-        }
-        
-        if (item.getItemId() == R.id.item_sort_desc) {
-            Toast.makeText(this, "Descending", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

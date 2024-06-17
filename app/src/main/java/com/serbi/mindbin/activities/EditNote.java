@@ -1,5 +1,6 @@
 package com.serbi.mindbin.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -111,18 +113,30 @@ public class EditNote extends AppCompatActivity {
 
         if (item.getItemId() == R.id.item_archive) {
             databaseHelper.updateNoteStatus(note_id, NoteStatus.ARCHIVED);
+            startActivity(new Intent(EditNote.this, Main.class));
+            finish();
         }
 
         if (item.getItemId() == R.id.item_trash) {
             databaseHelper.updateNoteStatus(note_id, NoteStatus.DELETED);
+            startActivity(new Intent(EditNote.this, Main.class));
+            finish();
         }
 
         if (item.getItemId() == R.id.item_delete) {
-            databaseHelper.deleteNote(note_id);
-        }
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditNote.this);
+            builder.setTitle("Deleting " + note_title);
+            builder.setMessage("Permanently delete this note?");
 
-        startActivity(new Intent(EditNote.this, Main.class));
-        finish();
+            builder.setPositiveButton("Yes", (dialog, which) -> {
+                databaseHelper.deleteNote(note_id);
+                startActivity(new Intent(EditNote.this, Main.class));
+                finish();
+            });
+            builder.setNegativeButton("No", (dialog, which) -> {});
+
+            builder.create().show();
+        }
         return true;
     }
 }

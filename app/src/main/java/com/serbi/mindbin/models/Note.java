@@ -1,5 +1,7 @@
 package com.serbi.mindbin.models;
 
+import java.util.Comparator;
+
 public class Note {
 
     private int id;
@@ -19,6 +21,20 @@ public class Note {
     public int getId() {
         return id;
     }
+
+    public static Comparator<Note> sortTitleAsc = new Comparator<Note>() {
+        @Override
+        public int compare(Note note1, Note note2) {
+            return note1.getTitle().compareTo(note2.getTitle());
+        }
+    };
+
+    public static Comparator<Note> sortTitleDesc = new Comparator<Note>() {
+        @Override
+        public int compare(Note note1, Note note2) {
+            return note2.getTitle().compareTo(note1.getTitle());
+        }
+    };
 
     public String getTitle() {
         return title;
