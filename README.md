@@ -1,3 +1,6 @@
+<img src="assets/images/Icon.svg"
+# MindBin
+
 ### Background
 MindBin is my first take on making a simple android application.
 
