@@ -50,10 +50,6 @@ public class Main extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.notes);
 
         navigationView.setNavigationItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.profile) {
-                Toast.makeText(this, "Opening profile", Toast.LENGTH_SHORT).show();
-            }
-            
             if (item.getItemId() == R.id.notes) {
                 toolbar.setTitle("MindBin");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();
