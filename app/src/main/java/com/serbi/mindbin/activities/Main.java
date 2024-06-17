@@ -102,6 +102,14 @@ public class Main extends AppCompatActivity {
         if (toggle.onOptionsItemSelected(item)) {
             return true;
         }
+        
+        if (item.getItemId() == R.id.item_sort_asc) {
+            Toast.makeText(this, "Ascending", Toast.LENGTH_SHORT).show();
+        }
+        
+        if (item.getItemId() == R.id.item_sort_desc) {
+            Toast.makeText(this, "Descending", Toast.LENGTH_SHORT).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
