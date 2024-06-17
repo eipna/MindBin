@@ -101,7 +101,17 @@ public class EditNote extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_edit_menu, menu);
+        if (note_status.equals(NoteStatus.NORMAL.toString())) {
+            getMenuInflater().inflate(R.menu.toolbar_edit_menu, menu);
+        }
+
+        if (note_status.equals(NoteStatus.ARCHIVED.toString())) {
+            getMenuInflater().inflate(R.menu.toolbar_edit_menu_archive, menu);
+        }
+
+        if (note_status.equals(NoteStatus.DELETED.toString())) {
+            getMenuInflater().inflate(R.menu.toolbar_edit_menu_trash, menu);
+        }
         return true;
     }
 
@@ -136,6 +146,12 @@ public class EditNote extends AppCompatActivity {
             builder.setNegativeButton("No", (dialog, which) -> {});
 
             builder.create().show();
+        }
+
+        if (item.getItemId() == R.id.item_unarchive || item.getItemId() == R.id.item_trash) {
+            databaseHelper.revertNoteStatus(note_id);
+            startActivity(new Intent(EditNote.this, Main.class));
+            finish();
         }
         return true;
     }
