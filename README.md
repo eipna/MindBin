@@ -10,6 +10,8 @@ MindBin is my first take on making a simple android application.
 * Archive notes
 * Move notes to trash bin
 * Delete notes
+* Restore deleted notes
+* Unarchive archived notes
 
 ## Screenshots
 
