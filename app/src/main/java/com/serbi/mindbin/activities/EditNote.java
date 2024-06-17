@@ -148,7 +148,7 @@ public class EditNote extends AppCompatActivity {
             builder.create().show();
         }
 
-        if (item.getItemId() == R.id.item_unarchive || item.getItemId() == R.id.item_trash) {
+        if (item.getItemId() == R.id.item_unarchive || item.getItemId() == R.id.item_restore) {
             databaseHelper.revertNoteStatus(note_id);
             startActivity(new Intent(EditNote.this, Main.class));
             finish();
