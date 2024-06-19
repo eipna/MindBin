@@ -1,8 +1,10 @@
 package com.serbi.mindbin.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
@@ -41,10 +43,18 @@ public class CreateNote extends AppCompatActivity {
         });
 
         initializeComponents();
+        setFocusOnField();
         setToolbar();
 
         tv_note_current_date.setText(DateHelper.getCurrentDetailedDate());
         btn_save_note.setOnClickListener(v -> saveNote());
+    }
+
+    private void setFocusOnField() {
+        et_note_title.requestFocus();
+
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(et_note_title, InputMethodManager.SHOW_IMPLICIT);
     }
 
     private void saveNote() {
