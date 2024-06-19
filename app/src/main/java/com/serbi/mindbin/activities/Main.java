@@ -1,9 +1,7 @@
 package com.serbi.mindbin.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -28,7 +26,6 @@ public class Main extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-    private Notes notesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +40,7 @@ public class Main extends AppCompatActivity {
 
         initializeComponents();
         setSupportActionBar(toolbar);
+
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -74,7 +72,6 @@ public class Main extends AppCompatActivity {
         drawerLayout = findViewById(R.id.main);
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navigation_view);
-        notesFragment = new Notes();
 
         toggle = new ActionBarDrawerToggle(
                 Main.this, drawerLayout, toolbar,

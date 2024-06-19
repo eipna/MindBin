@@ -66,6 +66,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.insert(TABLE_NOTE, null, values);
     }
 
+    public void clearTrashNotes() {
+        SQLiteDatabase database = this.getWritableDatabase();
+        database.delete(TABLE_NOTE, TABLE_NOTE_COL_STATUS + " = ?", new String[]{NoteStatus.DELETED.toString()});
+    }
+
     public void editNote(int id, String title, String content, String status, String dateCreation) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -104,12 +109,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(TABLE_NOTE_COL_STATUS, NoteStatus.NORMAL.toString());
         database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + "= ?", new String[]{String.valueOf(id)});
-    }
-
-    public Cursor getAllNotes() {
-        String readAllNotes = "SELECT * FROM " + TABLE_NOTE;
-        SQLiteDatabase database = this.getReadableDatabase();
-        return database.rawQuery(readAllNotes, null);
     }
 
     public Cursor getNormalNotes() {
