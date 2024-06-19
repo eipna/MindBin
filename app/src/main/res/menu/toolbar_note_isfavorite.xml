@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/item_addToFavorites"
+        android:id="@+id/item_addToFavorites_inFavorites"
         android:title="Favorites"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/baseline_star_border_24" />
+        android:icon="@drawable/baseline_star_24" />
 
     <item
         android:id="@+id/item_archive"

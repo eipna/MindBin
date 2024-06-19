@@ -71,7 +71,7 @@ public class CreateNote extends AppCompatActivity {
             noteContent = "Empty content";
         }
 
-        databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation);
+        databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation, "no");
         startActivity(new Intent(CreateNote.this, Main.class));
         finish();
     }

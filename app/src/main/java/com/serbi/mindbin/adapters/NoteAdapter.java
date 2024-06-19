@@ -46,6 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             editNoteIntent.putExtra("creation_date", noteArrayList.get(position).getDateCreation());
             editNoteIntent.putExtra("content", noteArrayList.get(position).getContent());
             editNoteIntent.putExtra("status", noteArrayList.get(position).getStatus());
+            editNoteIntent.putExtra("isFavorite", noteArrayList.get(position).isFavorite());
             context.startActivity(editNoteIntent);
         });
     }

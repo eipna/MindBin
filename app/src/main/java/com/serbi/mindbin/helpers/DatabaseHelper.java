@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static String TABLE_NOTE_COL_DATE  = "date_created";
     private static String TABLE_NOTE_COL_STATUS = "status";
     private static String TABLE_NOTE_COL_CONTENT = "content";
+    private static String TABLE_NOTE_COL_isFAVORITE = "is_favorite";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createNotesTable = "CREATE TABLE " + TABLE_NOTE + "(" +
                 TABLE_NOTE_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TABLE_NOTE_COL_TITLE + " TEXT, " + TABLE_NOTE_COL_DATE +
-                " DATE, " + TABLE_NOTE_COL_STATUS + " TEXT, " + TABLE_NOTE_COL_CONTENT + " TEXT)";
+                " DATE, " + TABLE_NOTE_COL_STATUS + " TEXT, " + TABLE_NOTE_COL_CONTENT + " TEXT, "
+                + TABLE_NOTE_COL_isFAVORITE + " TEXT)";
 
         db.execSQL(createUserTable);
         db.execSQL(createNotesTable);
@@ -54,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createNote(String title, String content, String status, String dateCreation) {
+    public void createNote(String title, String content, String status, String dateCreation, String isFavorite) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -62,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(TABLE_NOTE_COL_CONTENT, content);
         values.put(TABLE_NOTE_COL_STATUS, status);
         values.put(TABLE_NOTE_COL_DATE, dateCreation);
+        values.put(TABLE_NOTE_COL_isFAVORITE, isFavorite);
 
         database.insert(TABLE_NOTE, null, values);
     }
@@ -109,6 +112,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(TABLE_NOTE_COL_STATUS, NoteStatus.NORMAL.toString());
         database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + "= ?", new String[]{String.valueOf(id)});
+    }
+
+    public void addToFavorites(int id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TABLE_NOTE_COL_isFAVORITE, "yes");
+        database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public void removeFromFavorites(int id) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(TABLE_NOTE_COL_isFAVORITE, "no");
+        database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
+    }
+
+    public Cursor getFavoriteNotes() {
+        String readFavoriteNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_isFAVORITE + " = ?";
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readFavoriteNotes, new String[]{"yes"});
     }
 
     public Cursor getNormalNotes() {

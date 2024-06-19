@@ -17,6 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.fragments.Archive;
+import com.serbi.mindbin.fragments.Favorites;
 import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.fragments.Trash;
 
@@ -48,6 +49,11 @@ public class Main extends AppCompatActivity {
         navigationView.setCheckedItem(R.id.notes);
 
         navigationView.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.favorites) {
+                toolbar.setTitle("Favorites");
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Favorites()).commit();
+            }
+
             if (item.getItemId() == R.id.notes) {
                 toolbar.setTitle("MindBin");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();

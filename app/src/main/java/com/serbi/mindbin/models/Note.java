@@ -5,36 +5,28 @@ import java.util.Comparator;
 public class Note {
 
     private int id;
+    private String isFavorite;
     private String title;
     private String content;
     private String status;
     private String dateCreation;
 
-    public Note(int id, String title, String dateCreation, String status, String content) {
+    public Note(int id, String title, String dateCreation, String status, String content, String isFavorite) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.status = status;
         this.dateCreation = dateCreation;
+        this.isFavorite = isFavorite;
     }
 
     public int getId() {
         return id;
     }
 
-    public static Comparator<Note> sortTitleAsc = new Comparator<Note>() {
-        @Override
-        public int compare(Note note1, Note note2) {
-            return note1.getTitle().compareTo(note2.getTitle());
-        }
-    };
-
-    public static Comparator<Note> sortTitleDesc = new Comparator<Note>() {
-        @Override
-        public int compare(Note note1, Note note2) {
-            return note2.getTitle().compareTo(note1.getTitle());
-        }
-    };
+    public String isFavorite() {
+        return isFavorite;
+    }
 
     public String getTitle() {
         return title;

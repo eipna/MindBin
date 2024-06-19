@@ -2,6 +2,7 @@ package com.serbi.mindbin.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -24,6 +26,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.constants.NoteStatus;
+import com.serbi.mindbin.fragments.Favorites;
 import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
@@ -36,7 +39,7 @@ public class EditNote extends AppCompatActivity {
     private FloatingActionButton btn_edit_note;
 
     private DatabaseHelper databaseHelper;
-    private String note_title, note_creationDate, note_content, note_status;
+    private String note_title, note_creationDate, note_content, note_status, note_isFavorite;
     private int note_id;
 
     @Override
@@ -80,6 +83,7 @@ public class EditNote extends AppCompatActivity {
         note_creationDate = getIntent().getStringExtra("creation_date");
         note_content = getIntent().getStringExtra("content");
         note_status = getIntent().getStringExtra("status");
+        note_isFavorite = getIntent().getStringExtra("isFavorite");
     }
 
     private void initializeComponents() {
@@ -101,7 +105,11 @@ public class EditNote extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (note_status.equals(NoteStatus.NORMAL.toString())) {
+        if (note_isFavorite.equalsIgnoreCase("yes")) {
+            getMenuInflater().inflate(R.menu.toolbar_note_isfavorite, menu);
+        }
+
+        if (note_isFavorite.equalsIgnoreCase("no") && note_status.equals(NoteStatus.NORMAL.toString())) {
             getMenuInflater().inflate(R.menu.toolbar_edit_menu, menu);
         }
 
@@ -118,6 +126,25 @@ public class EditNote extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        if (item.getItemId() == R.id.item_addToFavorites) {
+            if (note_isFavorite.equalsIgnoreCase("no")) {
+                toolbar.getMenu().findItem(R.id.item_addToFavorites).setIcon(R.drawable.baseline_star_24);
+                databaseHelper.addToFavorites(note_id);
+            }
+
+            if (note_isFavorite.equalsIgnoreCase("yes")) {
+                toolbar.getMenu().findItem(R.id.item_addToFavorites).setIcon(R.drawable.baseline_star_border_24);
+                databaseHelper.removeFromFavorites(note_id);
+            }
+        }
+
+        if (item.getItemId() == R.id.item_addToFavorites_inFavorites) {
+            toolbar.getMenu().findItem(R.id.item_addToFavorites_inFavorites).setIcon(R.drawable.baseline_star_border_24);
+            databaseHelper.removeFromFavorites(note_id);
+            startActivity(new Intent(EditNote.this, Main.class));
             finish();
         }
 

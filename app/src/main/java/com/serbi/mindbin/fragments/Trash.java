@@ -89,7 +89,7 @@ public class Trash extends Fragment {
                 notesArrayList.add(new Note(
                         cursor.getInt(0),
                         cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
-                        cursor.getString(3), cursor.getString(4))
+                        cursor.getString(3), cursor.getString(4), cursor.getString(5))
                 );
             }
         }

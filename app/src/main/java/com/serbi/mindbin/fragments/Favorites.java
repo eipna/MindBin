@@ -20,40 +20,35 @@ import com.serbi.mindbin.models.Note;
 
 import java.util.ArrayList;
 
-public class Archive extends Fragment {
+public class Favorites extends Fragment {
 
-    private View view;
     private RecyclerView recyclerView;
-    private DatabaseHelper databaseHelper;
     private NoteAdapter adapter;
     private ArrayList<Note> notesArrayList;
-    private ImageView iv_no_notes_archive;
+    private DatabaseHelper databaseHelper;
+    private ImageView iv_favorites;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_archive, container, false);
+        view = inflater.inflate(R.layout.fragment_favorites, container, false);
+
         initializeComponents();
         storeNoteData();
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         return view;
     }
 
-    private void initializeComponents() {
-        recyclerView = view.findViewById(R.id.recycler_view_note_archive);
-        databaseHelper = new DatabaseHelper(getContext());
-        iv_no_notes_archive = view.findViewById(R.id.iv_no_notes_archive);
-        notesArrayList = new ArrayList<>();
-    }
-
     private void storeNoteData() {
-        Cursor cursor = databaseHelper.getArchivedNotes();
+        Cursor cursor = databaseHelper.getFavoriteNotes();
         if (cursor.getCount() == 0) {
-            iv_no_notes_archive.setVisibility(View.VISIBLE);
+            iv_favorites.setVisibility(View.VISIBLE);
         } else {
-            iv_no_notes_archive.setVisibility(View.GONE);
+            iv_favorites.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
                 notesArrayList.add(new Note(
                         cursor.getInt(0),
@@ -62,5 +57,12 @@ public class Archive extends Fragment {
                 );
             }
         }
+    }
+
+    private void initializeComponents() {
+        recyclerView = view.findViewById(R.id.recycler_view_note_favorites);
+        notesArrayList = new ArrayList<>();
+        databaseHelper = new DatabaseHelper(getContext());
+        iv_favorites = view.findViewById(R.id.iv_favorites);
     }
 }

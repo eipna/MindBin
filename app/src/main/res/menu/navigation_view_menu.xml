@@ -5,6 +5,11 @@
         android:id="@+id/group1"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/favorites"
+            android:icon="@drawable/baseline_star_24"
+            android:title="Favorties"/>
+
+        <item
             android:id="@+id/notes"
             android:title="Notes"
             android:icon="@drawable/baseline_notes_24"/>
