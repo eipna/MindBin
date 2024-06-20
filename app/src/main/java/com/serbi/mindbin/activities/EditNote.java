@@ -162,8 +162,8 @@ public class EditNote extends AppCompatActivity {
 
         if (item.getItemId() == R.id.item_delete) {
             AlertDialog.Builder builder = new AlertDialog.Builder(EditNote.this);
-            builder.setTitle("Deleting " + note_title);
-            builder.setMessage("Permanently delete this note?");
+            builder.setTitle("Delete Note");
+            builder.setMessage("This will permanently delete this note.");
 
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 databaseHelper.deleteNote(note_id);
