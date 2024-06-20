@@ -24,7 +24,7 @@
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/secondary"
             app:tint="@android:color/white"
-            android:src="@drawable/baseline_note_add_24"
+            android:src="@drawable/baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
