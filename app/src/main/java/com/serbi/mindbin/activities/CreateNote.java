@@ -3,6 +3,7 @@ package com.serbi.mindbin.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,7 +28,6 @@ import com.serbi.mindbin.helpers.DateHelper;
 public class CreateNote extends AppCompatActivity {
 
     private DatabaseHelper databaseHelper;
-    private FloatingActionButton btn_save_note;
     private MaterialToolbar toolbar;
     private TextView tv_note_current_date;
     private EditText et_note_title, et_note_content;
@@ -47,7 +48,6 @@ public class CreateNote extends AppCompatActivity {
         setToolbar();
 
         tv_note_current_date.setText(DateHelper.getCurrentDetailedDate());
-        btn_save_note.setOnClickListener(v -> saveNote());
     }
 
     private void setFocusOnField() {
@@ -80,7 +80,6 @@ public class CreateNote extends AppCompatActivity {
         tv_note_current_date = findViewById(R.id.tv_note_current_date);
         et_note_title = findViewById(R.id.et_note_title);
         et_note_content = findViewById(R.id.et_note_content);
-        btn_save_note = findViewById(R.id.btn_save_note);
         toolbar = findViewById(R.id.toolbar_create_note);
         databaseHelper = new DatabaseHelper(CreateNote.this);
     }
@@ -91,5 +90,14 @@ public class CreateNote extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            saveNote();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

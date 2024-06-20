@@ -36,7 +36,6 @@ public class EditNote extends AppCompatActivity {
     private MaterialToolbar toolbar;
     private TextView tv_note_date_creation_edit;
     private EditText et_note_title_edit, et_note_content_edit;
-    private FloatingActionButton btn_edit_note;
 
     private DatabaseHelper databaseHelper;
     private String note_title, note_creationDate, note_content, note_status, note_isFavorite;
@@ -60,8 +59,6 @@ public class EditNote extends AppCompatActivity {
         et_note_title_edit.setText(note_title);
         et_note_content_edit.setText(note_content);
         tv_note_date_creation_edit.setText(note_creationDate);
-
-        btn_edit_note.setOnClickListener(v -> updateNote());
     }
 
     private void updateNote() {
@@ -91,7 +88,6 @@ public class EditNote extends AppCompatActivity {
         tv_note_date_creation_edit = findViewById(R.id.tv_note_current_date_edit);
         et_note_title_edit = findViewById(R.id.et_note_title_edit);
         et_note_content_edit = findViewById(R.id.et_note_content_edit);
-        btn_edit_note = findViewById(R.id.btn_edit_note);
         databaseHelper = new DatabaseHelper(this);
     }
 
@@ -126,6 +122,7 @@ public class EditNote extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            updateNote();
             finish();
         }
 
