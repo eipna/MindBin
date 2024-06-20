@@ -129,6 +129,16 @@ public class EditNote extends AppCompatActivity {
             finish();
         }
 
+        if (item.getItemId() == R.id.item_share) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, note_content);
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
+        }
+
         if (item.getItemId() == R.id.item_addToFavorites) {
             if (note_isFavorite.equalsIgnoreCase("no")) {
                 toolbar.getMenu().findItem(R.id.item_addToFavorites).setIcon(R.drawable.baseline_star_24);
