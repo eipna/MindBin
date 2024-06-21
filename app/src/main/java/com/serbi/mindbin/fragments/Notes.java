@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,7 @@ public class Notes extends Fragment {
     private NoteAdapter adapter;
     private ImageView iv_no_notes;
     private TextView tv_no_notes;
+    private SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +43,20 @@ public class Notes extends Fragment {
 
         initializeComponents();
         storeNoteData();
+
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchNotes(newText);
+                return true;
+            }
+        });
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
@@ -58,7 +74,18 @@ public class Notes extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
         iv_no_notes = view.findViewById(R.id.iv_no_notes);
         tv_no_notes = view.findViewById(R.id.tv_no_notes);
+        searchView = view.findViewById(R.id.searchview_notes);
         notesArrayList = new ArrayList<>();
+    }
+
+    private void searchNotes(String text) {
+        ArrayList<Note> searchedNotes = new ArrayList<>();
+        for (Note note : notesArrayList) {
+            if (note.getTitle().toLowerCase().contains(text.toLowerCase())) {
+                searchedNotes.add(note);
+            }
+        }
+        adapter.setSearchList(searchedNotes);
     }
 
     private void storeNoteData() {

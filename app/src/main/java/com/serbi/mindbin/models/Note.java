@@ -20,6 +20,20 @@ public class Note {
         this.isFavorite = isFavorite;
     }
 
+    public static Comparator<Note> sortByAsc = new Comparator<Note>() {
+        @Override
+        public int compare(Note note1, Note note2) {
+            return note1.getTitle().compareTo(note2.getTitle());
+        }
+    };
+
+    public static Comparator<Note> sortByDesc = new Comparator<Note>() {
+        @Override
+        public int compare(Note note1, Note note2) {
+            return note2.getTitle().compareTo(note1.getTitle());
+        }
+    };
+
     public int getId() {
         return id;
     }

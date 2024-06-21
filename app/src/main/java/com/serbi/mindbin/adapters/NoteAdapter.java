@@ -16,11 +16,17 @@ import com.serbi.mindbin.activities.EditNote;
 import com.serbi.mindbin.models.Note;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Note> noteArrayList;
+
+    public void setSearchList(ArrayList<Note> filteredNotes) {
+        this.noteArrayList = filteredNotes;
+        notifyDataSetChanged();
+    }
 
     public NoteAdapter(Context context, ArrayList<Note> noteArrayList) {
         this.context = context;
