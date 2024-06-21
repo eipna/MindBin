@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Edit Note"
+        app:titleTextAppearance="@style/Toolbar.Title"
         app:menu="@menu/toolbar_edit_menu"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,11 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:background="@null"
-                android:fontFamily="sans-serif"
-                android:hint="Note Title"
+                android:fontFamily="@font/roboto_black"
+                android:hint="Title Here"
                 android:inputType="textMultiLine|textNoSuggestions"
                 android:minHeight="48dp"
                 android:textSize="25sp"
@@ -48,18 +48,9 @@
                 app:layout_constraintTop_toBottomOf="@id/et_note_title_edit"
                 app:layout_constraintStart_toStartOf="@id/et_note_title_edit"
                 android:text="Monday, March 18 2024"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:textSize="12sp"
+                android:fontFamily="@font/roboto_bold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/note_divider"
-                app:layout_constraintTop_toBottomOf="@id/tv_note_current_date_edit"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <EditText
@@ -70,12 +61,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:background="@null"
-                android:hint="Start writing your note here..."
+                android:hint="Jot something here..."
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="16sp"
                 android:inputType="textMultiLine|textLongMessage"
                 android:minHeight="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/note_divider" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_note_current_date_edit" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

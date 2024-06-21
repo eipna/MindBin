@@ -18,8 +18,8 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:title="MindBin"
-                app:titleMarginStart="10dp"
+                app:title="All Notes"
+                app:titleTextAppearance="@style/Toolbar.Title"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

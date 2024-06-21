@@ -87,6 +87,7 @@ public class CreateNote extends AppCompatActivity {
     private void setToolbar() {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.previous_arrow_backward_svgrepo_com);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
