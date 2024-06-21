@@ -14,8 +14,9 @@
         <androidx.appcompat.widget.SearchView
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="50dp"
             app:queryHint="Search notes"
+
             android:id="@+id/searchview_notes"
             android:background="@drawable/searchview_background"
             app:iconifiedByDefault="false"
@@ -25,6 +26,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/tv_clickable_sort"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/baseline_sort_24"
+            app:layout_constraintStart_toEndOf="@id/searchview_notes"
+            app:layout_constraintTop_toTopOf="@id/searchview_notes"
+            app:layout_constraintBottom_toBottomOf="@id/searchview_notes"
+            android:layout_marginStart="3dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_note"

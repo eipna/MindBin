@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +26,8 @@ import com.serbi.mindbin.helpers.DateHelper;
 import com.serbi.mindbin.models.Note;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Notes extends Fragment {
 
@@ -33,7 +37,7 @@ public class Notes extends Fragment {
     private DatabaseHelper databaseHelper;
     private ArrayList<Note> notesArrayList;
     private NoteAdapter adapter;
-    private ImageView iv_no_notes;
+    private ImageView iv_no_notes, iv_clickable_sort;
     private TextView tv_no_notes;
     private SearchView searchView;
 
@@ -65,7 +69,35 @@ public class Notes extends Fragment {
         btn_add_note.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), CreateNote.class));
         });
+
+        iv_clickable_sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu sortMenu = new PopupMenu(getContext(), iv_clickable_sort);
+
+                sortMenu.getMenuInflater().inflate(R.menu.popup_sort, sortMenu.getMenu());
+                sortMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.item_sortASC) {
+                            sortNotes(Note.sortByAsc);
+                        }
+
+                        if (item.getItemId() == R.id.item_sortDESC) {
+                            sortNotes(Note.sortByDesc);
+                        }
+                        return true;
+                    }
+                });
+                sortMenu.show();
+            }
+        });
         return view;
+    }
+
+    private void sortNotes(Comparator<Note> sort) {
+        Collections.sort(notesArrayList, sort);
+        adapter.notifyDataSetChanged();
     }
 
     private void initializeComponents() {
@@ -75,6 +107,7 @@ public class Notes extends Fragment {
         iv_no_notes = view.findViewById(R.id.iv_no_notes);
         tv_no_notes = view.findViewById(R.id.tv_no_notes);
         searchView = view.findViewById(R.id.searchview_notes);
+        iv_clickable_sort = view.findViewById(R.id.tv_clickable_sort);
         notesArrayList = new ArrayList<>();
     }
 
