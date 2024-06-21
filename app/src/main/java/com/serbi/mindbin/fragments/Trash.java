@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,6 +36,7 @@ public class Trash extends Fragment {
     private ArrayList<Note> notesArrayList;
     private ImageView iv_no_notes_trash;
     private FloatingActionButton btn_clear_notes;
+    private TextView tv_no_notes_trash;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +64,7 @@ public class Trash extends Fragment {
 
             btn_clear_notes.setVisibility(View.GONE);
             iv_no_notes_trash.setVisibility(View.VISIBLE);
+            tv_no_notes_trash.setVisibility(View.VISIBLE);
         });
 
         builder.setNegativeButton("No", (dialog, which) -> { /* Do nothing */ });
@@ -74,6 +77,7 @@ public class Trash extends Fragment {
         databaseHelper = new DatabaseHelper(getContext());
         iv_no_notes_trash = view.findViewById(R.id.iv_no_notes_trash);
         btn_clear_notes = view.findViewById(R.id.btn_clear_notes);
+        tv_no_notes_trash = view.findViewById(R.id.tv_no_notes_trash);
         notesArrayList = new ArrayList<>();
     }
 
@@ -81,10 +85,12 @@ public class Trash extends Fragment {
         Cursor cursor = databaseHelper.getDeletedNotes();
         if (cursor.getCount() == 0) {
             iv_no_notes_trash.setVisibility(View.VISIBLE);
+            tv_no_notes_trash.setVisibility(View.VISIBLE);
             btn_clear_notes.setVisibility(View.GONE);
         } else {
             btn_clear_notes.setVisibility(View.VISIBLE);
             iv_no_notes_trash.setVisibility(View.GONE);
+            tv_no_notes_trash.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
                 notesArrayList.add(new Note(
                         cursor.getInt(0),

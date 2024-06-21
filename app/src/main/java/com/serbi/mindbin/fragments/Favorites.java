@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.adapters.NoteAdapter;
@@ -28,6 +29,7 @@ public class Favorites extends Fragment {
     private DatabaseHelper databaseHelper;
     private ImageView iv_favorites;
     private View view;
+    private TextView tv_favorites;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,8 +48,10 @@ public class Favorites extends Fragment {
     private void storeNoteData() {
         Cursor cursor = databaseHelper.getFavoriteNotes();
         if (cursor.getCount() == 0) {
+            tv_favorites.setVisibility(View.VISIBLE);
             iv_favorites.setVisibility(View.VISIBLE);
         } else {
+            tv_favorites.setVisibility(View.GONE);
             iv_favorites.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
                 notesArrayList.add(new Note(
@@ -63,6 +67,7 @@ public class Favorites extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_note_favorites);
         notesArrayList = new ArrayList<>();
         databaseHelper = new DatabaseHelper(getContext());
-        iv_favorites = view.findViewById(R.id.iv_favorites);
+        tv_favorites = view.findViewById(R.id.tv_no_favorites);
+        iv_favorites = view.findViewById(R.id.iv_no_favorites);
     }
 }

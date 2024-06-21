@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
@@ -32,6 +33,7 @@ public class Notes extends Fragment {
     private ArrayList<Note> notesArrayList;
     private NoteAdapter adapter;
     private ImageView iv_no_notes;
+    private TextView tv_no_notes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class Notes extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_note);
         databaseHelper = new DatabaseHelper(getContext());
         iv_no_notes = view.findViewById(R.id.iv_no_notes);
+        tv_no_notes = view.findViewById(R.id.tv_no_notes);
         notesArrayList = new ArrayList<>();
     }
 
@@ -62,7 +65,9 @@ public class Notes extends Fragment {
         Cursor cursor = databaseHelper.getNormalNotes();
         if (cursor.getCount() == 0) {
             iv_no_notes.setVisibility(View.VISIBLE);
+            tv_no_notes.setVisibility(View.VISIBLE);
         } else {
+            tv_no_notes.setVisibility(View.GONE);
             iv_no_notes.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
                 notesArrayList.add(new Note(

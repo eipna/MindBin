@@ -23,15 +23,28 @@
 
         <ImageView
             android:id="@+id/iv_no_notes_trash"
-            android:src="@drawable/baseline_delete_24"
+            android:src="@drawable/undraw_throw_away_re_x60k"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:alpha="0.1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:tint="@color/black" />
+            android:layout_marginBottom="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/tv_no_notes_trash"
+            android:text="You have currently have no\nnotes in the trash."
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:alpha="0.5"
+            android:fontFamily="@font/roboto_black"
+            app:layout_constraintTop_toBottomOf="@id/iv_no_notes_trash"
+            app:layout_constraintStart_toStartOf="@id/iv_no_notes_trash"
+            app:layout_constraintEnd_toEndOf="@id/iv_no_notes_trash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_clear_notes"

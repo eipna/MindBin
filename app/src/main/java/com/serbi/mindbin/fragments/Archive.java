@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.adapters.NoteAdapter;
@@ -28,6 +29,7 @@ public class Archive extends Fragment {
     private NoteAdapter adapter;
     private ArrayList<Note> notesArrayList;
     private ImageView iv_no_notes_archive;
+    private TextView tv_no_notes_archive;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,14 +47,17 @@ public class Archive extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_note_archive);
         databaseHelper = new DatabaseHelper(getContext());
         iv_no_notes_archive = view.findViewById(R.id.iv_no_notes_archive);
+        tv_no_notes_archive = view.findViewById(R.id.tv_no_notes_archive);
         notesArrayList = new ArrayList<>();
     }
 
     private void storeNoteData() {
         Cursor cursor = databaseHelper.getArchivedNotes();
         if (cursor.getCount() == 0) {
+            tv_no_notes_archive.setVisibility(View.VISIBLE);
             iv_no_notes_archive.setVisibility(View.VISIBLE);
         } else {
+            tv_no_notes_archive.setVisibility(View.GONE);
             iv_no_notes_archive.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
                 notesArrayList.add(new Note(
