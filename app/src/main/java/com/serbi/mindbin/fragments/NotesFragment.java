@@ -19,23 +19,23 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
-import com.serbi.mindbin.activities.CreateNote;
+import com.serbi.mindbin.activities.CreateNoteActivity;
 import com.serbi.mindbin.adapters.NoteAdapter;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
-import com.serbi.mindbin.models.Note;
+import com.serbi.mindbin.models.NoteModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class Notes extends Fragment {
+public class NotesFragment extends Fragment {
 
     private View view;
     private FloatingActionButton btn_add_note;
     private RecyclerView recyclerView;
     private DatabaseHelper databaseHelper;
-    private ArrayList<Note> notesArrayList;
+    private ArrayList<NoteModel> notesArrayList;
     private NoteAdapter adapter;
     private ImageView iv_no_notes, iv_clickable_sort;
     private TextView tv_no_notes;
@@ -67,7 +67,7 @@ public class Notes extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btn_add_note.setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), CreateNote.class));
+            startActivity(new Intent(getContext(), CreateNoteActivity.class));
         });
 
         iv_clickable_sort.setOnClickListener(new View.OnClickListener() {
@@ -80,11 +80,11 @@ public class Notes extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.item_sortASC) {
-                            sortNotes(Note.sortByAsc);
+                            sortNotes(NoteModel.sortByAsc);
                         }
 
                         if (item.getItemId() == R.id.item_sortDESC) {
-                            sortNotes(Note.sortByDesc);
+                            sortNotes(NoteModel.sortByDesc);
                         }
                         return true;
                     }
@@ -95,7 +95,7 @@ public class Notes extends Fragment {
         return view;
     }
 
-    private void sortNotes(Comparator<Note> sort) {
+    private void sortNotes(Comparator<NoteModel> sort) {
         Collections.sort(notesArrayList, sort);
         adapter.notifyDataSetChanged();
     }
@@ -112,8 +112,8 @@ public class Notes extends Fragment {
     }
 
     private void searchNotes(String text) {
-        ArrayList<Note> searchedNotes = new ArrayList<>();
-        for (Note note : notesArrayList) {
+        ArrayList<NoteModel> searchedNotes = new ArrayList<>();
+        for (NoteModel note : notesArrayList) {
             if (note.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 searchedNotes.add(note);
             }
@@ -130,7 +130,7 @@ public class Notes extends Fragment {
             tv_no_notes.setVisibility(View.GONE);
             iv_no_notes.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
-                notesArrayList.add(new Note(
+                notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
                         cursor.getString(1), DateHelper.convertSimpleToNormalDate(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))

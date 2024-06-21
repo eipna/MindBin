@@ -17,17 +17,17 @@ import com.serbi.mindbin.R;
 import com.serbi.mindbin.adapters.NoteAdapter;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
-import com.serbi.mindbin.models.Note;
+import com.serbi.mindbin.models.NoteModel;
 
 import java.util.ArrayList;
 
-public class Archive extends Fragment {
+public class ArchiveFragment extends Fragment {
 
     private View view;
     private RecyclerView recyclerView;
     private DatabaseHelper databaseHelper;
     private NoteAdapter adapter;
-    private ArrayList<Note> notesArrayList;
+    private ArrayList<NoteModel> notesArrayList;
     private ImageView iv_no_notes_archive;
     private TextView tv_no_notes_archive;
 
@@ -60,7 +60,7 @@ public class Archive extends Fragment {
             tv_no_notes_archive.setVisibility(View.GONE);
             iv_no_notes_archive.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
-                notesArrayList.add(new Note(
+                notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
                         cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))

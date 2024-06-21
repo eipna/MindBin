@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,13 +16,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.constants.NoteStatus;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
-public class CreateNote extends AppCompatActivity {
+public class CreateNoteActivity extends AppCompatActivity {
 
     private DatabaseHelper databaseHelper;
     private MaterialToolbar toolbar;
@@ -72,7 +68,7 @@ public class CreateNote extends AppCompatActivity {
         }
 
         databaseHelper.createNote(noteTitle, noteContent, noteStatus, noteDateCreation, "no");
-        startActivity(new Intent(CreateNote.this, Main.class));
+        startActivity(new Intent(CreateNoteActivity.this, MainActivity.class));
         finish();
     }
 
@@ -81,7 +77,7 @@ public class CreateNote extends AppCompatActivity {
         et_note_title = findViewById(R.id.et_note_title);
         et_note_content = findViewById(R.id.et_note_content);
         toolbar = findViewById(R.id.toolbar_create_note);
-        databaseHelper = new DatabaseHelper(CreateNote.this);
+        databaseHelper = new DatabaseHelper(CreateNoteActivity.this);
     }
 
     private void setToolbar() {

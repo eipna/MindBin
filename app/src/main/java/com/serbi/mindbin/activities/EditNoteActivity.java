@@ -1,37 +1,27 @@
 package com.serbi.mindbin.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.serbi.mindbin.R;
 import com.serbi.mindbin.constants.NoteStatus;
-import com.serbi.mindbin.fragments.Favorites;
-import com.serbi.mindbin.fragments.Notes;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
 
-public class EditNote extends AppCompatActivity {
+public class EditNoteActivity extends AppCompatActivity {
 
     private MaterialToolbar toolbar;
     private TextView tv_note_date_creation_edit;
@@ -70,7 +60,7 @@ public class EditNote extends AppCompatActivity {
                 note_status, updatedNoteCreationDate
         );
 
-        startActivity(new Intent(EditNote.this, Main.class));
+        startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
         finish();
     }
 
@@ -152,30 +142,30 @@ public class EditNote extends AppCompatActivity {
         if (item.getItemId() == R.id.item_addToFavorites_inFavorites) {
             toolbar.getMenu().findItem(R.id.item_addToFavorites_inFavorites).setIcon(R.drawable.baseline_star_border_24);
             databaseHelper.removeFromFavorites(note_id);
-            startActivity(new Intent(EditNote.this, Main.class));
+            startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();
         }
 
         if (item.getItemId() == R.id.item_archive) {
             databaseHelper.updateNoteStatus(note_id, NoteStatus.ARCHIVED);
-            startActivity(new Intent(EditNote.this, Main.class));
+            startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();
         }
 
         if (item.getItemId() == R.id.item_trash) {
             databaseHelper.updateNoteStatus(note_id, NoteStatus.DELETED);
-            startActivity(new Intent(EditNote.this, Main.class));
+            startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();
         }
 
         if (item.getItemId() == R.id.item_delete) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(EditNote.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(EditNoteActivity.this);
             builder.setTitle("Delete Note");
             builder.setMessage("This will permanently delete this note.");
 
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 databaseHelper.deleteNote(note_id);
-                startActivity(new Intent(EditNote.this, Main.class));
+                startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
                 finish();
             });
             builder.setNegativeButton("No", (dialog, which) -> {});
@@ -185,7 +175,7 @@ public class EditNote extends AppCompatActivity {
 
         if (item.getItemId() == R.id.item_unarchive || item.getItemId() == R.id.item_restore) {
             databaseHelper.revertNoteStatus(note_id);
-            startActivity(new Intent(EditNote.this, Main.class));
+            startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();
         }
         return true;

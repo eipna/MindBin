@@ -12,23 +12,22 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.serbi.mindbin.R;
-import com.serbi.mindbin.activities.EditNote;
-import com.serbi.mindbin.models.Note;
+import com.serbi.mindbin.activities.EditNoteActivity;
+import com.serbi.mindbin.models.NoteModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Note> noteArrayList;
+    ArrayList<NoteModel> noteArrayList;
 
-    public void setSearchList(ArrayList<Note> filteredNotes) {
+    public void setSearchList(ArrayList<NoteModel> filteredNotes) {
         this.noteArrayList = filteredNotes;
         notifyDataSetChanged();
     }
 
-    public NoteAdapter(Context context, ArrayList<Note> noteArrayList) {
+    public NoteAdapter(Context context, ArrayList<NoteModel> noteArrayList) {
         this.context = context;
         this.noteArrayList = noteArrayList;
     }
@@ -46,7 +45,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.et_note_content.setText(noteArrayList.get(position).getContent());
         holder.et_note_creation_date.setText(noteArrayList.get(position).getDateCreation());
         holder.note_item.setOnClickListener(v -> {
-            Intent editNoteIntent = new Intent(context, EditNote.class);
+            Intent editNoteIntent = new Intent(context, EditNoteActivity.class);
             editNoteIntent.putExtra("id", noteArrayList.get(position).getId());
             editNoteIntent.putExtra("title", noteArrayList.get(position).getTitle());
             editNoteIntent.putExtra("creation_date", noteArrayList.get(position).getDateCreation());

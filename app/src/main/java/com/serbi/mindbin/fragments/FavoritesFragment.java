@@ -17,15 +17,15 @@ import com.serbi.mindbin.R;
 import com.serbi.mindbin.adapters.NoteAdapter;
 import com.serbi.mindbin.helpers.DatabaseHelper;
 import com.serbi.mindbin.helpers.DateHelper;
-import com.serbi.mindbin.models.Note;
+import com.serbi.mindbin.models.NoteModel;
 
 import java.util.ArrayList;
 
-public class Favorites extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private NoteAdapter adapter;
-    private ArrayList<Note> notesArrayList;
+    private ArrayList<NoteModel> notesArrayList;
     private DatabaseHelper databaseHelper;
     private ImageView iv_favorites;
     private View view;
@@ -54,7 +54,7 @@ public class Favorites extends Fragment {
             tv_favorites.setVisibility(View.GONE);
             iv_favorites.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
-                notesArrayList.add(new Note(
+                notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
                         cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))

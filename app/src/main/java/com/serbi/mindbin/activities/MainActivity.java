@@ -1,7 +1,6 @@
 package com.serbi.mindbin.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
@@ -17,12 +16,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 import com.serbi.mindbin.R;
-import com.serbi.mindbin.fragments.Archive;
-import com.serbi.mindbin.fragments.Favorites;
-import com.serbi.mindbin.fragments.Notes;
-import com.serbi.mindbin.fragments.Trash;
+import com.serbi.mindbin.fragments.ArchiveFragment;
+import com.serbi.mindbin.fragments.FavoritesFragment;
+import com.serbi.mindbin.fragments.NotesFragment;
+import com.serbi.mindbin.fragments.TrashFragment;
 
-public class Main extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
@@ -46,28 +45,28 @@ public class Main extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).commit();
         navigationView.setCheckedItem(R.id.notes);
 
         navigationView.setNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.favorites) {
                 toolbar.setTitle("Favorites");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Favorites()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoritesFragment()).commit();
             }
 
             if (item.getItemId() == R.id.notes) {
                 toolbar.setTitle("My Notes");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Notes()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NotesFragment()).commit();
             }
 
             if (item.getItemId() == R.id.archive) {
                 toolbar.setTitle("Archive");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Archive()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ArchiveFragment()).commit();
             }
 
             if (item.getItemId() == R.id.trash) {
                 toolbar.setTitle("Trash");
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new Trash()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TrashFragment()).commit();
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -81,7 +80,7 @@ public class Main extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation_view);
 
         toggle = new ActionBarDrawerToggle(
-                Main.this, drawerLayout, toolbar,
+                MainActivity.this, drawerLayout, toolbar,
                 R.string.open_navigation_view, R.string.close_navigation_view
         );
     }

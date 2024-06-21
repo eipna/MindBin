@@ -2,7 +2,7 @@ package com.serbi.mindbin.models;
 
 import java.util.Comparator;
 
-public class Note {
+public class NoteModel {
 
     private int id;
     private String isFavorite;
@@ -11,7 +11,7 @@ public class Note {
     private String status;
     private String dateCreation;
 
-    public Note(int id, String title, String dateCreation, String status, String content, String isFavorite) {
+    public NoteModel(int id, String title, String dateCreation, String status, String content, String isFavorite) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -20,16 +20,16 @@ public class Note {
         this.isFavorite = isFavorite;
     }
 
-    public static Comparator<Note> sortByAsc = new Comparator<Note>() {
+    public static Comparator<NoteModel> sortByAsc = new Comparator<NoteModel>() {
         @Override
-        public int compare(Note note1, Note note2) {
+        public int compare(NoteModel note1, NoteModel note2) {
             return note1.getTitle().compareTo(note2.getTitle());
         }
     };
 
-    public static Comparator<Note> sortByDesc = new Comparator<Note>() {
+    public static Comparator<NoteModel> sortByDesc = new Comparator<NoteModel>() {
         @Override
-        public int compare(Note note1, Note note2) {
+        public int compare(NoteModel note1, NoteModel note2) {
             return note2.getTitle().compareTo(note1.getTitle());
         }
     };
