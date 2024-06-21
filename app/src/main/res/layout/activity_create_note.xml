@@ -10,9 +10,8 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_create_note"
         android:layout_width="match_parent"
+        app:title=" "
         android:layout_height="wrap_content"
-        app:title="New Note"
-        app:titleTextAppearance="@style/Toolbar.Title"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView

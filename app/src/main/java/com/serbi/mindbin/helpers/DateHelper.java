@@ -30,4 +30,18 @@ public class DateHelper {
         }
         return convertedDate;
     }
+
+    public static String convertSimpleToNormalDate(String dateInput) {
+        String convertedDate = null;
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date parsedDate = inputFormat.parse(dateInput);
+
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM");
+            convertedDate = outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
+    }
 }

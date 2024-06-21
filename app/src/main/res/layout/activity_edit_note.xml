@@ -11,8 +11,7 @@
         android:id="@+id/toolbar_edit_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Edit Note"
-        app:titleTextAppearance="@style/Toolbar.Title"
+        app:title=" "
         app:menu="@menu/toolbar_edit_menu"
         app:layout_constraintTop_toTopOf="parent" />
 
