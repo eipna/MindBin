@@ -18,7 +18,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:title="All Notes"
+                app:title="My Notes"
                 app:titleTextAppearance="@style/Toolbar.Title"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 android:layout_width="match_parent"
@@ -35,10 +35,10 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_gravity="start"
-        android:layout_height="match_parent"
-        app:itemIconTint="@color/neutral"
-        app:itemTextColor="@color/neutral"
         app:headerLayout="@layout/navigation_view_header"
+        android:layout_height="match_parent"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:menu="@menu/navigation_view_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
