@@ -153,6 +153,7 @@ public class EditNoteActivity extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.item_trash) {
+            databaseHelper.removeFromFavorites(note_id);
             databaseHelper.updateNoteStatus(note_id, NoteStatus.DELETED);
             startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();

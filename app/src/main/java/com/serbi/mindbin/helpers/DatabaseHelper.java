@@ -131,9 +131,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getFavoriteNotes() {
-        String readFavoriteNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_isFAVORITE + " = ?";
+        String readFavoriteNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_isFAVORITE + " = ?"
+                + " AND " + TABLE_NOTE_COL_STATUS + " = ?";
         SQLiteDatabase database = this.getReadableDatabase();
-        return database.rawQuery(readFavoriteNotes, new String[]{"yes"});
+        return database.rawQuery(readFavoriteNotes, new String[]{"yes", NoteStatus.NORMAL.toString()});
     }
 
     public Cursor getNormalNotes() {
