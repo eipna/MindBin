@@ -74,14 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.delete(TABLE_NOTE, TABLE_NOTE_COL_STATUS + " = ?", new String[]{NoteStatus.DELETED.toString()});
     }
 
-    public void editNote(int id, String title, String content, String status, String dateCreation) {
+    public void editNote(int id, String title, String content, String status) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(TABLE_NOTE_COL_TITLE, title);
         values.put(TABLE_NOTE_COL_CONTENT, content);
         values.put(TABLE_NOTE_COL_STATUS, status);
-        values.put(TABLE_NOTE_COL_DATE, dateCreation);
 
         database.update(TABLE_NOTE, values, TABLE_NOTE_COL_ID + " = ?", new String[]{String.valueOf(id)});
     }

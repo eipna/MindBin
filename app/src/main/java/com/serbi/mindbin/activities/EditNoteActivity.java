@@ -57,10 +57,9 @@ public class EditNoteActivity extends AppCompatActivity {
     private void updateNote() {
         String updatedNoteTitle = et_note_title_edit.getText().toString();
         String updatedNoteContent = et_note_content_edit.getText().toString();
-        String updatedNoteCreationDate = DateHelper.getCurrentSimpleDate();
         databaseHelper.editNote(
                 note_id, updatedNoteTitle, updatedNoteContent,
-                note_status, updatedNoteCreationDate
+                note_status
         );
 
         startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
