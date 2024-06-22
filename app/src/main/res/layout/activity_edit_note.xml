@@ -9,6 +9,7 @@
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_edit_note"
+        style="@style/ui_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title=" "

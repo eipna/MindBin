@@ -13,9 +13,13 @@
         android:theme="@style/Theme.MindBin"
         tools:targetApi="31">
         <activity
-            android:name=".activities.EditNoteActivity"
+            android:name=".activities.SettingsActivity"
             android:parentActivityName=".activities.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".activities.EditNoteActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.CreateNoteActivity"
             android:exported="false"

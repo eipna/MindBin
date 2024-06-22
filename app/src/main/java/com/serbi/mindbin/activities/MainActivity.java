@@ -1,5 +1,8 @@
 package com.serbi.mindbin.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -7,6 +10,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
 
         initializeComponents();
         setSupportActionBar(toolbar);
+
+        preferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        if (preferences.getBoolean("isNightMode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
 
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -67,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.trash) {
                 toolbar.setTitle("Trash");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TrashFragment()).commit();
+            }
+
+            if (item.getItemId() == R.id.settings) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);

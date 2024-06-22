@@ -5,7 +5,6 @@
     <item
         android:id="@+id/item_share"
         android:title="Share"
-        android:icon="@drawable/baseline_share_24"
         app:showAsAction="ifRoom"/>
 
     <item

@@ -1,11 +1,15 @@
 package com.serbi.mindbin.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +68,14 @@ public class NotesFragment extends Fragment {
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        SharedPreferences preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+
+        if (preferences.getBoolean("isGridMode", false)) {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        } else {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
 
         btn_add_note.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), CreateNoteActivity.class));

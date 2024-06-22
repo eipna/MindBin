@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/ui_screen"
     tools:context=".activities.MainActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -19,6 +20,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 app:title="My Notes"
+                style="@style/ui_screen"
                 app:titleTextAppearance="@style/Toolbar.Title"
                 app:navigationIcon="@drawable/baseline_menu_24"
                 android:layout_width="match_parent"
@@ -37,8 +39,7 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_view_header"
         android:layout_height="match_parent"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        style="@style/ui_navigation_items"
         app:menu="@menu/navigation_view_menu"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -32,7 +32,7 @@
             android:id="@+id/tv_no_favorites"
             android:text="You have not added any\nnotes as your favorite."
             android:gravity="center"
-            android:textColor="@color/black"
+            style="@style/ui_page_status_text"
             android:layout_marginTop="10dp"
             android:alpha="0.5"
             android:fontFamily="@font/roboto_black"

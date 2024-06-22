@@ -11,6 +11,7 @@
         android:id="@+id/toolbar_create_note"
         android:layout_width="match_parent"
         app:title=" "
+        style="@style/ui_menu"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +47,7 @@
                 app:layout_constraintTop_toBottomOf="@id/et_note_title"
                 app:layout_constraintStart_toStartOf="@id/et_note_title"
                 android:text="Monday, March 18 2024"
-                android:textColor="@color/black"
+                style="@style/ui_btn_sort"
                 android:textSize="12sp"
                 android:fontFamily="@font/roboto_bold"
                 android:layout_width="wrap_content"

@@ -12,7 +12,7 @@
         android:layout_marginStart="10dp"
         android:fontFamily="@font/roboto_black"
         android:text="MindBin"
-        android:textColor="@color/black"
+        style="@style/ui_navigation_header"
         android:textSize="32dp"
         android:textStyle="bold" />
 </LinearLayout>

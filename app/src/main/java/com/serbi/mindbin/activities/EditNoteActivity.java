@@ -1,6 +1,7 @@
 package com.serbi.mindbin.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +12,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -129,18 +132,15 @@ public class EditNoteActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.item_addToFavorites) {
             if (note_isFavorite.equalsIgnoreCase("no")) {
-                toolbar.getMenu().findItem(R.id.item_addToFavorites).setIcon(R.drawable.baseline_star_24);
                 databaseHelper.addToFavorites(note_id);
             }
 
             if (note_isFavorite.equalsIgnoreCase("yes")) {
-                toolbar.getMenu().findItem(R.id.item_addToFavorites).setIcon(R.drawable.baseline_star_border_24);
                 databaseHelper.removeFromFavorites(note_id);
             }
         }
 
         if (item.getItemId() == R.id.item_addToFavorites_inFavorites) {
-            toolbar.getMenu().findItem(R.id.item_addToFavorites_inFavorites).setIcon(R.drawable.baseline_star_border_24);
             databaseHelper.removeFromFavorites(note_id);
             startActivity(new Intent(EditNoteActivity.this, MainActivity.class));
             finish();

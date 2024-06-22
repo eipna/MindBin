@@ -11,4 +11,68 @@
     </style>
 
     <style name="Theme.MindBin" parent="Base.Theme.MindBin" />
+
+    <style name="ui_screen">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ui_settings_text">
+        <item name="android:textColor">@color/light_blue</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ui_settings_item_text">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="ui_settings_item_background">
+        <item name="android:background">@drawable/settings_item_background</item>
+    </style>
+
+    <style name="ui_navigation_items">
+        <item name="itemIconTint">@color/black</item>
+        <item name="itemTextColor">@color/black</item>
+    </style>
+
+    <style name="ui_navigation_header">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ui_page_status_text">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="ui_btn_sort">
+        <item name="android:tint">@color/black</item>
+    </style>
+
+    <style name="ui_menu">
+        <item name="navigationIconTint">@color/black</item>
+        <item name="titleTextColor">@color/black</item>
+    </style>
+
+    <style name="ui_note_item">
+        <item name="android:background">@color/timber_wolf</item>
+    </style>
+
+    <style name="ui_note_item_text">
+        <item name="android:textColor">@color/onyx</item>
+    </style>
+
+    <style name="ui_note_item_text_content">
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_note_item_icon">
+        <item name="tint">@color/onyx</item>
+    </style>
+
+    <style name="ui_fba_icon">
+        <item name="backgroundTint">@color/rose_taupe</item>
+    </style>
+
+    <style name="ui_settings_item_icon">
+        <item name="tint">@color/onyx</item>
+    </style>
 </resources>

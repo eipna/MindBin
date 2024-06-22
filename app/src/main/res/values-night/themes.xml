@@ -4,4 +4,69 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
+    <style name="ui_screen">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="ui_settings_text">
+        <item name="android:textColor">@color/mint_cream</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ui_settings_item_text">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_settings_item_background">
+        <item name="android:background">@drawable/settings_item_dark_background</item>
+    </style>
+
+    <style name="ui_navigation_items">
+        <item name="itemIconTint">@color/mint_cream</item>
+        <item name="itemTextColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_navigation_header">
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_page_status_text">
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_btn_sort">
+        <item name="android:tint">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_menu">
+        <item name="navigationIconTint">@color/mint_cream</item>
+        <item name="titleTextColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_note_item">
+        <item name="android:background">@color/rose_taupe</item>
+    </style>
+
+    <style name="ui_note_item_text">
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_note_item_text_content">
+        <item name="android:textColor">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_note_item_icon">
+        <item name="tint">@color/mint_cream</item>
+    </style>
+
+    <style name="ui_fba_icon">
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
+
+    <style name="ui_settings_item_icon">
+        <item name="tint">@color/mint_cream</item>
+    </style>
 </resources>
