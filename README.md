@@ -5,26 +5,24 @@
 MindBin is my first take on making a simple android application.
 
 ### Features
-* Create notes
-* Edit notes
-* Add notes as favorites
-* Archive notes
-* Move notes to trash bin
-* Delete notes
-* Restore deleted notes
-* Unarchive archived notes
+* Create Notes
+* Edit Notes 
+* Delete Notes
+* Archive Notes
+* Dark Mode
 
 ## Screenshots
   
 <div align="center">
 <div>
-<img src="assets/images/image02.jpg" width="30%" />
 <img src="assets/images/image01.jpg" width="30%" />
-<img src="assets/images/image04.jpg" width="30%" />
-<img src="assets/images/image01_01.jpg" width="30%" />
-<img src="assets/images/image01_02.jpg" width="30%" />
+<img src="assets/images/image02.jpg" width="30%" />
 <img src="assets/images/image03.jpg" width="30%" />
+<img src="assets/images/image04.jpg" width="30%" />
 <img src="assets/images/image05.jpg" width="30%" />
 <img src="assets/images/image06.jpg" width="30%" />
+<img src="assets/images/image07.jpg" width="30%" />
+<img src="assets/images/image08.jpg" width="30%" />
+<img src="assets/images/image09.jpg" width="30%" />
 </div>
 </div>
