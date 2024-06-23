@@ -10,6 +10,8 @@ MindBin is my first take on making a simple android application.
 * Delete Notes
 * Archive Notes
 * Dark Mode
+* Export Notes
+* Import Notes
 
 ## Screenshots
   
