@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -177,6 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.put(TABLE_NOTE_COL_isFAVORITE, note.getIsFavorite());
             database.insert(TABLE_NOTE, null, values);
         }
+        Toast.makeText(context, "Import Complete", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayList<NoteExportModel> exportNotesToJSON() {
