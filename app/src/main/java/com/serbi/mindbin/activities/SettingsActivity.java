@@ -3,6 +3,7 @@ package com.serbi.mindbin.activities;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
@@ -48,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
-    ConstraintLayout openGithub, backup_import, backup_export;
+    ConstraintLayout openGithub, openLibraries, backup_import, backup_export;
 
     private boolean isNightMode, isGridMode;
 
@@ -110,8 +112,40 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(browserIntent);
         });
 
+        openLibraries.setOnClickListener(v -> showLibrariesDialog());
         backup_import.setOnClickListener(v -> importNotesToJSON());
         backup_export.setOnClickListener(v -> exportNotesToJSON());
+    }
+
+    private void showLibrariesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
+        builder.setTitle("Libraries").
+                setItems(R.array.settings_libraries, (dialog, which) -> {
+                    if (which == 0) {
+                        final String githubLink = "https://google.github.io/gson";
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
+                        startActivity(browserIntent);
+                    }
+                }).setNegativeButton("Cancel", (dialog, which) -> {
+                });
+        builder.create().show();
+    }
+
+    private void initializeComponents() {
+        toolbar = findViewById(R.id.toolbar_settings);
+        switch_list = findViewById(R.id.settings_list_switch);
+        switch_theme = findViewById(R.id.settings_theme_switch);
+
+        openGithub = findViewById(R.id.settings_github);
+        backup_export = findViewById(R.id.settings_export);
+        backup_import = findViewById(R.id.settings_import);
+        openLibraries = findViewById(R.id.settings_libraries);
+
+        preferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        isNightMode = preferences.getBoolean("isNightMode", false);
+        isGridMode = preferences.getBoolean("isGridMode", false);
+
+        databaseHelper = new DatabaseHelper(SettingsActivity.this);
     }
 
     private void exportNotesToJSON() {
@@ -185,22 +219,6 @@ public class SettingsActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void initializeComponents() {
-        toolbar = findViewById(R.id.toolbar_settings);
-        switch_list = findViewById(R.id.settings_list_switch);
-        switch_theme = findViewById(R.id.settings_theme_switch);
-
-        openGithub = findViewById(R.id.settings_github);
-        backup_export = findViewById(R.id.settings_export);
-        backup_import = findViewById(R.id.settings_import);
-
-        preferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        isNightMode = preferences.getBoolean("isNightMode", false);
-        isGridMode = preferences.getBoolean("isGridMode", false);
-
-        databaseHelper = new DatabaseHelper(SettingsActivity.this);
     }
 
     private void setupToolbar() {
