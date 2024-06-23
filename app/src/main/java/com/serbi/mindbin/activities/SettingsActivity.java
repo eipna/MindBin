@@ -122,8 +122,8 @@ public class SettingsActivity extends AppCompatActivity {
         builder.setTitle("Libraries").
                 setItems(R.array.settings_libraries, (dialog, which) -> {
                     if (which == 0) {
-                        final String githubLink = "https://google.github.io/gson";
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(githubLink));
+                        final String gsonLink = "https://google.github.io/gson";
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(gsonLink));
                         startActivity(browserIntent);
                     }
                 }).setNegativeButton("Cancel", (dialog, which) -> {
