@@ -23,10 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mindbin.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_USER = "user";
-    private static final String TABLE_USER_COL_NAME = "name";
-    private static final String TABLE_USER_COL_PROFILE = "profile";
-
     private static final String TABLE_NOTE = "notes";
     private static final String TABLE_NOTE_COL_ID = "note_id";
     private static final String TABLE_NOTE_COL_TITLE = "title";
@@ -42,22 +38,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUserTable = "CREATE TABLE " + TABLE_USER + "(" +
-                TABLE_USER_COL_NAME + " TEXT, " + TABLE_USER_COL_PROFILE + " BLOB)";
-
         String createNotesTable = "CREATE TABLE " + TABLE_NOTE + "(" +
                 TABLE_NOTE_COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TABLE_NOTE_COL_TITLE + " TEXT, " + TABLE_NOTE_COL_DATE +
                 " DATE, " + TABLE_NOTE_COL_STATUS + " TEXT, " + TABLE_NOTE_COL_CONTENT + " TEXT, "
                 + TABLE_NOTE_COL_isFAVORITE + " TEXT)";
 
-        db.execSQL(createUserTable);
         db.execSQL(createNotesTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE " + TABLE_USER);
         db.execSQL("DROP TABLE " + TABLE_NOTE);
         onCreate(db);
     }
