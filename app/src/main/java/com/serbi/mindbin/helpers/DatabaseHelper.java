@@ -5,29 +5,34 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.serbi.mindbin.constants.NoteStatus;
+import com.serbi.mindbin.models.NoteExportModel;
+import com.serbi.mindbin.models.NoteModel;
+
+import org.w3c.dom.Node;
+
+import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private Context context;
-    private static String DATABASE_NAME = "mindbin.db";
-    private static int DATABASE_VERSION = 1;
+    private final Context context;
+    private static final String DATABASE_NAME = "mindbin.db";
+    private static final int DATABASE_VERSION = 1;
 
-    private static String TABLE_USER = "user";
-    private static String TABLE_USER_COL_NAME = "name";
-    private static String TABLE_USER_COL_PROFILE = "profile";
+    private static final String TABLE_USER = "user";
+    private static final String TABLE_USER_COL_NAME = "name";
+    private static final String TABLE_USER_COL_PROFILE = "profile";
 
-    private static String TABLE_NOTE = "notes";
-    private static String TABLE_NOTE_COL_ID = "note_id";
-    private static String TABLE_NOTE_COL_TITLE = "title";
-    private static String TABLE_NOTE_COL_DATE  = "date_created";
-    private static String TABLE_NOTE_COL_STATUS = "status";
-    private static String TABLE_NOTE_COL_CONTENT = "content";
-    private static String TABLE_NOTE_COL_isFAVORITE = "is_favorite";
+    private static final String TABLE_NOTE = "notes";
+    private static final String TABLE_NOTE_COL_ID = "note_id";
+    private static final String TABLE_NOTE_COL_TITLE = "title";
+    private static final String TABLE_NOTE_COL_DATE  = "date_created";
+    private static final String TABLE_NOTE_COL_STATUS = "status";
+    private static final String TABLE_NOTE_COL_CONTENT = "content";
+    private static final String TABLE_NOTE_COL_isFAVORITE = "is_favorite";
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -152,5 +157,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String readNormalNotes = "SELECT * FROM " + TABLE_NOTE + " WHERE " + TABLE_NOTE_COL_STATUS + " = ?";
         SQLiteDatabase database = this.getReadableDatabase();
         return database.rawQuery(readNormalNotes, new String[]{NoteStatus.DELETED.toString()});
+    }
+    public Cursor getAllNotes() {
+        String readNormalNotes = "SELECT * FROM " + TABLE_NOTE;
+        SQLiteDatabase database = this.getReadableDatabase();
+        return database.rawQuery(readNormalNotes, null);
+    }
+
+
+    public void importFromJSON(NoteExportModel[] notes) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        for (NoteExportModel note : notes) {
+            values.put(TABLE_NOTE_COL_TITLE, note.getTitle());
+            values.put(TABLE_NOTE_COL_CONTENT, note.getContent());
+            values.put(TABLE_NOTE_COL_DATE, note.getDateCreation());
+            values.put(TABLE_NOTE_COL_STATUS, note.getStatus());
+            values.put(TABLE_NOTE_COL_isFAVORITE, note.getIsFavorite());
+            database.insert(TABLE_NOTE, null, values);
+        }
+    }
+
+    public ArrayList<NoteExportModel> exportNotesToJSON() {
+        ArrayList<NoteExportModel> notesToExport = new ArrayList<>();
+        Cursor cursor = getAllNotes();
+
+        while (cursor.moveToNext()) {
+            notesToExport.add(new NoteExportModel(
+                    cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4),
+                    cursor.getString(5)
+            ));
+        }
+        return notesToExport;
     }
 }
