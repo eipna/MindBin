@@ -44,6 +44,7 @@ public class NotesFragment extends Fragment {
     private ImageView iv_no_notes, iv_clickable_sort;
     private TextView tv_no_notes;
     private SearchView searchView;
+    private SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,8 +69,6 @@ public class NotesFragment extends Fragment {
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
-
-        SharedPreferences preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
         if (preferences.getBoolean("isGridMode", false)) {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -120,6 +119,7 @@ public class NotesFragment extends Fragment {
         searchView = view.findViewById(R.id.searchview_notes);
         iv_clickable_sort = view.findViewById(R.id.tv_clickable_sort);
         notesArrayList = new ArrayList<>();
+        preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
     }
 
     private void searchNotes(String text) {
@@ -143,10 +143,18 @@ public class NotesFragment extends Fragment {
             while (cursor.moveToNext()) {
                 notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
-                        cursor.getString(1), DateHelper.convertSimpleToNormalDate(cursor.getString(2)),
+                        cursor.getString(1), getNoteCreationDateType(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))
                 );
             }
+        }
+    }
+
+    private String getNoteCreationDateType(String date) {
+        if (preferences.getBoolean("isSimpleDate", false)) {
+            return DateHelper.convertSimpleToNormalDate(date);
+        } else {
+            return DateHelper.convertSimpleToDetailedDate(date);
         }
     }
 }

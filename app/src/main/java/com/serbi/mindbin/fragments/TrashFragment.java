@@ -36,6 +36,7 @@ public class TrashFragment extends Fragment {
     private ImageView iv_no_notes_trash;
     private FloatingActionButton btn_clear_notes;
     private TextView tv_no_notes_trash;
+    private SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,8 +46,6 @@ public class TrashFragment extends Fragment {
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
-
-        SharedPreferences preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
         if (preferences.getBoolean("isGridMode", false)) {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -85,6 +84,15 @@ public class TrashFragment extends Fragment {
         btn_clear_notes = view.findViewById(R.id.btn_clear_notes);
         tv_no_notes_trash = view.findViewById(R.id.tv_no_notes_trash);
         notesArrayList = new ArrayList<>();
+        preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+    }
+
+    private String getNoteCreationDateType(String date) {
+        if (preferences.getBoolean("isSimpleDate", false)) {
+            return DateHelper.convertSimpleToNormalDate(date);
+        } else {
+            return DateHelper.convertSimpleToDetailedDate(date);
+        }
     }
 
     private void storeNoteData() {
@@ -100,7 +108,7 @@ public class TrashFragment extends Fragment {
             while (cursor.moveToNext()) {
                 notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
-                        cursor.getString(1), DateHelper.convertSimpleToNormalDate(cursor.getString(2)),
+                        cursor.getString(1), getNoteCreationDateType(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))
                 );
             }

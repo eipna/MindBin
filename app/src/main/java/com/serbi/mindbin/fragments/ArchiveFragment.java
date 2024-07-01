@@ -33,6 +33,7 @@ public class ArchiveFragment extends Fragment {
     private ArrayList<NoteModel> notesArrayList;
     private ImageView iv_no_notes_archive;
     private TextView tv_no_notes_archive;
+    private SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,8 +43,6 @@ public class ArchiveFragment extends Fragment {
 
         adapter = new NoteAdapter(getContext(), notesArrayList);
         recyclerView.setAdapter(adapter);
-
-        SharedPreferences preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
         if (preferences.getBoolean("isGridMode", false)) {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -60,6 +59,15 @@ public class ArchiveFragment extends Fragment {
         iv_no_notes_archive = view.findViewById(R.id.iv_no_notes_archive);
         tv_no_notes_archive = view.findViewById(R.id.tv_no_notes_archive);
         notesArrayList = new ArrayList<>();
+        preferences = getContext().getSharedPreferences("MODE", Context.MODE_PRIVATE);
+    }
+
+    private String getNoteCreationDateType(String date) {
+        if (preferences.getBoolean("isSimpleDate", false)) {
+            return DateHelper.convertSimpleToNormalDate(date);
+        } else {
+            return DateHelper.convertSimpleToDetailedDate(date);
+        }
     }
 
     private void storeNoteData() {
@@ -73,7 +81,7 @@ public class ArchiveFragment extends Fragment {
             while (cursor.moveToNext()) {
                 notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
-                        cursor.getString(1), DateHelper.convertSimpleToNormalDate(cursor.getString(2)),
+                        cursor.getString(1), getNoteCreationDateType(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))
                 );
             }
