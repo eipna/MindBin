@@ -122,9 +122,50 @@
                     android:layout_height="wrap_content"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/settings_date"
+                app:layout_constraintTop_toBottomOf="@id/settings_list"
+                style="@style/ui_settings_item_background"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <ImageView
+                    style="@style/ui_settings_item_icon"
+                    android:id="@+id/settings_date_icon"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/date_svgrepo_com__1_"
+                    android:layout_marginStart="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+                <TextView
+                    app:layout_constraintTop_toTopOf="@+id/settings_date_icon"
+                    app:layout_constraintStart_toEndOf="@+id/settings_date_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/settings_date_icon"
+                    android:layout_marginStart="10dp"
+                    style="@style/ui_settings_item_text"
+                    android:text="Simple Note Creation Date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/settings_date_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider_settings"
-                app:layout_constraintTop_toBottomOf="@id/settings_list"
+                app:layout_constraintTop_toBottomOf="@id/settings_date"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
