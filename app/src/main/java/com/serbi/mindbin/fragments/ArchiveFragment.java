@@ -73,7 +73,7 @@ public class ArchiveFragment extends Fragment {
             while (cursor.moveToNext()) {
                 notesArrayList.add(new NoteModel(
                         cursor.getInt(0),
-                        cursor.getString(1), DateHelper.convertSimpleToDetailedDate(cursor.getString(2)),
+                        cursor.getString(1), DateHelper.convertSimpleToNormalDate(cursor.getString(2)),
                         cursor.getString(3), cursor.getString(4), cursor.getString(5))
                 );
             }
