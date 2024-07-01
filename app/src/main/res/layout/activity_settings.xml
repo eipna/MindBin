@@ -334,7 +334,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginStart="10dp"
-                    android:text="2.1.1"
+                    android:text="@string/app_version"
                     android:layout_marginEnd="25dp"
                     style="@style/ui_settings_item_text"
                     android:layout_width="wrap_content"
