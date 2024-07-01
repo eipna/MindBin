@@ -52,10 +52,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     ConstraintLayout openGithub, openLibraries, backup_import, backup_export;
 
-    private boolean isNightMode, isGridMode;
+    private boolean isNightMode, isGridMode, isSimpleDate;
 
     private MaterialToolbar toolbar;
-    private MaterialSwitch switch_list, switch_theme;
+    private MaterialSwitch switch_list, switch_theme, switch_date;
 
     private DatabaseHelper databaseHelper;
 
@@ -81,6 +81,21 @@ public class SettingsActivity extends AppCompatActivity {
             switch_theme.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+
+        if (isSimpleDate) {
+            switch_date.setChecked(true);
+        }
+
+        switch_date.setOnClickListener(v -> {
+            if (isSimpleDate) {
+                editor = preferences.edit();
+                editor.putBoolean("isSimpleDate", false);
+            } else {
+                editor = preferences.edit();
+                editor.putBoolean("isSimpleDate", true);
+            }
+            editor.apply();
+        });
 
         switch_theme.setOnClickListener(v -> {
             if (isNightMode) {
@@ -135,6 +150,7 @@ public class SettingsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_settings);
         switch_list = findViewById(R.id.settings_list_switch);
         switch_theme = findViewById(R.id.settings_theme_switch);
+        switch_date = findViewById(R.id.settings_date_switch);
 
         openGithub = findViewById(R.id.settings_github);
         backup_export = findViewById(R.id.settings_export);
@@ -144,6 +160,7 @@ public class SettingsActivity extends AppCompatActivity {
         preferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
         isNightMode = preferences.getBoolean("isNightMode", false);
         isGridMode = preferences.getBoolean("isGridMode", false);
+        isSimpleDate = preferences.getBoolean("isSimpleDate", false);
 
         databaseHelper = new DatabaseHelper(SettingsActivity.this);
     }
