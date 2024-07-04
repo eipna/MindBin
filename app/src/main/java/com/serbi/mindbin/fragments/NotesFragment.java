@@ -8,7 +8,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -94,11 +93,11 @@ public class NotesFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId() == R.id.item_sortASC) {
-                            sortNotes(NoteModel.sortByAsc);
+                            sortNotes(NoteModel.sortTitleByAsc);
                         }
 
                         if (item.getItemId() == R.id.item_sortDESC) {
-                            sortNotes(NoteModel.sortByDesc);
+                            sortNotes(NoteModel.sortTitleByDesc);
                         }
                         return true;
                     }

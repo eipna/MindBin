@@ -20,14 +20,14 @@ public class NoteModel {
         this.isFavorite = isFavorite;
     }
 
-    public static Comparator<NoteModel> sortByAsc = new Comparator<NoteModel>() {
+    public static Comparator<NoteModel> sortTitleByAsc = new Comparator<NoteModel>() {
         @Override
         public int compare(NoteModel note1, NoteModel note2) {
             return note1.getTitle().compareTo(note2.getTitle());
         }
     };
 
-    public static Comparator<NoteModel> sortByDesc = new Comparator<NoteModel>() {
+    public static Comparator<NoteModel> sortTitleByDesc = new Comparator<NoteModel>() {
         @Override
         public int compare(NoteModel note1, NoteModel note2) {
             return note2.getTitle().compareTo(note1.getTitle());
