@@ -48,7 +48,11 @@ public class FavoritesFragment extends Fragment {
         if (preferences.getBoolean("isGridMode", false)) {
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         } else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setReverseLayout(true);
+            linearLayoutManager.setStackFromEnd(true);
+
+            recyclerView.setLayoutManager(linearLayoutManager);
         }
 
         return view;
