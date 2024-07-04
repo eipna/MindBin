@@ -1,6 +1,8 @@
 package com.serbi.mindbin.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 
 public class NoteModel {
 
@@ -10,6 +12,9 @@ public class NoteModel {
     private String content;
     private String status;
     private String dateCreation;
+    private String originalDateCreation;
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public NoteModel(int id, String title, String dateCreation, String status, String content, String isFavorite) {
         this.id = id;
@@ -31,6 +36,34 @@ public class NoteModel {
         @Override
         public int compare(NoteModel note1, NoteModel note2) {
             return note2.getTitle().compareTo(note1.getTitle());
+        }
+    };
+
+    public static Comparator<NoteModel> sortDateCreationByNewest = new Comparator<NoteModel>() {
+        @Override
+        public int compare(NoteModel note01, NoteModel note02) {
+            try {
+                Date date01 = dateFormat.parse(note01.getOriginalDateCreation());
+                Date date02 = dateFormat.parse(note02.getOriginalDateCreation());
+                return date01.compareTo(date02);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
+        }
+    };
+
+    public static Comparator<NoteModel> sortDateCreationByOldest = new Comparator<NoteModel>() {
+        @Override
+        public int compare(NoteModel note01, NoteModel note02) {
+            try {
+                Date date01 = dateFormat.parse(note01.getOriginalDateCreation());
+                Date date02 = dateFormat.parse(note02.getOriginalDateCreation());
+                return date02.compareTo(date01);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 0;
         }
     };
 
@@ -56,5 +89,13 @@ public class NoteModel {
 
     public String getDateCreation() {
         return dateCreation;
+    }
+
+    public String getOriginalDateCreation() {
+        return originalDateCreation;
+    }
+
+    public void setOriginalDateCreation(String string) {
+        this.originalDateCreation = string;
     }
 }

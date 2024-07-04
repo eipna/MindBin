@@ -92,12 +92,20 @@ public class NotesFragment extends Fragment {
                 sortMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        if (item.getItemId() == R.id.item_sortASC) {
+                        if (item.getItemId() == R.id.item_sortTitleASC) {
                             sortNotes(NoteModel.sortTitleByAsc);
                         }
 
-                        if (item.getItemId() == R.id.item_sortDESC) {
+                        if (item.getItemId() == R.id.item_sortTitleDESC) {
                             sortNotes(NoteModel.sortTitleByDesc);
+                        }
+
+                        if (item.getItemId() == R.id.item_sortDateCreationNewest) {
+                            sortNotes(NoteModel.sortDateCreationByNewest);
+                        }
+
+                        if (item.getItemId() == R.id.item_sortDateCreationOldest) {
+                            sortNotes(NoteModel.sortDateCreationByOldest);
                         }
                         return true;
                     }
@@ -144,11 +152,11 @@ public class NotesFragment extends Fragment {
             tv_no_notes.setVisibility(View.GONE);
             iv_no_notes.setVisibility(View.GONE);
             while (cursor.moveToNext()) {
-                notesArrayList.add(new NoteModel(
-                        cursor.getInt(0),
+                NoteModel noteModel = new NoteModel(cursor.getInt(0),
                         cursor.getString(1), getNoteCreationDateType(cursor.getString(2)),
-                        cursor.getString(3), cursor.getString(4), cursor.getString(5))
-                );
+                        cursor.getString(3), cursor.getString(4), cursor.getString(5));
+                noteModel.setOriginalDateCreation(cursor.getString(2));
+                notesArrayList.add(noteModel);
             }
         }
     }

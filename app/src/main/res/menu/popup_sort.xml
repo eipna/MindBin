@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/item_sortASC"
+        android:id="@+id/item_sortTitleASC"
         android:title="Title: Ascending"/>
 
     <item
-        android:id="@+id/item_sortDESC"
+        android:id="@+id/item_sortTitleDESC"
         android:title="Title: Descending"/>
 
+    <item
+        android:id="@+id/item_sortDateCreationNewest"
+        android:title="Date: Newest"/>
+
+    <item
+        android:id="@+id/item_sortDateCreationOldest"
+        android:title="Date: Oldest"/>
 </menu>
