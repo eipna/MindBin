@@ -20,6 +20,7 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
     <string name="app_version">2.3.0</string>
+    <string name="shortcut_add">New Note</string>
 
     <string-array name="settings_libraries">
         <item>Gson</item>
