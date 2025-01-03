@@ -1,5 +1,7 @@
 <div align="center">
 
+<img width="" src="metadata/en-US/images/icon-256.png"  width=160 height=160  align="center">
+
 # MindBin
 
 MindBin is a simple, offline note-taking application designed to help you keep your thoughts organized and accessible anytime, anywhere. With a sleek and modern interface powered by Material You (Material 3), MindBin ensures a personalized and intuitive user experience.
