@@ -4,7 +4,9 @@
 
 # MindBin
 
-MindBin is an offline note-taking app for Android, built in Java. It uses SQLite for data storage and features a modern Material 3 design. Perfect for capturing ideas and organizing projects, MindBin is your go-to solution for note-taking without internet access. Contributions are welcome!</div>
+MindBin is an offline note-taking app for Android. Perfect for capturing ideas and organizing projects, MindBin is your go-to solution for note-taking without internet access.
+
+</div>
 
 ## License
 
