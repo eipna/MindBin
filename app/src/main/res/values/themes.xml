@@ -56,4 +56,8 @@
         <item name="fontFamily">@font/oxygen_bold</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
+
+    <style name="Theme.MindBin.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
+    </style>
 </resources>

@@ -6,7 +6,7 @@
     android:focusable="true"
     android:checkable="true"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="?attr/colorSurfaceContainer"
+    style="@style/Theme.MindBin.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
