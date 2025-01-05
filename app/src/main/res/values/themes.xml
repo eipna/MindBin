@@ -51,7 +51,7 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="Theme.Toolbar" parent="Widget.Material3.Toolbar">
+    <style name="Theme.MindBin.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:textSize">22sp</item>
         <item name="fontFamily">@font/oxygen_bold</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
