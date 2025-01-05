@@ -1,6 +1,6 @@
 <resources>
     <style name="Theme.MindBin" parent="Theme.Material3.Light.NoActionBar">
-        <item name="homeAsUpIndicator">@drawable/ic_add</item>
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
 
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
