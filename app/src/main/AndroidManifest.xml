@@ -16,6 +16,7 @@
         <activity
             android:name=".ui.activities.CreateNoteActivity"
             android:parentActivityName=".ui.activities.CreateNoteActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible"
             android:exported="true" />
         <activity
             android:name=".ui.activities.MainActivity"
