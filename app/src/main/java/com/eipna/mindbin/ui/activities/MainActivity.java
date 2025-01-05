@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NoteRepository noteRepository;
     private NoteAdapter noteAdapter;
-    private ArrayList<Note> noteList;
 
     public MainActivity() {
     }
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         noteRepository = new NoteRepository(this);
-        noteList = new ArrayList<>();
+        ArrayList<Note> noteList = new ArrayList<>();
         noteList.addAll(noteRepository.getNotes());
         noteAdapter = new NoteAdapter(this, noteList);
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 note.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
                 noteRepository.create(note);
 
-                noteList.clear();
+                ArrayList<Note> noteList = new ArrayList<>();
                 noteList.addAll(noteRepository.getNotes());
                 noteAdapter.update(noteList);
             }
