@@ -1,8 +1,9 @@
-package com.eipna.mindbin;
+package com.eipna.mindbin.ui.activities;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         binding.appBar.setStatusBarForeground(drawable);
         
         setSupportActionBar(binding.toolbar);
+
+        startActivity(new Intent(getApplicationContext(), CreateNoteActivity.class));
     }
 
     @Override

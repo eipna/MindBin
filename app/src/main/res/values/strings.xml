@@ -4,4 +4,7 @@
     <string name="toolbar_main">Notes</string>
 
     <string name="button_new_note">New Note</string>
+
+    <string name="input_hint_note_title">Your title goes here</string>
+    <string name="input_hint_note_content">Jot something down here…</string>
 </resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.CreateNoteActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        app:liftOnScroll="true"
+        app:liftOnScrollTargetViewId="@id/scrollView"
+        android:fitsSystemWindows="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            app:title=" "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+       <LinearLayout
+           android:orientation="vertical"
+           android:paddingHorizontal="21dp"
+           android:paddingTop="8dp"
+           android:paddingBottom="8dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <com.google.android.material.textfield.TextInputEditText
+               android:id="@+id/title_input"
+               android:background="@null"
+               android:hint="@string/input_hint_note_title"
+               android:textSize="22sp"
+               android:inputType="textAutoComplete"
+               android:maxLines="1"
+               android:layout_marginBottom="12dp"
+               android:textColor="?attr/colorOnSurface"
+               android:fontFamily="@font/oxygen_bold"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+
+           <com.google.android.material.textfield.TextInputEditText
+               android:id="@+id/content_input"
+               android:background="@null"
+               android:fontFamily="@font/noto_serif_regular"
+               android:textColor="?attr/colorOnSurface"
+               android:inputType="textAutoComplete|textMultiLine"
+               android:textSize="16sp"
+               android:hint="@string/input_hint_note_content"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
