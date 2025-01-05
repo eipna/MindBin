@@ -1,14 +1,37 @@
 package com.eipna.mindbin.ui.activities;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
+import com.google.android.material.shape.MaterialShapeDrawable;
 
 public class CreateNoteActivity extends AppCompatActivity {
+
+    private ActivityCreateNoteBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_note);
+        EdgeToEdge.enable(this);
+        binding = ActivityCreateNoteBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
+        binding.appBar.setStatusBarForeground(drawable);
+
+        setSupportActionBar(binding.toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
