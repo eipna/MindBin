@@ -32,6 +32,7 @@
         android:id="@+id/new_note"
         android:layout_gravity="right|bottom"
         android:text="@string/button_new_note"
+        android:fontFamily="@font/oxygen_bold"
         app:icon="@drawable/ic_add"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         android:layout_marginEnd="24dp"
