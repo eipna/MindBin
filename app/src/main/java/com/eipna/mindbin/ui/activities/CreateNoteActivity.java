@@ -53,6 +53,7 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) finish();
         if (item.getItemId() == R.id.share) showShareIntent();
         return true;
     }
