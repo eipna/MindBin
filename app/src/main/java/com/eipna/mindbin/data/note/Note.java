@@ -1,4 +1,4 @@
-package com.eipna.mindbin.data;
+package com.eipna.mindbin.data.note;
 
 public class Note {
 
