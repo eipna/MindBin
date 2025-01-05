@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -26,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
         
         setSupportActionBar(binding.toolbar);
 
-        startActivity(new Intent(getApplicationContext(), CreateNoteActivity.class));
+        binding.newNote.setOnClickListener(view -> {
+            Intent createNoteIntent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+            startActivity(createNoteIntent);
+        });
     }
 
     @Override
