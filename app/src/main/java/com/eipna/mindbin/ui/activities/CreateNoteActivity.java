@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.Database;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
@@ -53,9 +54,23 @@ public class CreateNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) finish();
+        if (item.getItemId() == android.R.id.home) createNewNote();
         if (item.getItemId() == R.id.share) showShareIntent();
         return true;
+    }
+
+    private void createNewNote() {
+        String titleFromInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
+        String contentFromInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
+
+        String title = (titleFromInput.isEmpty()) ? "Empty Note" : titleFromInput;
+        String content = (contentFromInput.isEmpty()) ? "Empty Note" : contentFromInput;
+
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(Database.COLUMN_NOTE_TITLE, title);
+        resultIntent.putExtra(Database.COLUMN_NOTE_CONTENT, content);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     private void showShareIntent() {

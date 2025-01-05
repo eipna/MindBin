@@ -47,8 +47,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void update(ArrayList<Note> newList) {
-        list = newList;
+    public void update(ArrayList<Note> updatedList) {
+        list.clear();
+        list.addAll(updatedList);
         notifyDataSetChanged();
     }
 
