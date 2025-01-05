@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MindBin</string>
+
+    <string name="toolbar_main">Notes</string>
+
+    <string name="button_new_note">New Note</string>
 </resources>
