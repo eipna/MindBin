@@ -1,5 +1,6 @@
 package com.eipna.mindbin.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private final Context context;
-    private final ArrayList<Note> list;
+    private ArrayList<Note> list;
 
     public NoteAdapter(@NotNull Context context, ArrayList<Note> list) {
         this.context = context;
@@ -43,6 +44,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void update(ArrayList<Note> newList) {
+        list = newList;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
