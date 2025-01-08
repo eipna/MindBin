@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteListener;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -22,10 +23,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private final Context context;
     private final ArrayList<Note> list;
+    private final NoteListener noteListener;
 
-    public NoteAdapter(@NotNull Context context, ArrayList<Note> list) {
+    public NoteAdapter(@NotNull Context context, NoteListener noteListener, ArrayList<Note> list) {
         this.context = context;
         this.list = list;
+        this.noteListener = noteListener;
     }
 
     @NonNull
@@ -39,6 +42,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
         Note currentNote = list.get(position);
         holder.bind(currentNote);
+
+        holder.itemView.setOnClickListener(view -> noteListener.OnNoteClick(position));
+        holder.itemView.setOnLongClickListener(view -> {
+            noteListener.OnNoteLongClick(position);
+            return true;
+        });
     }
 
     @Override
