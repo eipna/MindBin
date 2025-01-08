@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eipna.mindbin.data.Database;
 import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -19,7 +20,7 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private ActivityMainBinding binding;
     private NoteRepository noteRepository;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         noteRepository = new NoteRepository(this);
 
         noteList = new ArrayList<>(noteRepository.getNotes());
-        noteAdapter = new NoteAdapter(this, noteList);
+        noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
         binding.noteList.setAdapter(noteAdapter);
@@ -69,4 +70,34 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     });
+
+    private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            Intent resultIntent = result.getData();
+            if (resultIntent != null) {
+                Note updatedNote = new Note();
+                updatedNote.setID(resultIntent.getIntExtra(Database.COLUMN_NOTE_ID, -1));
+                updatedNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
+                updatedNote.setContent(resultIntent.getStringExtra(Database.COLUMN_NOTE_CONTENT));
+                noteRepository.update(updatedNote);
+                noteList = new ArrayList<>(noteRepository.getNotes());
+                noteAdapter.update(noteList);
+            }
+        }
+    });
+
+    @Override
+    public void OnNoteClick(int position) {
+        Note selectedNote = noteList.get(position);
+        Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateNoteActivity.class);
+        updateNoteIntent.putExtra(Database.COLUMN_NOTE_ID, selectedNote.getID());
+        updateNoteIntent.putExtra(Database.COLUMN_NOTE_TITLE, selectedNote.getTitle());
+        updateNoteIntent.putExtra(Database.COLUMN_NOTE_CONTENT, selectedNote.getContent());
+        updateNoteLauncher.launch(updateNoteIntent);
+    }
+
+    @Override
+    public void OnNoteLongClick(int position) {
+        // Do action mode operations
+    }
 }
