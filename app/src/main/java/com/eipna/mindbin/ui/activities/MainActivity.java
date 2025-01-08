@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private NoteRepository noteRepository;
     private NoteAdapter noteAdapter;
+    private ArrayList<Note> noteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
-        ArrayList<Note> noteList = new ArrayList<>(noteRepository.getNotes());
+        noteList = new ArrayList<>(noteRepository.getNotes());
         noteAdapter = new NoteAdapter(this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
@@ -62,10 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 Note createdNote = new Note();
                 createdNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
                 createdNote.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
+                noteList.add(createdNote);
+                noteAdapter.update(noteList);
                 noteRepository.create(createdNote);
-
-                ArrayList<Note> updatedList = new ArrayList<>(noteRepository.getNotes());
-                noteAdapter.update(updatedList);
             }
         }
     });
