@@ -53,7 +53,6 @@
 
     <style name="Theme.MindBin.Toolbar" parent="Widget.Material3.Toolbar">
         <item name="android:textSize">22sp</item>
-        <item name="fontFamily">@font/oxygen_bold</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 

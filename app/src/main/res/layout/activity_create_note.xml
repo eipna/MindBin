@@ -43,16 +43,15 @@
                android:textSize="22sp"
                android:inputType="textAutoComplete"
                android:maxLines="1"
+               android:textStyle="bold"
                android:layout_marginBottom="12dp"
                android:textColor="?attr/colorOnSurface"
-               android:fontFamily="@font/oxygen_bold"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>
 
            <com.google.android.material.textfield.TextInputEditText
                android:id="@+id/content_input"
                android:background="@null"
-               android:fontFamily="@font/noto_serif_regular"
                android:textColor="?attr/colorOnSurface"
                android:inputType="textAutoComplete|textMultiLine"
                android:textSize="16sp"
