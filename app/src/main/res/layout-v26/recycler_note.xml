@@ -24,9 +24,9 @@
             android:textSize="18sp"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textStyle="bold"
             android:layout_marginBottom="12dp"
             android:textColor="?attr/colorOnSurface"
-            android:fontFamily="@font/oxygen_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -38,7 +38,6 @@
             android:ellipsize="end"
             android:textColor="?attr/colorOnSurface"
             android:justificationMode="inter_word"
-            android:fontFamily="@font/noto_serif_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
