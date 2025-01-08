@@ -25,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private NoteRepository noteRepository;
     private NoteAdapter noteAdapter;
 
-    public MainActivity() {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
         Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
         binding.appBar.setStatusBarForeground(drawable);
-        
         setSupportActionBar(binding.toolbar);
-
         noteRepository = new NoteRepository(this);
-        ArrayList<Note> noteList = new ArrayList<>();
-        noteList.addAll(noteRepository.getNotes());
+
+        ArrayList<Note> noteList = new ArrayList<>(noteRepository.getNotes());
         noteAdapter = new NoteAdapter(this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
@@ -64,14 +59,13 @@ public class MainActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                Note note = new Note();
-                note.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
-                note.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                noteRepository.create(note);
+                Note createdNote = new Note();
+                createdNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
+                createdNote.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
+                noteRepository.create(createdNote);
 
-                ArrayList<Note> noteList = new ArrayList<>();
-                noteList.addAll(noteRepository.getNotes());
-                noteAdapter.update(noteList);
+                ArrayList<Note> updatedList = new ArrayList<>(noteRepository.getNotes());
+                noteAdapter.update(updatedList);
             }
         }
     });
