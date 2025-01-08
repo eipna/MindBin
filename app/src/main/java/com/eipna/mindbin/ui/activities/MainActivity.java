@@ -63,9 +63,9 @@ public class MainActivity extends AppCompatActivity {
                 Note createdNote = new Note();
                 createdNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
                 createdNote.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                noteList.add(createdNote);
-                noteAdapter.update(noteList);
                 noteRepository.create(createdNote);
+                noteList = new ArrayList<>(noteRepository.getNotes());
+                noteAdapter.update(noteList);
             }
         }
     });
