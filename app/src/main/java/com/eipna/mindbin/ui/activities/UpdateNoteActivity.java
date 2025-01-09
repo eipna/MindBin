@@ -50,6 +50,22 @@ public class UpdateNoteActivity extends AppCompatActivity {
         binding.contentInput.setText(noteContentExtra);
     }
 
+    private void updateNote() {
+        String noteTitleInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
+        String noteContentInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
+
+        if (!noteTitleInput.equals(noteTitleExtra) || !noteContentInput.equals(noteContentExtra)) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(Database.COLUMN_NOTE_ID, noteIDExtra);
+            resultIntent.putExtra(Database.COLUMN_NOTE_TITLE, noteTitleInput);
+            resultIntent.putExtra(Database.COLUMN_NOTE_CONTENT, noteContentInput);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        } else {
+            finish();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -59,6 +75,7 @@ public class UpdateNoteActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) updateNote();
         if (item.getItemId() == R.id.share) showShareIntent();
         return true;
     }
