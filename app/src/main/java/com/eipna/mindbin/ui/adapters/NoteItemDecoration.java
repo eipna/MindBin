@@ -3,6 +3,7 @@ package com.eipna.mindbin.ui.adapters;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,7 +11,7 @@ public class NoteItemDecoration extends RecyclerView.ItemDecoration {
 
     private final int space;
 
-    public NoteItemDecoration(int space) {
+    public NoteItemDecoration(@DimenRes int space) {
         this.space = space;
     }
 
