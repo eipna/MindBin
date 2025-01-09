@@ -2,7 +2,7 @@ package com.eipna.mindbin.data.note;
 
 public class Note {
 
-    private long ID;
+    private int ID;
     private String title;
     private String content;
 
@@ -12,11 +12,11 @@ public class Note {
         this.content = null;
     }
 
-    public long getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(long ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
