@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private ActivityMainBinding binding;
-    private NoteRepository noteRepository;
+    private Database database;
     private NoteAdapter noteAdapter;
     private ArrayList<Note> noteList;
 
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
         binding.appBar.setStatusBarForeground(drawable);
         setSupportActionBar(binding.toolbar);
-        noteRepository = new NoteRepository(this);
+        database = new Database(this);
 
-        noteList = new ArrayList<>(noteRepository.getNotes());
+        noteList = new ArrayList<>(database.getNotes());
         noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 Note createdNote = new Note();
                 createdNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
                 createdNote.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                noteRepository.create(createdNote);
-                noteList = new ArrayList<>(noteRepository.getNotes());
+                database.createNote(createdNote);
+                noteList = new ArrayList<>(database.getNotes());
                 noteAdapter.update(noteList);
             }
         }
@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 updatedNote.setID(resultIntent.getIntExtra(Database.COLUMN_NOTE_ID, -1));
                 updatedNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
                 updatedNote.setContent(resultIntent.getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getNotes());
+                database.updateNote(updatedNote);
+                noteList = new ArrayList<>(database.getNotes());
                 noteAdapter.update(noteList);
             }
         }
