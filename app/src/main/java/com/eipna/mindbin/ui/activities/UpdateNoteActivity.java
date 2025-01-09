@@ -23,9 +23,9 @@ public class UpdateNoteActivity extends AppCompatActivity {
 
     private ActivityUpdateNoteBinding binding;
 
-    private int selectedNoteID;
-    private String selectedNoteTitle;
-    private String selectedNoteContent;
+    private int noteIDExtra;
+    private String noteTitleExtra;
+    private String noteContentExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +42,12 @@ public class UpdateNoteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        selectedNoteID = getIntent().getIntExtra(Database.COLUMN_NOTE_ID, -1);
-        selectedNoteTitle = getIntent().getStringExtra(Database.COLUMN_NOTE_TITLE);
-        selectedNoteContent = getIntent().getStringExtra(Database.COLUMN_NOTE_CONTENT);
+        noteIDExtra = getIntent().getIntExtra(Database.COLUMN_NOTE_ID, -1);
+        noteTitleExtra = getIntent().getStringExtra(Database.COLUMN_NOTE_TITLE);
+        noteContentExtra = getIntent().getStringExtra(Database.COLUMN_NOTE_CONTENT);
 
-        binding.titleInput.setText(selectedNoteTitle);
-        binding.contentInput.setText(selectedNoteContent);
+        binding.titleInput.setText(noteTitleExtra);
+        binding.contentInput.setText(noteContentExtra);
     }
 
     @Override
