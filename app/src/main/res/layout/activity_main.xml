@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             app:title="@string/toolbar_main"
-            app:titleTextAppearance="@style/Theme.MindBin.Toolbar"
+            app:titleTextColor="?attr/colorOnSurface"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
