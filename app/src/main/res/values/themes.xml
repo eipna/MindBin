@@ -51,7 +51,7 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="Theme.MindBin.CardView" parent="Widget.Material3.CardView.Outlined">
+    <style name="Theme.MindBin.CardView" parent="Widget.Material3.CardView.Elevated">
         <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
         <item name="cardElevation">@dimen/cardview_default_elevation</item>
     </style>
