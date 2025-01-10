@@ -10,11 +10,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.Database;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
+import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
+        binding.noteList.addItemDecoration(new NoteItemDecoration(R.dimen.recycler_note_list));
         binding.noteList.setAdapter(noteAdapter);
 
         binding.newNote.setOnClickListener(view -> {
