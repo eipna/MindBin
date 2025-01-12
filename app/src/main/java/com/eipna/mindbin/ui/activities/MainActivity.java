@@ -20,6 +20,7 @@ import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
+import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private ActivityMainBinding binding;
-    private MindBinDatabase mindBinDatabase;
+    private NoteRepository noteRepository;
     private NoteAdapter noteAdapter;
     private ArrayList<Note> noteList;
 
@@ -44,9 +45,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
         binding.appBar.setStatusBarForeground(drawable);
         setSupportActionBar(binding.toolbar);
-        mindBinDatabase = new MindBinDatabase(this);
+        noteRepository = new NoteRepository(this);
 
-        noteList = new ArrayList<>(mindBinDatabase.getNotes());
+        noteList = new ArrayList<>(noteRepository.getNotes());
         noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -88,8 +89,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 Note createdNote = new Note();
                 createdNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
                 createdNote.setContent(result.getData().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                mindBinDatabase.createNote(createdNote);
-                noteList = new ArrayList<>(mindBinDatabase.getNotes());
+                noteRepository.create(createdNote);
+                noteList = new ArrayList<>(noteRepository.getNotes());
                 noteAdapter.update(noteList);
             }
         }
@@ -103,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
                 updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
                 updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
                 updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                mindBinDatabase.updateNote(updatedNote);
-                noteList = new ArrayList<>(mindBinDatabase.getNotes());
+                noteRepository.update(updatedNote);
+                noteList = new ArrayList<>(noteRepository.getNotes());
                 noteAdapter.update(noteList);
             }
         }
