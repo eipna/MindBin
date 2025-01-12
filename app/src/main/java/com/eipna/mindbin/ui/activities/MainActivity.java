@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
-        binding.noteList.addItemDecoration(new NoteItemDecoration(R.dimen.recycler_note_list));
+        binding.noteList.addItemDecoration(new NoteItemDecoration(16));
         binding.noteList.setAdapter(noteAdapter);
 
         binding.newNote.setOnClickListener(view -> {

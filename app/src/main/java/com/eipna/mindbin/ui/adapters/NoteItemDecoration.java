@@ -22,8 +22,8 @@ public class NoteItemDecoration extends RecyclerView.ItemDecoration {
 
         outRect.left = space;
         outRect.right = space;
-        outRect.bottom = space;
-        outRect.top = space;
+        outRect.bottom = space / 2;
+        outRect.top = space / 2;
 
         if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
