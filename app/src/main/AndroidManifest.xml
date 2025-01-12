@@ -14,9 +14,21 @@
         android:theme="@style/Theme.MindBin"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.AboutActivity"
+            android:name=".ui.activities.FolderActivity"
             android:parentActivityName=".ui.activities.MainActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.activities.TrashActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:exported="false" />
+        <activity
+            android:parentActivityName=".ui.activities.MainActivity"
+            android:name=".ui.activities.ArchiveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.AboutActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activities.MainActivity" />
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:exported="false"
