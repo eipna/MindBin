@@ -11,6 +11,14 @@
             <group
                 android:id="@+id/group1">
                 <item
+                    android:id="@+id/folder"
+                    android:title="@string/menu_folder"
+                    android:icon="@drawable/ic_folder"
+                    app:showAsAction="never"/>
+            </group>
+            <group
+                android:id="@+id/group2">
+                <item
                     android:id="@+id/archive"
                     android:title="@string/menu_archive"
                     android:icon="@drawable/ic_archive"
@@ -23,7 +31,7 @@
                     app:showAsAction="never"/>
             </group>
             <group
-                android:id="@+id/group2">
+                android:id="@+id/group3">
                 <item
                     android:id="@+id/settings"
                     android:title="@string/menu_settings"
