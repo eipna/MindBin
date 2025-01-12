@@ -23,6 +23,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/empty_indicator"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_width="wrap_content"

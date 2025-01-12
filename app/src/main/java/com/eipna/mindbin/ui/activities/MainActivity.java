@@ -3,6 +3,7 @@ package com.eipna.mindbin.ui.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         noteList = new ArrayList<>(database.getNotes());
         noteAdapter = new NoteAdapter(this, this, noteList);
 
+        binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
         binding.noteList.setLayoutManager(new LinearLayoutManager(this));
         binding.noteList.addItemDecoration(new NoteItemDecoration(16));
         binding.noteList.setAdapter(noteAdapter);
