@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.Database;
+import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
@@ -42,9 +42,9 @@ public class UpdateNoteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        noteIDExtra = getIntent().getIntExtra(Database.COLUMN_NOTE_ID, -1);
-        noteTitleExtra = getIntent().getStringExtra(Database.COLUMN_NOTE_TITLE);
-        noteContentExtra = getIntent().getStringExtra(Database.COLUMN_NOTE_CONTENT);
+        noteIDExtra = getIntent().getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
+        noteTitleExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE);
+        noteContentExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT);
 
         binding.titleInput.setText(noteTitleExtra);
         binding.contentInput.setText(noteContentExtra);
@@ -56,9 +56,9 @@ public class UpdateNoteActivity extends AppCompatActivity {
 
         if (!noteTitleInput.equals(noteTitleExtra) || !noteContentInput.equals(noteContentExtra)) {
             Intent resultIntent = new Intent();
-            resultIntent.putExtra(Database.COLUMN_NOTE_ID, noteIDExtra);
-            resultIntent.putExtra(Database.COLUMN_NOTE_TITLE, noteTitleInput);
-            resultIntent.putExtra(Database.COLUMN_NOTE_CONTENT, noteContentInput);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
             setResult(RESULT_OK, resultIntent);
             finish();
         } else {

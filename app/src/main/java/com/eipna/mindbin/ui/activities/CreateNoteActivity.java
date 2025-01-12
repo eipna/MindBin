@@ -14,7 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.Database;
+import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
@@ -72,8 +72,8 @@ public class CreateNoteActivity extends AppCompatActivity {
         String content = (contentFromInput.isEmpty()) ? "Empty Note" : contentFromInput;
 
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(Database.COLUMN_NOTE_TITLE, title);
-        resultIntent.putExtra(Database.COLUMN_NOTE_CONTENT, content);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, title);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, content);
         setResult(RESULT_OK, resultIntent);
         finish();
     }

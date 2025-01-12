@@ -17,7 +17,7 @@ import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.Database;
+import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements NoteListener {
 
     private ActivityMainBinding binding;
-    private Database database;
+    private MindBinDatabase mindBinDatabase;
     private NoteAdapter noteAdapter;
     private ArrayList<Note> noteList;
 
@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
         Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
         binding.appBar.setStatusBarForeground(drawable);
         setSupportActionBar(binding.toolbar);
-        database = new Database(this);
+        mindBinDatabase = new MindBinDatabase(this);
 
-        noteList = new ArrayList<>(database.getNotes());
+        noteList = new ArrayList<>(mindBinDatabase.getNotes());
         noteAdapter = new NoteAdapter(this, this, noteList);
 
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
                 Note createdNote = new Note();
-                createdNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
-                createdNote.setContent(result.getData().getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                database.createNote(createdNote);
-                noteList = new ArrayList<>(database.getNotes());
+                createdNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
+                createdNote.setContent(result.getData().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
+                mindBinDatabase.createNote(createdNote);
+                noteList = new ArrayList<>(mindBinDatabase.getNotes());
                 noteAdapter.update(noteList);
             }
         }
@@ -100,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
                 Note updatedNote = new Note();
-                updatedNote.setID(resultIntent.getIntExtra(Database.COLUMN_NOTE_ID, -1));
-                updatedNote.setTitle(resultIntent.getStringExtra(Database.COLUMN_NOTE_TITLE));
-                updatedNote.setContent(resultIntent.getStringExtra(Database.COLUMN_NOTE_CONTENT));
-                database.updateNote(updatedNote);
-                noteList = new ArrayList<>(database.getNotes());
+                updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
+                updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
+                updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
+                mindBinDatabase.updateNote(updatedNote);
+                noteList = new ArrayList<>(mindBinDatabase.getNotes());
                 noteAdapter.update(noteList);
             }
         }
@@ -114,9 +114,9 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
         Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateNoteActivity.class);
-        updateNoteIntent.putExtra(Database.COLUMN_NOTE_ID, selectedNote.getID());
-        updateNoteIntent.putExtra(Database.COLUMN_NOTE_TITLE, selectedNote.getTitle());
-        updateNoteIntent.putExtra(Database.COLUMN_NOTE_CONTENT, selectedNote.getContent());
+        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, selectedNote.getID());
+        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, selectedNote.getTitle());
+        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, selectedNote.getContent());
         updateNoteLauncher.launch(updateNoteIntent);
     }
 

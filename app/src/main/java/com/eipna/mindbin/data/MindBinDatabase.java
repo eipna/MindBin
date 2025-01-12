@@ -14,7 +14,7 @@ import com.eipna.mindbin.data.note.NoteRepository;
 
 import java.util.ArrayList;
 
-public class Database extends SQLiteOpenHelper implements NoteRepository {
+public class MindBinDatabase extends SQLiteOpenHelper implements NoteRepository {
 
     private static final String DATABASE_NAME = "mindbin.db";
     private static final int DATABASE_VERSION = 1;
@@ -24,7 +24,7 @@ public class Database extends SQLiteOpenHelper implements NoteRepository {
     public static final String COLUMN_NOTE_TITLE = "title";
     public static final String COLUMN_NOTE_CONTENT = "content";
 
-    public Database(@Nullable Context context) {
+    public MindBinDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
