@@ -22,6 +22,29 @@
             android:layout_height="wrap_content"/>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/ic_note"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:text="@string/indicator_notes_empty"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="?attr/colorOnSurface"
+            android:fontFamily="sans-serif-light"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/note_list"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -36,5 +59,6 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        tools:ignore="RtlHardcoded" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
