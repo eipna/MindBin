@@ -6,23 +6,36 @@ import android.view.View;
 import androidx.annotation.DimenRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class NoteItemDecoration extends RecyclerView.ItemDecoration {
 
     private final int space;
 
-    public NoteItemDecoration(@DimenRes int space) {
+    public NoteItemDecoration(int space) {
         this.space = space;
     }
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-        outRect.bottom = space;
+        super.getItemOffsets(outRect, view, parent, state);
+
         outRect.left = space;
         outRect.right = space;
+        outRect.bottom = space;
+        outRect.top = space;
 
-        if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = space;
+        if (parent.getLayoutManager() instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager.LayoutParams params = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+            int spanIndex = params.getSpanIndex();
+
+            if (spanIndex == 0) {
+                outRect.left = space;
+                outRect.right = space / 2;
+            } else {
+                outRect.right = space;
+                outRect.left = space / 2;
+            }
         }
     }
 }
