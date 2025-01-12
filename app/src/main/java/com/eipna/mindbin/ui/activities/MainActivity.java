@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.settings) startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        if (item.getItemId() == R.id.about) startActivity(new Intent(getApplicationContext(), AboutActivity.class));
         return true;
     }
 

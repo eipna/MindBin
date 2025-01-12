@@ -14,6 +14,12 @@
                 android:title="@string/menu_settings"
                 android:icon="@drawable/ic_settings"
                 app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/about"
+                android:title="@string/menu_about"
+                android:icon="@drawable/ic_info_filled"
+                app:showAsAction="never"/>
         </menu>
     </item>
 
