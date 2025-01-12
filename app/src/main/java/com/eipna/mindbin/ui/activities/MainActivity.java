@@ -3,12 +3,15 @@ package com.eipna.mindbin.ui.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eipna.mindbin.R;
@@ -53,6 +56,14 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
             Intent createNoteIntent = new Intent(getApplicationContext(), CreateNoteActivity.class);
             createNoteLauncher.launch(createNoteIntent);
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        MenuCompat.setGroupDividerEnabled(menu, true);
+        return true;
     }
 
     @Override

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/overflow"
+        android:title="@string/menu_overflow"
+        android:icon="@drawable/ic_more_vertical"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:title="@string/menu_settings"
+                android:icon="@drawable/ic_settings"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
+
+</menu>
