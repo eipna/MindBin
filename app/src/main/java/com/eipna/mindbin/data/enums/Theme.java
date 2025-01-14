@@ -12,4 +12,13 @@ public enum Theme {
     Theme(String theme) {
         this.theme = theme;
     }
+
+    public String get(Theme theme) {
+        for (int i = 0; i < values().length; i++) {
+            if (values()[i].equals(theme)) {
+                return values()[i].theme;
+            }
+        }
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.enums.Theme;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
