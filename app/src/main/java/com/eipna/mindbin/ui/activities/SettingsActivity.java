@@ -28,6 +28,10 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        boolean isDynamicColorsAvailable = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
+        if (isDynamicColorsAvailable) DynamicColors.applyToActivityIfAvailable(this);
+
         EdgeToEdge.enable(this);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

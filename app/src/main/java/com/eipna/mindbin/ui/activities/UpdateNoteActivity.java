@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
+import com.eipna.mindbin.util.SharedPreferenceUtil;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -30,6 +32,10 @@ public class UpdateNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
+        boolean isDynamicColorsAvailable = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
+        if (isDynamicColorsAvailable) DynamicColors.applyToActivityIfAvailable(this);
+
         EdgeToEdge.enable(this);
         binding = ActivityUpdateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

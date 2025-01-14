@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.eipna.mindbin.data.enums.Theme;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
-import com.google.android.material.color.DynamicColors;
 
 public class MindBinApp extends Application {
     @Override
@@ -14,11 +13,6 @@ public class MindBinApp extends Application {
         super.onCreate();
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
         String themeVal = sharedPreferenceUtil.getString("theme", Theme.get(Theme.SYSTEM));
-        boolean dynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
-
-        if (dynamicColorsVal) {
-            DynamicColors.applyToActivitiesIfAvailable(this);
-        }
 
         if (themeVal.equals(Theme.get(Theme.SYSTEM))) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
