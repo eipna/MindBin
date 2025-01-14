@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
-        MenuCompat.setGroupDividerEnabled(menu, true);
         return true;
     }
 

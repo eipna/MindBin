@@ -1,49 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/overflow"
-        android:title="@string/menu_overflow"
-        android:icon="@drawable/ic_more_vertical"
-        app:showAsAction="ifRoom">
+        android:id="@+id/folder"
+        app:showAsAction="never"
+        android:title="@string/menu_folder"/>
 
-        <menu>
-            <group
-                android:id="@+id/group1">
-                <item
-                    android:id="@+id/folder"
-                    android:title="@string/menu_folder"
-                    android:icon="@drawable/ic_folder"
-                    app:showAsAction="never"/>
-            </group>
-            <group
-                android:id="@+id/group2">
-                <item
-                    android:id="@+id/archive"
-                    android:title="@string/menu_archive"
-                    android:icon="@drawable/ic_archive"
-                    app:showAsAction="never"/>
+    <item
+        android:id="@+id/archive"
+        android:title="@string/menu_archive"
+        app:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/trash"
-                    android:title="@string/menu_trash"
-                    android:icon="@drawable/ic_delete"
-                    app:showAsAction="never"/>
-            </group>
-            <group
-                android:id="@+id/group3">
-                <item
-                    android:id="@+id/settings"
-                    android:title="@string/menu_settings"
-                    android:icon="@drawable/ic_settings"
-                    app:showAsAction="never"/>
+    <item
+        android:id="@+id/trash"
+        android:title="@string/menu_trash"
+        app:showAsAction="never"/>
 
-                <item
-                    android:id="@+id/about"
-                    android:title="@string/menu_about"
-                    android:icon="@drawable/ic_info_filled"
-                    app:showAsAction="never"/>
-            </group>
-        </menu>
-    </item>
+    <item
+        android:id="@+id/settings"
+        android:title="@string/menu_settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/menu_about"
+        app:showAsAction="never"/>
 </menu>
