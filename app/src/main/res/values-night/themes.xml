@@ -1,10 +1,5 @@
 <resources>
     <style name="Theme.MindBin" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
-        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
-        <item name="alertDialogTheme">@style/Theme.MindBin.Preference.List</item>
-        <item name="popupTheme">@style/Widget.Material3.PopupMenu.Overflow</item>
-
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -51,6 +46,12 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+
+        <!-- Custom Styles -->
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
+        <item name="alertDialogTheme">@style/Theme.MindBin.Preference.List</item>
+        <item name="popupTheme">@style/Widget.Material3.PopupMenu.Overflow</item>
     </style>
 
     <style name="Theme.MindBin.Preference.List" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
