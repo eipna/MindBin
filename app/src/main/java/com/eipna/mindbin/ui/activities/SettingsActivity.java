@@ -12,11 +12,13 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.enums.Theme;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
+import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -50,8 +52,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         private SharedPreferenceUtil sharedPreferenceUtil;
 
-        private ListPreference listTheme;
         private String listThemeVal;
+        private boolean switchDynamicColorsVal;
+
+        private ListPreference listTheme;
+
+        private SwitchPreferenceCompat switchDynamicColors;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -77,14 +83,25 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 return true;
             });
+
+            switchDynamicColors.setEnabled(DynamicColors.isDynamicColorAvailable());
+            switchDynamicColors.setChecked(switchDynamicColorsVal);
+            switchDynamicColors.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean isChecked = (boolean) newValue;
+                sharedPreferenceUtil.setBoolean("dynamic_colors", isChecked);
+                requireActivity().recreate();
+                return true;
+            });
         }
 
         private void setPreferences() {
             sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
 
             listThemeVal = sharedPreferenceUtil.getString("theme", Theme.get(Theme.SYSTEM));
+            switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
 
             listTheme = findPreference("theme");
+            switchDynamicColors = findPreference("dynamic_colors");
         }
     }
 }
