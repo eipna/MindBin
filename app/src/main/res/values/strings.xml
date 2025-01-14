@@ -24,4 +24,8 @@
 
     <string name="indicator_notes_empty">No notes to show here</string>
     <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- General Preference Category -->
+    <string name="preference_category_general">General</string>
+    <string name="preference_list_theme">Theme</string>
 </resources>
