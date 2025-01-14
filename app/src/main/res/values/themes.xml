@@ -53,7 +53,7 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
     </style>
 
-    <style name="Theme.MindBin.Preference.List" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+    <style name="Theme.MindBin.Preference.List" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="dialogCornerRadius">28dp</item>
