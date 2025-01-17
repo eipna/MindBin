@@ -22,17 +22,13 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
 
-public class CreateNoteActivity extends AppCompatActivity {
+public class CreateNoteActivity extends BaseActivity {
 
     private ActivityCreateNoteBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        boolean isDynamicColorsAvailable = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
-        if (isDynamicColorsAvailable) DynamicColors.applyToActivityIfAvailable(this);
-
         EdgeToEdge.enable(this);
         binding = ActivityCreateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

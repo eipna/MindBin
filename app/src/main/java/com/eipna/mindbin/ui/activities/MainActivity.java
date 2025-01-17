@@ -30,7 +30,7 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements NoteListener {
+public class MainActivity extends BaseActivity implements NoteListener {
 
     private ActivityMainBinding binding;
     private NoteRepository noteRepository;
@@ -40,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements NoteListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        boolean isDynamicColorsAvailable = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
-        if (isDynamicColorsAvailable) DynamicColors.applyToActivityIfAvailable(this);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());

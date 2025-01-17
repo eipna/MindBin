@@ -12,17 +12,13 @@ import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     private ActivityAboutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        boolean isDynamicColorsAvailable = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
-        if (isDynamicColorsAvailable) DynamicColors.applyToActivityIfAvailable(this);
-
         EdgeToEdge.enable(this);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
