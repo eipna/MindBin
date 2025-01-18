@@ -50,11 +50,11 @@
         <!-- Custom Styles -->
         <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
-        <item name="alertDialogTheme">@style/Theme.MindBin.Preference.List</item>
+        <item name="alertDialogTheme">@style/Theme.MindBin.AlertDialog</item>
         <item name="popupTheme">@style/Widget.Material3.PopupMenu.Overflow</item>
     </style>
 
-    <style name="Theme.MindBin.Preference.List" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
+    <style name="Theme.MindBin.AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="dialogCornerRadius">28dp</item>
