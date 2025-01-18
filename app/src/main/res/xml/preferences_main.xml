@@ -27,6 +27,28 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/preference_category_notes"
+        app:allowDividerAbove="true">
+
+        <SeekBarPreference
+            app:title="@string/preference_seekbar_max_note_title"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="10"
+            app:showSeekBarValue="true"
+            app:key="max_note_title"/>
+
+        <SeekBarPreference
+            app:title="@string/preference_seekbar_max_note_content"
+            app:iconSpaceReserved="false"
+            app:min="1"
+            android:max="10"
+            app:showSeekBarValue="true"
+            app:key="max_note_content"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         app:title="@string/preference_category_about"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true">

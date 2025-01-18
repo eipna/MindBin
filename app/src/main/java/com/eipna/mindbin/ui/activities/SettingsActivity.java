@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
@@ -64,6 +65,8 @@ public class SettingsActivity extends BaseActivity {
 
         private String listThemeVal;
         private String listViewModeVal;
+        private int seekBarMaxNoteTitleVal;
+        private int seekBarMaxNoteContentVal;
         private boolean switchDynamicColorsVal;
 
         private ListPreference listTheme;
@@ -73,6 +76,9 @@ public class SettingsActivity extends BaseActivity {
 
         private Preference versionPrefs;
         private Preference licensePrefs;
+
+        private SeekBarPreference seekBarMaxNoteTitle;
+        private SeekBarPreference seekBarMaxNoteContent;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -89,6 +95,18 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
+                return true;
+            });
+
+            seekBarMaxNoteTitle.setValue(seekBarMaxNoteTitleVal);
+            seekBarMaxNoteTitle.setOnPreferenceChangeListener((preference, newValue) -> {
+                sharedPreferenceUtil.setInt("max_note_title", (int) newValue);
+                return true;
+            });
+
+            seekBarMaxNoteContent.setValue(seekBarMaxNoteContentVal);
+            seekBarMaxNoteContent.setOnPreferenceChangeListener((preference, newValue) -> {
+                sharedPreferenceUtil.setInt("max_note_content", (int) newValue);
                 return true;
             });
 
@@ -168,10 +186,14 @@ public class SettingsActivity extends BaseActivity {
 
             listThemeVal = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
             listViewModeVal = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
+            seekBarMaxNoteTitleVal = sharedPreferenceUtil.getInt("max_note_title", 1);
+            seekBarMaxNoteContentVal = sharedPreferenceUtil.getInt("max_note_content", 1);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
+            seekBarMaxNoteTitle = findPreference("max_note_title");
+            seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");
 
             versionPrefs = findPreference("version");

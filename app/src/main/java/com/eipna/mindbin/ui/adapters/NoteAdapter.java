@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
+import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -64,18 +65,24 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        SharedPreferenceUtil sharedPreferenceUtil;
+
         MaterialCardView parent;
         MaterialTextView title;
         MaterialTextView content;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            sharedPreferenceUtil = new SharedPreferenceUtil(itemView.getContext());
             parent = itemView.findViewById(R.id.recyclerNoteParent);
             title = itemView.findViewById(R.id.recyclerNoteTitle);
             content = itemView.findViewById(R.id.recyclerNoteContent);
         }
 
         public void bind(Note note) {
+            title.setMaxLines(sharedPreferenceUtil.getInt("max_note_title", 1));
+            content.setMaxLines(sharedPreferenceUtil.getInt("max_note_content", 1));
+
             title.setText(note.getTitle());
             content.setText(note.getContent());
         }
