@@ -22,6 +22,7 @@
         <SwitchPreferenceCompat
             app:key="dynamic_colors"
             app:title="Dynamic Colors"
+            app:summary="@string/preference_switch_dynamic_colors_summary"
             app:iconSpaceReserved="false"
             app:widgetLayout="@layout/view_preference_switch"/>
     </PreferenceCategory>
