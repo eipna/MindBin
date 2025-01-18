@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -18,6 +19,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.enums.Theme;
+import com.eipna.mindbin.data.enums.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.color.DynamicColors;
@@ -61,9 +63,11 @@ public class SettingsActivity extends BaseActivity {
         private SharedPreferenceUtil sharedPreferenceUtil;
 
         private String listThemeVal;
+        private String listViewModeVal;
         private boolean switchDynamicColorsVal;
 
         private ListPreference listTheme;
+        private ListPreference listViewMode;
 
         private SwitchPreferenceCompat switchDynamicColors;
 
@@ -85,6 +89,19 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
+                return true;
+            });
+
+            listViewMode.setValue(listViewModeVal);
+            listViewMode.setSummary(listViewModeVal);
+            listViewMode.setOnPreferenceChangeListener((preference, newValue) -> {
+                String selectedViewMode = (String) newValue;
+                if (selectedViewMode.equals(ViewMode.LIST.value)) {
+                    sharedPreferenceUtil.setString("view_mode", ViewMode.LIST.value);
+                } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
+                    sharedPreferenceUtil.setString("view_mode", ViewMode.TILES.value);
+                }
+                listViewMode.setSummary(selectedViewMode);
                 return true;
             });
 
@@ -150,9 +167,11 @@ public class SettingsActivity extends BaseActivity {
             sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
 
             listThemeVal = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
+            listViewModeVal = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
 
             listTheme = findPreference("theme");
+            listViewMode = findPreference("view_mode");
             switchDynamicColors = findPreference("dynamic_colors");
 
             versionPrefs = findPreference("version");

@@ -15,9 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.enums.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
@@ -51,9 +53,15 @@ public class MainActivity extends BaseActivity implements NoteListener {
 
         noteList = new ArrayList<>(noteRepository.getNotes());
         noteAdapter = new NoteAdapter(this, this, noteList);
-
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-        binding.noteList.setLayoutManager(new LinearLayoutManager(this));
+
+        String selectedViewMode = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
+        if (selectedViewMode.equals(ViewMode.LIST.value)) {
+            binding.noteList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
+            binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }
+
         binding.noteList.addItemDecoration(new NoteItemDecoration(16));
         binding.noteList.setAdapter(noteAdapter);
 
