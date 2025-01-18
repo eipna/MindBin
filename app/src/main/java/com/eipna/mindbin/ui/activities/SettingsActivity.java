@@ -1,8 +1,12 @@
 package com.eipna.mindbin.ui.activities;
 
+import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -59,10 +63,20 @@ public class SettingsActivity extends BaseActivity {
 
         private SwitchPreferenceCompat switchDynamicColors;
 
+        private Preference versionPrefs;
+
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences_main, rootKey);
             setPreferences();
+
+            try {
+                PackageManager packageManager = requireActivity().getPackageManager();
+                PackageInfo packageInfo = packageManager.getPackageInfo(requireActivity().getPackageName(), 0);
+                versionPrefs.setSummary(packageInfo.versionName);
+            } catch (PackageManager.NameNotFoundException e) {
+                Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
             listTheme.setValue(listThemeVal);
             listTheme.setSummary(listThemeVal);
@@ -102,6 +116,8 @@ public class SettingsActivity extends BaseActivity {
 
             listTheme = findPreference("theme");
             switchDynamicColors = findPreference("dynamic_colors");
+
+            versionPrefs = findPreference("version");
         }
     }
 }

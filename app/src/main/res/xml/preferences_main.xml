@@ -18,4 +18,15 @@
             app:widgetLayout="@layout/preference_switch"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:title="@string/preference_category_about"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true">
+
+        <Preference
+            app:key="version"
+            app:title="@string/preference_version"
+            app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>
