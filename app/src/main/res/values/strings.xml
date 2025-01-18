@@ -35,4 +35,6 @@
     <string name="preference_version">Version</string>
     <string name="preference_license">License</string>
     <string name="preference_author">Author</string>
+    <string name="preference_source_code_title">Source Code</string>
+    <string name="preference_source_code_summary">Check the Github repository and the README</string>
 </resources>

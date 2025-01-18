@@ -38,6 +38,16 @@
             app:iconSpaceReserved="false"/>
 
         <Preference
+            app:title="@string/preference_source_code_title"
+            app:summary="@string/preference_source_code_summary"
+            app:iconSpaceReserved="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/eipna/MindBin"/>
+        </Preference>
+
+        <Preference
             app:title="@string/preference_author"
             app:summary="@string/app_author"
             app:iconSpaceReserved="false">
