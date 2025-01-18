@@ -1,4 +1,4 @@
-package com.eipna.mindbin.data.enums;
+package com.eipna.mindbin.data;
 
 public enum ViewMode {
     LIST("List"),

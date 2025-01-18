@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.eipna.mindbin.data.enums.Theme;
+import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 
 public class MindBinApp extends Application {

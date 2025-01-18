@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -19,8 +18,8 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.enums.Theme;
-import com.eipna.mindbin.data.enums.ViewMode;
+import com.eipna.mindbin.data.Theme;
+import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.color.DynamicColors;

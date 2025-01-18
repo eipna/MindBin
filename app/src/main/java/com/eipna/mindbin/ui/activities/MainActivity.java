@@ -12,22 +12,18 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
-import com.eipna.mindbin.data.enums.ViewMode;
+import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
-import com.eipna.mindbin.util.SharedPreferenceUtil;
-import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
