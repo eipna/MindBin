@@ -24,6 +24,12 @@
         app:allowDividerAbove="true">
 
         <Preference
+            app:key="license"
+            app:title="@string/preference_license"
+            app:summary="@string/app_license"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
             app:key="version"
             app:title="@string/preference_version"
             app:iconSpaceReserved="false"/>

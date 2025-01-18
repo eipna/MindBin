@@ -1,8 +1,11 @@
 package com.eipna.mindbin.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -23,7 +26,13 @@ import com.eipna.mindbin.data.enums.Theme;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.color.DynamicColors;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class SettingsActivity extends BaseActivity {
 
@@ -64,6 +73,7 @@ public class SettingsActivity extends BaseActivity {
         private SwitchPreferenceCompat switchDynamicColors;
 
         private Preference versionPrefs;
+        private Preference licensePrefs;
 
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -77,6 +87,11 @@ public class SettingsActivity extends BaseActivity {
             } catch (PackageManager.NameNotFoundException e) {
                 Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
+            licensePrefs.setOnPreferenceClickListener(preference -> {
+                showLicenseDialog();
+                return true;
+            });
 
             listTheme.setValue(listThemeVal);
             listTheme.setSummary(listThemeVal);
@@ -108,6 +123,33 @@ public class SettingsActivity extends BaseActivity {
             });
         }
 
+        private void showLicenseDialog() {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(requireContext().getResources().getString(R.string.preference_license))
+                    .setMessage(readLicenseFromFile())
+                    .setIcon(requireContext().getResources().getDrawable(R.drawable.ic_key, requireContext().getTheme()))
+                    .setPositiveButton("Close", null);
+
+            Dialog dialog = builder.create();
+            dialog.show();
+        }
+
+        private String readLicenseFromFile() {
+            StringBuilder stringBuilder = new StringBuilder();
+            AssetManager assetManager = requireContext().getAssets();
+            try (InputStream inputStream = assetManager.open("license.txt")) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    stringBuilder.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            return stringBuilder.toString();
+        }
+
         private void setPreferences() {
             sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
 
@@ -118,6 +160,7 @@ public class SettingsActivity extends BaseActivity {
             switchDynamicColors = findPreference("dynamic_colors");
 
             versionPrefs = findPreference("version");
+            licensePrefs = findPreference("license");
         }
     }
 }
