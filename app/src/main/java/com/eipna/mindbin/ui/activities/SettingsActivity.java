@@ -68,11 +68,13 @@ public class SettingsActivity extends BaseActivity {
         private int seekBarMaxNoteTitleVal;
         private int seekBarMaxNoteContentVal;
         private boolean switchDynamicColorsVal;
+        private boolean switchRoundedCornersVal;
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
 
         private SwitchPreferenceCompat switchDynamicColors;
+        private SwitchPreferenceCompat switchRoundedCorners;
 
         private Preference versionPrefs;
         private Preference licensePrefs;
@@ -152,6 +154,12 @@ public class SettingsActivity extends BaseActivity {
                 requireActivity().recreate();
                 return true;
             });
+
+            switchRoundedCorners.setChecked(switchRoundedCornersVal);
+            switchRoundedCorners.setOnPreferenceChangeListener((preference, newValue) -> {
+                sharedPreferenceUtil.setBoolean("rounded_corners", (boolean) newValue);
+                return true;
+            });
         }
 
         private void showLicenseDialog() {
@@ -189,12 +197,14 @@ public class SettingsActivity extends BaseActivity {
             seekBarMaxNoteTitleVal = sharedPreferenceUtil.getInt("max_note_title", 1);
             seekBarMaxNoteContentVal = sharedPreferenceUtil.getInt("max_note_content", 1);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
+            switchRoundedCornersVal = sharedPreferenceUtil.getBoolean("rounded_corners", true);
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
             seekBarMaxNoteTitle = findPreference("max_note_title");
             seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");
+            switchRoundedCorners = findPreference("rounded_corners");
 
             versionPrefs = findPreference("version");
             licensePrefs = findPreference("license");
