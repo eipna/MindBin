@@ -23,7 +23,7 @@
             app:key="dynamic_colors"
             app:title="Dynamic Colors"
             app:iconSpaceReserved="false"
-            app:widgetLayout="@layout/preference_switch"/>
+            app:widgetLayout="@layout/view_preference_switch"/>
     </PreferenceCategory>
 
     <PreferenceCategory
