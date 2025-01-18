@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         app:title="@string/preference_category_general"
@@ -28,6 +29,16 @@
             app:title="@string/preference_license"
             app:summary="@string/app_license"
             app:iconSpaceReserved="false"/>
+
+        <Preference
+            app:title="@string/preference_author"
+            app:summary="@string/app_author"
+            app:iconSpaceReserved="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/eipna"/>
+        </Preference>
 
         <Preference
             app:key="version"
