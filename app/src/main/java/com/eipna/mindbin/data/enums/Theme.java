@@ -1,24 +1,19 @@
 package com.eipna.mindbin.data.enums;
 
 public enum Theme {
-
     LIGHT("Light"),
     DARK("Dark"),
     SYSTEM("System"),
     BATTERY_SAVING("Battery Saving");
 
-    private final String theme;
+    public static final Theme[] themes;
+    public final String value;
 
-    Theme(String theme) {
-        this.theme = theme;
+    static {
+        themes = values();
     }
 
-    public static String get(Theme theme) {
-        for (int i = 0; i < values().length; i++) {
-            if (values()[i].equals(theme)) {
-                return values()[i].theme;
-            }
-        }
-        return null;
+    Theme(String value) {
+        this.value = value;
     }
 }

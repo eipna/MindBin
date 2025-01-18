@@ -1,20 +1,15 @@
 package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -97,19 +92,20 @@ public class SettingsActivity extends BaseActivity {
             listTheme.setSummary(listThemeVal);
             listTheme.setOnPreferenceChangeListener((preference, newValue) -> {
                 String selectedTheme = (String) newValue;
-                if (selectedTheme.equals(Theme.get(Theme.SYSTEM))) {
+                if (selectedTheme.equals(Theme.SYSTEM.value)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    sharedPreferenceUtil.setString("theme", Theme.get(Theme.SYSTEM));
-                } else if (selectedTheme.equals(Theme.get(Theme.LIGHT))) {
+                    sharedPreferenceUtil.setString("theme", Theme.SYSTEM.value);
+                } else if (selectedTheme.equals(Theme.LIGHT.value)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPreferenceUtil.setString("theme", Theme.get(Theme.LIGHT));
-                } else if (selectedTheme.equals(Theme.get(Theme.BATTERY_SAVING))) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-                    sharedPreferenceUtil.setString("theme", Theme.get(Theme.BATTERY_SAVING));
-                } else if (selectedTheme.equals(Theme.get(Theme.DARK))) {
+                    sharedPreferenceUtil.setString("theme", Theme.LIGHT.value);
+                } else if (selectedTheme.equals(Theme.DARK.value)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPreferenceUtil.setString("theme", Theme.get(Theme.DARK));
+                    sharedPreferenceUtil.setString("theme", Theme.DARK.value);
+                } else if (selectedTheme.equals(Theme.BATTERY_SAVING.value)) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+                    sharedPreferenceUtil.setString("theme", Theme.BATTERY_SAVING.value);
                 }
+                listTheme.setSummary(selectedTheme);
                 return true;
             });
 
@@ -153,7 +149,7 @@ public class SettingsActivity extends BaseActivity {
         private void setPreferences() {
             sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
 
-            listThemeVal = sharedPreferenceUtil.getString("theme", Theme.get(Theme.SYSTEM));
+            listThemeVal = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
 
             listTheme = findPreference("theme");

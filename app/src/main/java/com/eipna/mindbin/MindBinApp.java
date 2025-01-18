@@ -12,15 +12,15 @@ public class MindBinApp extends Application {
     public void onCreate() {
         super.onCreate();
         SharedPreferenceUtil sharedPreferenceUtil = new SharedPreferenceUtil(this);
-        String themeVal = sharedPreferenceUtil.getString("theme", Theme.get(Theme.SYSTEM));
+        String applicationTheme = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
 
-        if (themeVal.equals(Theme.get(Theme.SYSTEM))) {
+        if (applicationTheme.equals(Theme.SYSTEM.value)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        } else if (themeVal.equals(Theme.get(Theme.LIGHT))) {
+        } else if (applicationTheme.equals(Theme.LIGHT.value)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else if (themeVal.equals(Theme.get(Theme.DARK))) {
+        } else if (applicationTheme.equals(Theme.DARK.value)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (themeVal.equals(Theme.get(Theme.BATTERY_SAVING))) {
+        } else if (applicationTheme.equals(Theme.BATTERY_SAVING.value)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
         }
     }
