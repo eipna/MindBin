@@ -26,10 +26,6 @@
             android:name=".ui.activities.ArchiveActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.AboutActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.activities.MainActivity" />
-        <activity
             android:name=".ui.activities.SettingsActivity"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
