@@ -33,7 +33,8 @@
             android:src="@drawable/ic_note"
             android:layout_gravity="center"
             android:layout_width="125dp"
-            android:layout_height="125dp"/>
+            android:layout_height="125dp"
+            app:tint="?attr/colorPrimary" />
 
         <com.google.android.material.textview.MaterialTextView
             android:text="@string/indicator_notes_empty"
