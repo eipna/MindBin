@@ -23,6 +23,8 @@ public class NoteRepository extends MindBinDatabase {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, createdNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, createdNote.getContent());
+        values.put(COLUMN_NOTE_DATE_CREATED, createdNote.getDateCreated());
+        values.put(COLUMN_NOTE_LAST_UPDATED, createdNote.getLastUpdated());
         database.insert(TABLE_NOTE, null, values);
         database.close();
     }
@@ -32,6 +34,7 @@ public class NoteRepository extends MindBinDatabase {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, updatedNote.getContent());
+        values.put(COLUMN_NOTE_LAST_UPDATED, updatedNote.getLastUpdated());
         database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(updatedNote.getID())});
         database.close();
     }

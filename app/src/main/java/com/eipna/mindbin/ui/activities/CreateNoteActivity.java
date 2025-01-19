@@ -2,7 +2,6 @@ package com.eipna.mindbin.ui.activities;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -16,8 +15,6 @@ import android.widget.Toast;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
-import com.eipna.mindbin.util.SharedPreferenceUtil;
-import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -76,6 +73,8 @@ public class CreateNoteActivity extends BaseActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, title);
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, content);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, System.currentTimeMillis());
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
         setResult(RESULT_OK, resultIntent);
         finish();
     }

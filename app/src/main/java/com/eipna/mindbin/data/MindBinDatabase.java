@@ -15,6 +15,8 @@ public class MindBinDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_NOTE_ID = "note_id";
     public static final String COLUMN_NOTE_TITLE = "title";
     public static final String COLUMN_NOTE_CONTENT = "content";
+    public static final String COLUMN_NOTE_DATE_CREATED = "date_created";
+    public static final String COLUMN_NOTE_LAST_UPDATED = "last_updated";
 
     public MindBinDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,7 +27,9 @@ public class MindBinDatabase extends SQLiteOpenHelper {
         String createNoteTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "(" +
                 COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOTE_TITLE + " TEXT, " +
-                COLUMN_NOTE_CONTENT + " TEXT)";
+                COLUMN_NOTE_CONTENT + " TEXT, " +
+                COLUMN_NOTE_DATE_CREATED + " LONG, " +
+                COLUMN_NOTE_LAST_UPDATED + " LONG)";
         sqLiteDatabase.execSQL(createNoteTable);
     }
 

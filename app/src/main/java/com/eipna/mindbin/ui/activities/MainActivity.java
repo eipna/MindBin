@@ -95,7 +95,9 @@ public class MainActivity extends BaseActivity implements NoteListener {
             if (resultIntent != null) {
                 Note createdNote = new Note();
                 createdNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
-                createdNote.setContent(result.getData().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
+                createdNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
+                createdNote.setDateCreated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1));
+                createdNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
                 noteRepository.create(createdNote);
                 noteList = new ArrayList<>(noteRepository.getNotes());
                 noteAdapter.update(noteList);
@@ -111,6 +113,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
                 updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
                 updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
+                updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
                 noteRepository.update(updatedNote);
                 noteList = new ArrayList<>(noteRepository.getNotes());
                 noteAdapter.update(noteList);
@@ -125,6 +128,8 @@ public class MainActivity extends BaseActivity implements NoteListener {
         updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, selectedNote.getID());
         updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, selectedNote.getTitle());
         updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, selectedNote.getContent());
+        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, selectedNote.getDateCreated());
+        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, selectedNote.getLastUpdated());
         updateNoteLauncher.launch(updateNoteIntent);
     }
 

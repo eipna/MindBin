@@ -10,13 +10,10 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
-import com.eipna.mindbin.util.SharedPreferenceUtil;
-import com.google.android.material.color.DynamicColors;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -28,6 +25,8 @@ public class UpdateNoteActivity extends BaseActivity {
     private int noteIDExtra;
     private String noteTitleExtra;
     private String noteContentExtra;
+    private long noteDateCreatedExtra;
+    private long noteLastUpdatedExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +46,8 @@ public class UpdateNoteActivity extends BaseActivity {
         noteIDExtra = getIntent().getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
         noteTitleExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE);
         noteContentExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT);
+        noteDateCreatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1);
+        noteLastUpdatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1);
 
         binding.titleInput.setText(noteTitleExtra);
         binding.contentInput.setText(noteContentExtra);
@@ -61,6 +62,7 @@ public class UpdateNoteActivity extends BaseActivity {
             resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
             resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
             resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
             setResult(RESULT_OK, resultIntent);
             finish();
         } else {
