@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -68,12 +69,14 @@ public class SettingsActivity extends BaseActivity {
         private int seekBarMaxNoteContentVal;
         private boolean switchDynamicColorsVal;
         private boolean switchRoundedCornersVal;
+        private boolean switchShowDateCreatedVal;
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
 
         private SwitchPreferenceCompat switchDynamicColors;
         private SwitchPreferenceCompat switchRoundedCorners;
+        private SwitchPreferenceCompat switchShowDateCreated;
 
         private Preference versionPrefs;
         private Preference licensePrefs;
@@ -96,6 +99,12 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
+                return true;
+            });
+
+            switchShowDateCreated.setChecked(switchShowDateCreatedVal);
+            switchShowDateCreated.setOnPreferenceChangeListener((preference, newValue) -> {
+                sharedPreferenceUtil.setBoolean("show_date_created", (boolean) newValue);
                 return true;
             });
 
@@ -197,6 +206,7 @@ public class SettingsActivity extends BaseActivity {
             seekBarMaxNoteContentVal = sharedPreferenceUtil.getInt("max_note_content", 1);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
             switchRoundedCornersVal = sharedPreferenceUtil.getBoolean("rounded_corners", true);
+            switchShowDateCreatedVal = sharedPreferenceUtil.getBoolean("show_date_created", true);
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
@@ -204,6 +214,7 @@ public class SettingsActivity extends BaseActivity {
             seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");
             switchRoundedCorners = findPreference("rounded_corners");
+            switchShowDateCreated = findPreference("show_date_created");
 
             versionPrefs = findPreference("version");
             licensePrefs = findPreference("license");

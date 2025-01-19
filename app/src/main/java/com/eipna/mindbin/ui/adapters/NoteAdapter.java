@@ -85,12 +85,14 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
         public void bind(Note note) {
             boolean isRoundedCorners = sharedPreferenceUtil.getBoolean("rounded_corners", true);
+            boolean isShowDateCreated = sharedPreferenceUtil.getBoolean("show_date_created", true);
             int maxNoteTitleLines = sharedPreferenceUtil.getInt("max_note_title", 1);
             int maxNoteContentLines = sharedPreferenceUtil.getInt("max_note_content", 1);
 
             parent.setRadius(isRoundedCorners ? 12.0f : 0.0f);
             title.setMaxLines(maxNoteTitleLines);
             content.setMaxLines(maxNoteContentLines);
+            dateCreated.setVisibility(isShowDateCreated ? View.VISIBLE : View.GONE);
 
             title.setText(note.getTitle());
             content.setText(note.getContent());

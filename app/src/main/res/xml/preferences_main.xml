@@ -38,6 +38,12 @@
             app:iconSpaceReserved="false"
             app:widgetLayout="@layout/view_preference_switch"/>
 
+        <SwitchPreferenceCompat
+            app:key="show_date_created"
+            app:title="@string/preference_switch_date_created"
+            app:iconSpaceReserved="false"
+            app:widgetLayout="@layout/view_preference_switch"/>
+
         <SeekBarPreference
             app:title="@string/preference_seekbar_max_note_title"
             app:iconSpaceReserved="false"
