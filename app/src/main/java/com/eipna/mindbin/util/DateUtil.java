@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class DateUtil {
 
-    public static String getByPattern(DatePattern pattern, long timeStamp) {
+    public static String getStringByPattern(DatePattern pattern, long timeStamp) {
         @SuppressLint("SimpleDateFormat")
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern.value);
         return simpleDateFormat.format(new Date(timeStamp));
