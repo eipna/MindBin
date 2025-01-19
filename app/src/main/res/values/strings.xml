@@ -34,8 +34,8 @@
     <!-- Notes Preference Category -->
     <string name="preference_category_notes">Notes</string>
     <string name="preference_switch_rounded_corners">Rounded Corners</string>
-    <string name="preference_seekbar_max_note_title">Max lines for title</string>
-    <string name="preference_seekbar_max_note_content">Max lines for content</string>
+    <string name="preference_seekbar_max_note_title">Number of lines for title</string>
+    <string name="preference_seekbar_max_note_content">Number of lines for content</string>
 
     <!-- About Preference Category -->
     <string name="preference_category_about">About</string>
