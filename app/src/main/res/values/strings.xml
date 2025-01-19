@@ -27,7 +27,7 @@
     <string name="indicator_folders_empty">No folders to show here</string>
 
     <!-- General Preference Category -->
-    <string name="preference_category_general">General</string>
+    <string name="preference_category_general">App</string>
     <string name="preference_list_theme">Theme</string>
     <string name="preference_list_view_mode">View Mode</string>
     <string name="preference_switch_dynamic_colors_summary">Apply colors from your wallpaper to the application theme</string>
