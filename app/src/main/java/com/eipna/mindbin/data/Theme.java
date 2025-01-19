@@ -1,5 +1,8 @@
 package com.eipna.mindbin.data;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public enum Theme {
     LIGHT("Light"),
     DARK("Dark"),
@@ -15,5 +18,13 @@ public enum Theme {
 
     Theme(String value) {
         this.value = value;
+    }
+
+    public static String[] toStringArray() {
+        String[] stringArray = new String[values().length];
+        for (int i = 0; i < stringArray.length; i++) {
+            stringArray[i] = values()[i].value;
+        }
+        return stringArray;
     }
 }
