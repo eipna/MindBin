@@ -122,6 +122,8 @@ public class SettingsActivity extends BaseActivity {
 
             listViewMode.setValue(listViewModeVal);
             listViewMode.setSummary(listViewModeVal);
+            listViewMode.setEntries(ViewMode.toStringArray());
+            listViewMode.setEntryValues(ViewMode.toStringArray());
             listViewMode.setOnPreferenceChangeListener((preference, newValue) -> {
                 String selectedViewMode = (String) newValue;
                 if (selectedViewMode.equals(ViewMode.LIST.value)) {
@@ -135,6 +137,8 @@ public class SettingsActivity extends BaseActivity {
 
             listTheme.setValue(listThemeVal);
             listTheme.setSummary(listThemeVal);
+            listTheme.setEntries(Theme.toStringArray());
+            listTheme.setEntryValues(Theme.toStringArray());
             listTheme.setOnPreferenceChangeListener((preference, newValue) -> {
                 String selectedTheme = (String) newValue;
                 if (selectedTheme.equals(Theme.SYSTEM.value)) {

@@ -8,16 +8,12 @@
         <ListPreference
             app:key="theme"
             app:title="@string/preference_list_theme"
-            app:entries="@array/theme"
-            app:entryValues="@array/theme"
             app:iconSpaceReserved="false"/>
 
         <ListPreference
             app:key="view_mode"
             app:title="@string/preference_list_view_mode"
-            app:iconSpaceReserved="false"
-            app:entries="@array/view_mode"
-            app:entryValues="@array/view_mode"/>
+            app:iconSpaceReserved="false"/>
 
         <SwitchPreferenceCompat
             app:key="dynamic_colors"
