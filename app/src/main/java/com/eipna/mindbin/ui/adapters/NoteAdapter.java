@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
+import com.eipna.mindbin.util.DateUtil;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
@@ -70,6 +72,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         MaterialCardView parent;
         MaterialTextView title;
         MaterialTextView content;
+        MaterialTextView dateCreated;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,6 +80,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
             parent = itemView.findViewById(R.id.recyclerNoteParent);
             title = itemView.findViewById(R.id.recyclerNoteTitle);
             content = itemView.findViewById(R.id.recyclerNoteContent);
+            dateCreated = itemView.findViewById(R.id.recyclerNoteDateCreated);
         }
 
         public void bind(Note note) {
@@ -90,6 +94,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
             title.setText(note.getTitle());
             content.setText(note.getContent());
+            dateCreated.setText(DateUtil.getStringByPattern(DatePattern.MM_DD_YYYY, note.getDateCreated()));
         }
     }
 }
