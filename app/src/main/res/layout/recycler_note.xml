@@ -24,8 +24,18 @@
             android:text="@string/recycler_note_title"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
             android:textColor="?attr/colorOnSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/recyclerNoteDateCreated"
+            android:text="@string/recycler_note_date_created"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="12sp"
+            android:alpha="0.6"
+            android:fontFamily="sans-serif-medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

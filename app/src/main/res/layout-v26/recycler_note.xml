@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/recyclerNoteParent"
     android:clickable="true"
@@ -25,8 +26,18 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
             android:textColor="?attr/colorOnSurface"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/recyclerNoteDateCreated"
+            android:text="@string/recycler_note_date_created"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="12sp"
+            android:fontFamily="sans-serif-medium"
+            android:alpha="0.6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
