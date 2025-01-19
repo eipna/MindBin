@@ -19,6 +19,7 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
@@ -65,6 +66,7 @@ public class SettingsActivity extends BaseActivity {
 
         private String listThemeVal;
         private String listViewModeVal;
+        private String listDateFormatVal;
         private int seekBarMaxNoteTitleVal;
         private int seekBarMaxNoteContentVal;
         private boolean switchDynamicColorsVal;
@@ -73,6 +75,7 @@ public class SettingsActivity extends BaseActivity {
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
+        private ListPreference listDateFormat;
 
         private SwitchPreferenceCompat switchDynamicColors;
         private SwitchPreferenceCompat switchRoundedCorners;
@@ -104,7 +107,32 @@ public class SettingsActivity extends BaseActivity {
 
             switchShowDateCreated.setChecked(switchShowDateCreatedVal);
             switchShowDateCreated.setOnPreferenceChangeListener((preference, newValue) -> {
+                listDateFormat.setVisible((boolean) newValue);
                 sharedPreferenceUtil.setBoolean("show_date_created", (boolean) newValue);
+                return true;
+            });
+
+            listDateFormat.setVisible(switchShowDateCreatedVal);
+            listDateFormat.setEntries(DatePattern.toStringArrayEntries());
+            listDateFormat.setEntryValues(DatePattern.toStringArray());
+            listDateFormat.setValue(listDateFormatVal);
+            listDateFormat.setSummary(listDateFormatVal);
+            listDateFormat.setOnPreferenceChangeListener((preference, newValue) -> {
+                String selectedDateFormat = (String) newValue;
+                if (selectedDateFormat.equals(DatePattern.LONG_DAY_NAME.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.LONG_DAY_NAME.value);
+                } else if (selectedDateFormat.equals(DatePattern.SHORT_DAY_NAME.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.SHORT_DAY_NAME.value);
+                } else if (selectedDateFormat.equals(DatePattern.DD_MM_YYYY.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.DD_MM_YYYY.value);
+                } else if (selectedDateFormat.equals(DatePattern.MM_DD_YYYY.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.MM_DD_YYYY.value);
+                } else if (selectedDateFormat.equals(DatePattern.YYYY_DD_MM.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.YYYY_DD_MM.value);
+                } else if (selectedDateFormat.equals(DatePattern.YYYY_MM_DD.value)) {
+                    sharedPreferenceUtil.setString("date_format", DatePattern.YYYY_MM_DD.value);
+                }
+                listDateFormat.setSummary(selectedDateFormat);
                 return true;
             });
 
@@ -206,6 +234,7 @@ public class SettingsActivity extends BaseActivity {
 
             listThemeVal = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
             listViewModeVal = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
+            listDateFormatVal = sharedPreferenceUtil.getString("date_format", DatePattern.LONG_DAY_NAME.value);
             seekBarMaxNoteTitleVal = sharedPreferenceUtil.getInt("max_note_title", 1);
             seekBarMaxNoteContentVal = sharedPreferenceUtil.getInt("max_note_content", 1);
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
@@ -214,6 +243,7 @@ public class SettingsActivity extends BaseActivity {
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
+            listDateFormat = findPreference("date_format");
             seekBarMaxNoteTitle = findPreference("max_note_title");
             seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");

@@ -55,6 +55,11 @@
             app:title="@string/preference_switch_date_created"
             app:iconSpaceReserved="false"
             app:widgetLayout="@layout/view_preference_switch"/>
+
+        <ListPreference
+            app:key="date_format"
+            app:title="@string/preference_list_date_format"
+            app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory

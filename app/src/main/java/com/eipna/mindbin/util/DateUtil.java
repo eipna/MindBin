@@ -14,4 +14,10 @@ public class DateUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern.value);
         return simpleDateFormat.format(new Date(timeStamp));
     }
+
+    public static String getString(String pattern, long timeStamp) {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(new Date(timeStamp));
+    }
 }

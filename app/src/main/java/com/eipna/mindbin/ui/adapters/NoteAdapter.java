@@ -84,6 +84,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         }
 
         public void bind(Note note) {
+            String dateCreatedFormat = sharedPreferenceUtil.getString("date_format", DatePattern.LONG_DAY_NAME.value);
             boolean isRoundedCorners = sharedPreferenceUtil.getBoolean("rounded_corners", true);
             boolean isShowDateCreated = sharedPreferenceUtil.getBoolean("show_date_created", true);
             int maxNoteTitleLines = sharedPreferenceUtil.getInt("max_note_title", 1);
@@ -96,7 +97,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
             title.setText(note.getTitle());
             content.setText(note.getContent());
-            dateCreated.setText(DateUtil.getStringByPattern(DatePattern.MM_DD_YYYY, note.getDateCreated()));
+            dateCreated.setText(DateUtil.getString(dateCreatedFormat, note.getDateCreated()));
         }
     }
 }
