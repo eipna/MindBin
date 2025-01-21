@@ -21,6 +21,7 @@ import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
+import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
-        noteList = new ArrayList<>(noteRepository.getNotes());
+        noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.NORMAL));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 createdNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
                 createdNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.create(createdNote);
-                noteList = new ArrayList<>(noteRepository.getNotes());
+                noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.NORMAL));
                 noteAdapter.update(noteList);
             }
         }
@@ -117,7 +118,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
                 updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getNotes());
+                noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.NORMAL));
                 noteAdapter.update(noteList);
             }
         }

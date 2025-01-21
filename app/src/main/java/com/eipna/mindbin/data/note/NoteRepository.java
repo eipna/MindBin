@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import com.eipna.mindbin.data.MindBinDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NoteRepository extends MindBinDatabase {
     public NoteRepository(@Nullable Context context) {
@@ -48,13 +47,38 @@ public class NoteRepository extends MindBinDatabase {
     }
 
     @SuppressLint("Range")
-    public List<Note> getNotes() {
+    public ArrayList<Note> getAllNotes() {
         SQLiteDatabase database = getReadableDatabase();
-        List<Note> list = new ArrayList<>();
+        ArrayList<Note> list = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NOTE;
 
         @SuppressLint("Recycle")
         Cursor cursor = database.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Note queriedNote = new Note();
+                queriedNote.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)));
+                queriedNote.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)));
+                queriedNote.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)));
+                queriedNote.setDateCreated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_DATE_CREATED)));
+                queriedNote.setLastUpdated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_LAST_UPDATED)));
+                queriedNote.setState(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_STATE)));
+                list.add(queriedNote);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return list;
+    }
+
+    @SuppressLint("Range")
+    public ArrayList<Note> getNotesByState(NoteState state) {
+        SQLiteDatabase database = getReadableDatabase();
+        ArrayList<Note> list = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_NOTE + " WHERE " + COLUMN_NOTE_STATE + " = ?";
+
+        @SuppressLint("Recycle")
+        Cursor cursor = database.rawQuery(query, new String[]{String.valueOf(state.value)});
         if (cursor.moveToFirst()) {
             do {
                 Note queriedNote = new Note();
