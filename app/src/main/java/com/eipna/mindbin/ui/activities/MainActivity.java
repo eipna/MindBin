@@ -98,6 +98,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 createdNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
                 createdNote.setDateCreated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1));
                 createdNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
+                createdNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.create(createdNote);
                 noteList = new ArrayList<>(noteRepository.getNotes());
                 noteAdapter.update(noteList);

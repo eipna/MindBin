@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
@@ -73,6 +74,7 @@ public class CreateNoteActivity extends BaseActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, title);
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, content);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, NoteState.NORMAL.value);
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, System.currentTimeMillis());
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
         setResult(RESULT_OK, resultIntent);
