@@ -95,4 +95,10 @@ public class NoteRepository extends MindBinDatabase {
         database.close();
         return list;
     }
+
+    public void clearNotesByState(NoteState state) {
+        SQLiteDatabase database = getWritableDatabase();
+        database.delete(TABLE_NOTE, COLUMN_NOTE_STATE + " = ?", new String[]{String.valueOf(state.value)});
+        database.close();
+    }
 }

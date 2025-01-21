@@ -25,6 +25,8 @@
 
     <string name="dialog_note_delete_title">Permanent Deletion</string>
     <string name="dialog_note_delete_message">Are you sure you want to delete this note? Once deleted, it cannot be recovered.</string>
+    <string name="dialog_note_clear_all_title">Permanent Deletion </string>
+    <string name="dialog_note_clear_all_message">This action will permanently delete all notes in the trash. Are you sure you want to proceed?</string>
 
     <string name="recycler_note_title">Lorem Ipsum.</string>
     <string name="recycler_note_content">Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu amet urna faucibus per eleifend, erat rutrum. Maximus eros tortor eget; sit metus tempus. Condimentum nibh litora velit augue fames. Ac consequat fames augue felis; sagittis vitae consectetur adipiscing. Finibus congue gravida litora dis amet. Dictumst elit ridiculus aenean suscipit fringilla placerat ante dictumst consequat. Diam adipiscing semper nunc massa sapien arcu consectetur praesent convallis. Ex ac cras nulla porttitor torquent bibendum.</string>

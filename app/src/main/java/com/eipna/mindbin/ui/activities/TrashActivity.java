@@ -3,14 +3,22 @@ package com.eipna.mindbin.ui.activities;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
@@ -20,6 +28,7 @@ import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityTrashBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
@@ -68,6 +77,47 @@ public class TrashActivity extends BaseActivity implements NoteListener {
         binding = null;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.trash, menu);
+
+        menu.findItem(R.id.clear).setVisible(!noteList.isEmpty());
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.clear).setVisible(!noteList.isEmpty());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.clear) showClearDialog();
+        if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
+        return true;
+    }
+
+    private void showClearDialog() {
+        @SuppressLint("UseCompatLoadingForDrawables")
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setTitle(getResources().getString(R.string.dialog_note_clear_all_title))
+                .setMessage(getResources().getString(R.string.dialog_note_clear_all_message))
+                .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Clear", (dialogInterface, i) -> {
+                    noteRepository.clearNotesByState(NoteState.TRASH);
+                    noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+                    noteAdapter.update(noteList);
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    invalidateOptionsMenu();
+                });
+
+        Dialog clearDialog = builder.create();
+        clearDialog.show();
+    }
+
     private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
@@ -81,6 +131,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 noteRepository.update(updatedNote);
                 noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                invalidateOptionsMenu();
                 noteAdapter.update(noteList);
             }
         }
