@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 createdNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.create(createdNote);
                 noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.NORMAL));
+                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 noteAdapter.update(noteList);
             }
         }
@@ -119,6 +120,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.update(updatedNote);
                 noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.NORMAL));
+                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 noteAdapter.update(noteList);
             }
         }
