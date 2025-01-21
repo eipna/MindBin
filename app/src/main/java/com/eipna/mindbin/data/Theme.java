@@ -6,7 +6,7 @@ import java.util.Objects;
 public enum Theme {
     LIGHT("Light"),
     DARK("Dark"),
-    SYSTEM("System"),
+    SYSTEM("System Default"),
     BATTERY_SAVING("Battery Saving");
 
     public static final Theme[] themes;
