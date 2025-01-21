@@ -1,7 +1,7 @@
 package com.eipna.mindbin.data;
 
 public enum Language {
-    DEFAULT("Default", "default"),
+    DEFAULT("System Default", "default"),
     FILIPINO("Filipino", "fil");
 
     public static final Language[] LANGUAGES;
