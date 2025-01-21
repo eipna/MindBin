@@ -25,6 +25,7 @@ public class NoteRepository extends MindBinDatabase {
         values.put(COLUMN_NOTE_CONTENT, createdNote.getContent());
         values.put(COLUMN_NOTE_DATE_CREATED, createdNote.getDateCreated());
         values.put(COLUMN_NOTE_LAST_UPDATED, createdNote.getLastUpdated());
+        values.put(COLUMN_NOTE_STATE, createdNote.getState());
         database.insert(TABLE_NOTE, null, values);
         database.close();
     }
@@ -35,6 +36,7 @@ public class NoteRepository extends MindBinDatabase {
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, updatedNote.getContent());
         values.put(COLUMN_NOTE_LAST_UPDATED, updatedNote.getLastUpdated());
+        values.put(COLUMN_NOTE_STATE, updatedNote.getState());
         database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(updatedNote.getID())});
         database.close();
     }
@@ -61,6 +63,7 @@ public class NoteRepository extends MindBinDatabase {
                 queriedNote.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)));
                 queriedNote.setDateCreated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_DATE_CREATED)));
                 queriedNote.setLastUpdated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_LAST_UPDATED)));
+                queriedNote.setState(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_STATE)));
                 list.add(queriedNote);
             } while (cursor.moveToNext());
         }

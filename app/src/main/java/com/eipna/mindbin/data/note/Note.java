@@ -7,6 +7,7 @@ public class Note {
     private String content;
     private long dateCreated;
     private long lastUpdated;
+    private int state;
 
     public Note() {
         this.ID = -1;
@@ -14,6 +15,7 @@ public class Note {
         this.content = null;
         this.dateCreated = -1;
         this.lastUpdated = -1;
+        this.state = -2;
     }
 
     public int getID() {
@@ -54,5 +56,13 @@ public class Note {
 
     public void setLastUpdated(long lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
