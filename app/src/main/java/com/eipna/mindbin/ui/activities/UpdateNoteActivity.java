@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
@@ -27,6 +29,7 @@ public class UpdateNoteActivity extends BaseActivity {
     private String noteContentExtra;
     private long noteDateCreatedExtra;
     private long noteLastUpdatedExtra;
+    private int noteStateExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class UpdateNoteActivity extends BaseActivity {
         noteContentExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT);
         noteDateCreatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1);
         noteLastUpdatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1);
+        noteStateExtra = getIntent().getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
 
         binding.titleInput.setText(noteTitleExtra);
         binding.contentInput.setText(noteContentExtra);
@@ -57,17 +61,14 @@ public class UpdateNoteActivity extends BaseActivity {
         String noteTitleInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
         String noteContentInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
-        if (!noteTitleInput.equals(noteTitleExtra) || !noteContentInput.equals(noteContentExtra)) {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
-            setResult(RESULT_OK, resultIntent);
-            finish();
-        } else {
-            finish();
-        }
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, noteStateExtra);
+        setResult(RESULT_OK, resultIntent);
+        finish();
     }
 
     @Override
@@ -81,6 +82,16 @@ public class UpdateNoteActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) updateNote();
         if (item.getItemId() == R.id.share) showShareIntent();
+
+        if (item.getItemId() == R.id.archive) {
+            noteStateExtra = NoteState.ARCHIVE.value;
+            updateNote();
+        }
+
+        if (item.getItemId() == R.id.trash) {
+            noteStateExtra = NoteState.TRASH.value;
+            updateNote();
+        }
         return true;
     }
 
