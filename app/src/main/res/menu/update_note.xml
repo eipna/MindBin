@@ -8,4 +8,11 @@
         android:icon="@drawable/ic_share"
         app:showAsAction="ifRoom"/>
 
+    <item
+        android:id="@+id/archive"
+        android:title="@string/menu_archive"/>
+
+    <item
+        android:id="@+id/trash"
+        android:title="@string/menu_trash"/>
 </menu>
