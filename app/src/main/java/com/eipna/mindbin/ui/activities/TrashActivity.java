@@ -84,6 +84,18 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 noteAdapter.update(noteList);
             }
         }
+
+        if (result.getResultCode() == RESULT_DELETE) {
+            Intent deleteIntent = result.getData();
+            if (deleteIntent != null) {
+                Note deletedNote = new Note();
+                deletedNote.setID(deleteIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
+                noteRepository.delete(deletedNote);
+                noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                noteAdapter.update(noteList);
+            }
+        }
     });
 
     @Override

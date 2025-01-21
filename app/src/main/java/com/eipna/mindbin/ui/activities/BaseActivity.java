@@ -11,6 +11,7 @@ import com.google.android.material.color.DynamicColors;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected SharedPreferenceUtil sharedPreferenceUtil;
+    protected final int RESULT_DELETE = 404;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

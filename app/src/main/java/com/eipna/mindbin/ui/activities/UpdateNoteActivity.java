@@ -1,5 +1,8 @@
 package com.eipna.mindbin.ui.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -109,7 +113,27 @@ public class UpdateNoteActivity extends BaseActivity {
             noteStateExtra = NoteState.NORMAL.value;
             updateNote();
         }
+
+        if (item.getItemId() == R.id.delete_forever) showDeleteDialog();
         return true;
+    }
+
+    private void showDeleteDialog() {
+        @SuppressLint("UseCompatLoadingForDrawables")
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setTitle(getResources().getString(R.string.dialog_note_delete_title))
+                .setMessage(getResources().getString(R.string.dialog_note_delete_message))
+                .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Delete", (dialogInterface, i) -> {
+                    Intent deleteIntent = new Intent();
+                    deleteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+                    setResult(RESULT_DELETE, deleteIntent);
+                    finish();
+                });
+
+        Dialog deleteDialog = builder.create();
+        deleteDialog.show();
     }
 
     private void showShareIntent() {
