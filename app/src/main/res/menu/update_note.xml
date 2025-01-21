@@ -30,6 +30,10 @@
             <item
                 android:id="@+id/trash"
                 android:title="@string/menu_trash"/>
+
+            <item
+                android:id="@+id/delete_forever"
+                android:title="@string/menu_delete_forever"/>
         </menu>
     </item>
 </menu>

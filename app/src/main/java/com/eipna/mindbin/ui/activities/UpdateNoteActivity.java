@@ -78,9 +78,11 @@ public class UpdateNoteActivity extends BaseActivity {
         if (noteStateExtra == NoteState.NORMAL.value) {
             menu.findItem(R.id.unarchive).setVisible(false);
             menu.findItem(R.id.restore).setVisible(false);
+            menu.findItem(R.id.delete_forever).setVisible(false);
         } else if (noteStateExtra == NoteState.ARCHIVE.value) {
             menu.findItem(R.id.archive).setVisible(false);
             menu.findItem(R.id.restore).setVisible(false);
+            menu.findItem(R.id.delete_forever).setVisible(false);
         } else if (noteStateExtra == NoteState.TRASH.value) {
             menu.findItem(R.id.trash).setVisible(false);
             menu.findItem(R.id.unarchive).setVisible(false);
