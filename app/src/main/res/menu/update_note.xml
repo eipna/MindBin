@@ -16,8 +16,16 @@
 
         <menu>
             <item
+                android:id="@+id/unarchive"
+                android:title="@string/menu_unarchive"/>
+
+            <item
                 android:id="@+id/archive"
                 android:title="@string/menu_archive"/>
+
+            <item
+                android:id="@+id/restore"
+                android:title="@string/menu_restore"/>
 
             <item
                 android:id="@+id/trash"

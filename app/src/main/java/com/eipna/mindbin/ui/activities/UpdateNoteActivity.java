@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
-import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -75,6 +74,17 @@ public class UpdateNoteActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.update_note, menu);
+
+        if (noteStateExtra == NoteState.NORMAL.value) {
+            menu.findItem(R.id.unarchive).setVisible(false);
+            menu.findItem(R.id.restore).setVisible(false);
+        } else if (noteStateExtra == NoteState.ARCHIVE.value) {
+            menu.findItem(R.id.archive).setVisible(false);
+            menu.findItem(R.id.restore).setVisible(false);
+        } else if (noteStateExtra == NoteState.TRASH.value) {
+            menu.findItem(R.id.trash).setVisible(false);
+            menu.findItem(R.id.unarchive).setVisible(false);
+        }
         return true;
     }
 
@@ -90,6 +100,11 @@ public class UpdateNoteActivity extends BaseActivity {
 
         if (item.getItemId() == R.id.trash) {
             noteStateExtra = NoteState.TRASH.value;
+            updateNote();
+        }
+
+        if (item.getItemId() == R.id.unarchive || item.getItemId() == R.id.restore) {
+            noteStateExtra = NoteState.NORMAL.value;
             updateNote();
         }
         return true;
