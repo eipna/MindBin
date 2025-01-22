@@ -2,10 +2,13 @@ package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -20,6 +23,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.DatePattern;
+import com.eipna.mindbin.data.Library;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
@@ -85,6 +89,7 @@ public class SettingsActivity extends BaseActivity {
 
         private Preference versionPrefs;
         private Preference licensePrefs;
+        private Preference thirdPartyLibraries;
 
         private SeekBarPreference seekBarMaxNoteTitle;
         private SeekBarPreference seekBarMaxNoteContent;
@@ -104,6 +109,11 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
+                return true;
+            });
+
+            thirdPartyLibraries.setOnPreferenceClickListener(preference -> {
+                showLibrariesDialog();
                 return true;
             });
 
@@ -210,6 +220,20 @@ public class SettingsActivity extends BaseActivity {
             });
         }
 
+        private void showLibrariesDialog() {
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(requireContext().getResources().getString(R.string.dialog_third_party_libraries_title))
+                    .setPositiveButton("Close", null)
+                    .setItems(Library.toStringArrayName(), (dialogInterface, index) -> {
+                        String clickedLibrary = Library.toStringArrayURL()[index];
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(clickedLibrary));
+                        startActivity(browserIntent);
+                    });
+
+            Dialog librariesDialog = builder.create();
+            librariesDialog.show();
+        }
+
         private void showLicenseDialog() {
             @SuppressLint("UseCompatLoadingForDrawables")
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
@@ -262,6 +286,7 @@ public class SettingsActivity extends BaseActivity {
 
             versionPrefs = findPreference("version");
             licensePrefs = findPreference("license");
+            thirdPartyLibraries = findPreference("third_party_libraries");
         }
     }
 }

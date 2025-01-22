@@ -90,6 +90,12 @@
         </Preference>
 
         <Preference
+            app:key="third_party_libraries"
+            android:title="@string/preference_list_third_party_libraries_title"
+            android:summary="@string/preference_list_third_party_libraries_summary"
+            app:iconSpaceReserved="false"/>
+
+        <Preference
             app:title="@string/preference_author"
             app:summary="@string/app_author"
             app:iconSpaceReserved="false">
