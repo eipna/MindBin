@@ -19,8 +19,10 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 
 import org.jetbrains.annotations.NotNull;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
@@ -68,19 +70,23 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         SharedPreferenceUtil sharedPreferenceUtil;
+        PrettyTime prettyTime;
 
         MaterialCardView parent;
         MaterialTextView title;
         MaterialTextView content;
         MaterialTextView dateCreated;
+        MaterialTextView lastUpdated;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             sharedPreferenceUtil = new SharedPreferenceUtil(itemView.getContext());
+            prettyTime = new PrettyTime();
             parent = itemView.findViewById(R.id.recyclerNoteParent);
             title = itemView.findViewById(R.id.recyclerNoteTitle);
             content = itemView.findViewById(R.id.recyclerNoteContent);
             dateCreated = itemView.findViewById(R.id.recyclerNoteDateCreated);
+            lastUpdated = itemView.findViewById(R.id.recyclerNoteLastUpdated);
         }
 
         public void bind(Note note) {
@@ -98,6 +104,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
             title.setText(note.getTitle());
             content.setText(note.getContent());
             dateCreated.setText(DateUtil.getString(dateCreatedFormat, note.getDateCreated()));
+            lastUpdated.setText(prettyTime.format(new Date(note.getLastUpdated())));
         }
     }
 }
