@@ -51,6 +51,12 @@
             app:widgetLayout="@layout/view_preference_switch"/>
 
         <SwitchPreferenceCompat
+            app:key="show_last_updated"
+            android:title="@string/preference_switch_last_updated"
+            app:iconSpaceReserved="false"
+            app:widgetLayout="@layout/view_preference_switch"/>
+
+        <SwitchPreferenceCompat
             app:key="show_date_created"
             app:title="@string/preference_switch_date_created"
             app:iconSpaceReserved="false"

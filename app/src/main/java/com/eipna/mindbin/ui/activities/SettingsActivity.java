@@ -72,6 +72,7 @@ public class SettingsActivity extends BaseActivity {
         private boolean switchDynamicColorsVal;
         private boolean switchRoundedCornersVal;
         private boolean switchShowDateCreatedVal;
+        private boolean switchShowLastUpdatedVal;
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
@@ -80,6 +81,7 @@ public class SettingsActivity extends BaseActivity {
         private SwitchPreferenceCompat switchDynamicColors;
         private SwitchPreferenceCompat switchRoundedCorners;
         private SwitchPreferenceCompat switchShowDateCreated;
+        private SwitchPreferenceCompat switchShowLastUpdated;
 
         private Preference versionPrefs;
         private Preference licensePrefs;
@@ -102,6 +104,12 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
+                return true;
+            });
+
+            switchShowLastUpdated.setChecked(switchShowLastUpdatedVal);
+            switchShowLastUpdated.setOnPreferenceChangeListener((preference, newValue) -> {
+                sharedPreferenceUtil.setBoolean("show_last_updated", (boolean) newValue);
                 return true;
             });
 
@@ -240,6 +248,7 @@ public class SettingsActivity extends BaseActivity {
             switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
             switchRoundedCornersVal = sharedPreferenceUtil.getBoolean("rounded_corners", true);
             switchShowDateCreatedVal = sharedPreferenceUtil.getBoolean("show_date_created", true);
+            switchShowLastUpdatedVal = sharedPreferenceUtil.getBoolean("show_last_updated", true);
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
@@ -249,6 +258,7 @@ public class SettingsActivity extends BaseActivity {
             switchDynamicColors = findPreference("dynamic_colors");
             switchRoundedCorners = findPreference("rounded_corners");
             switchShowDateCreated = findPreference("show_date_created");
+            switchShowLastUpdated = findPreference("show_last_updated");
 
             versionPrefs = findPreference("version");
             licensePrefs = findPreference("license");

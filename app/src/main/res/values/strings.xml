@@ -45,6 +45,7 @@
     <!-- Notes Preference Category -->
     <string name="preference_category_notes">Notes</string>
     <string name="preference_switch_rounded_corners">Use rounded corners</string>
+    <string name="preference_switch_last_updated">Show last updated</string>
     <string name="preference_switch_date_created">Show creation date</string>
     <string name="preference_seekbar_max_note_title">Number of lines for title</string>
     <string name="preference_seekbar_max_note_content">Number of lines for content</string>
