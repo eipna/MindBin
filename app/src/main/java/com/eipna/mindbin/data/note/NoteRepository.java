@@ -47,7 +47,7 @@ public class NoteRepository extends MindBinDatabase {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Note> getAllNotes() {
+    public ArrayList<Note> getAll() {
         SQLiteDatabase database = getReadableDatabase();
         ArrayList<Note> list = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NOTE;
@@ -72,7 +72,7 @@ public class NoteRepository extends MindBinDatabase {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Note> getNotesByState(NoteState state) {
+    public ArrayList<Note> getByState(NoteState state) {
         SQLiteDatabase database = getReadableDatabase();
         ArrayList<Note> list = new ArrayList<>();
         String query = "SELECT * FROM " + TABLE_NOTE + " WHERE " + COLUMN_NOTE_STATE + " = ?";
@@ -96,7 +96,7 @@ public class NoteRepository extends MindBinDatabase {
         return list;
     }
 
-    public void clearNotesByState(NoteState state) {
+    public void clearByState(NoteState state) {
         SQLiteDatabase database = getWritableDatabase();
         database.delete(TABLE_NOTE, COLUMN_NOTE_STATE + " = ?", new String[]{String.valueOf(state.value)});
         database.close();

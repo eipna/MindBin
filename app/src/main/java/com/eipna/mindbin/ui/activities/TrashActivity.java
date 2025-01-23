@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -56,7 +55,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
         }
 
         noteRepository = new NoteRepository(this);
-        noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+        noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -107,8 +106,8 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Clear", (dialogInterface, i) -> {
-                    noteRepository.clearNotesByState(NoteState.TRASH);
-                    noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+                    noteRepository.clearByState(NoteState.TRASH);
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                     noteAdapter.update(noteList);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     invalidateOptionsMenu();
@@ -129,7 +128,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
                 updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 invalidateOptionsMenu();
                 noteAdapter.update(noteList);
@@ -142,7 +141,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note deletedNote = new Note();
                 deletedNote.setID(deleteIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
                 noteRepository.delete(deletedNote);
-                noteList = new ArrayList<>(noteRepository.getNotesByState(NoteState.TRASH));
+                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 noteAdapter.update(noteList);
             }
