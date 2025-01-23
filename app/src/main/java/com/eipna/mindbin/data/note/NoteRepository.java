@@ -40,11 +40,11 @@ public class NoteRepository extends MindBinDatabase {
         database.close();
     }
 
-    public void updateState(Note selectedNote, NoteState updatedState) {
+    public void updateState(int noteID, int updatedState) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NOTE_STATE, updatedState.value);
-        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{String.valueOf(selectedNote.getID())});
+        values.put(COLUMN_NOTE_STATE, updatedState);
+        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{String.valueOf(noteID)});
         database.close();
     }
 

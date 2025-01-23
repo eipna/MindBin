@@ -84,6 +84,18 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
                 noteAdapter.update(noteList);
             }
         }
+
+        if (result.getResultCode() == RESULT_UPDATE_STATE) {
+            Intent resultIntent = result.getData();
+            if (resultIntent != null) {
+                int noteID = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
+                int updatedState = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
+                noteRepository.updateState(noteID, updatedState);
+                noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
+                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                noteAdapter.update(noteList);
+            }
+        }
     });
 
     @Override

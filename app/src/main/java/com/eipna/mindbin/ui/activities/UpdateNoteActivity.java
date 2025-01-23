@@ -2,7 +2,6 @@ package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -64,14 +63,18 @@ public class UpdateNoteActivity extends BaseActivity {
         String noteTitleInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
         String noteContentInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, noteStateExtra);
-        setResult(RESULT_OK, resultIntent);
-        finish();
+        if (!noteTitleInput.equals(noteTitleExtra) || !noteContentInput.equals(noteContentExtra)) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
+            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, noteStateExtra);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        } else {
+            finish();
+        }
     }
 
     @Override
@@ -99,23 +102,20 @@ public class UpdateNoteActivity extends BaseActivity {
         if (item.getItemId() == android.R.id.home) updateNote();
         if (item.getItemId() == R.id.share) showShareIntent();
 
-        if (item.getItemId() == R.id.archive) {
-            noteStateExtra = NoteState.ARCHIVE.value;
-            updateNote();
-        }
-
-        if (item.getItemId() == R.id.trash) {
-            noteStateExtra = NoteState.TRASH.value;
-            updateNote();
-        }
-
-        if (item.getItemId() == R.id.unarchive || item.getItemId() == R.id.restore) {
-            noteStateExtra = NoteState.NORMAL.value;
-            updateNote();
-        }
+        if (item.getItemId() == R.id.unarchive || item.getItemId() == R.id.restore) updateNoteState(NoteState.NORMAL);
+        if (item.getItemId() == R.id.archive) updateNoteState(NoteState.ARCHIVE);
+        if (item.getItemId() == R.id.trash) updateNoteState(NoteState.TRASH);
 
         if (item.getItemId() == R.id.delete_forever) showDeleteDialog();
         return true;
+    }
+
+    private void updateNoteState(NoteState updatedState) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, updatedState.value);
+        setResult(RESULT_UPDATE_STATE, resultIntent);
+        finish();
     }
 
     private void showDeleteDialog() {

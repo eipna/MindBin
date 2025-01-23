@@ -1,12 +1,5 @@
 package com.eipna.mindbin.ui.activities;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,6 +9,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.MindBinDatabase;
@@ -143,6 +143,20 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 noteRepository.delete(deletedNote);
                 noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                invalidateOptionsMenu();
+                noteAdapter.update(noteList);
+            }
+        }
+
+        if (result.getResultCode() == RESULT_UPDATE_STATE) {
+            Intent resultIntent = result.getData();
+            if (resultIntent != null) {
+                int noteID = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
+                int updatedState = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
+                noteRepository.updateState(noteID, updatedState);
+                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
+                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                invalidateOptionsMenu();
                 noteAdapter.update(noteList);
             }
         }
