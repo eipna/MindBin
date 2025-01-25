@@ -12,6 +12,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -72,7 +73,36 @@ public class MainActivity extends BaseActivity implements NoteListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        assert searchView != null;
+        searchView.setQueryHint(getString(R.string.menu_search_note));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                searchNote(query);
+                return true;
+            }
+        });
         return true;
+    }
+
+    private void searchNote(String searchQuery) {
+        ArrayList<Note> queriedNotes = new ArrayList<>();
+        for (Note note : noteList) {
+            if (note.getTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
+                queriedNotes.add(note);
+            }
+        }
+        noteAdapter.search(queriedNotes);
+        binding.emptyIndicator.setVisibility(queriedNotes.isEmpty() ? View.VISIBLE : View.GONE);
     }
 
     @Override

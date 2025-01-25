@@ -27,13 +27,19 @@ import java.util.Date;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private final Context context;
-    private final ArrayList<Note> list;
+    private ArrayList<Note> list;
     private final NoteListener noteListener;
 
     public NoteAdapter(@NotNull Context context, NoteListener noteListener, ArrayList<Note> list) {
         this.context = context;
         this.list = list;
         this.noteListener = noteListener;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void search(ArrayList<Note> queriedList) {
+        list = queriedList;
+        notifyDataSetChanged();
     }
 
     @NonNull
