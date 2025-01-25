@@ -3,22 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/folder"
-        app:showAsAction="never"
-        android:title="@string/menu_folder"/>
+        android:id="@+id/search"
+        android:title="@string/menu_search_note"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
-        android:id="@+id/archive"
-        android:title="@string/menu_archive"
-        app:showAsAction="never"/>
+        android:title="@string/menu_overflow"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_more_vertical">
 
-    <item
-        android:id="@+id/trash"
-        android:title="@string/menu_trash"
-        app:showAsAction="never"/>
+        <menu>
+            <item
+                android:id="@+id/folder"
+                app:showAsAction="never"
+                android:title="@string/menu_folder"/>
 
-    <item
-        android:id="@+id/settings"
-        android:title="@string/menu_settings"
-        app:showAsAction="never"/>
+            <item
+                android:id="@+id/archive"
+                android:title="@string/menu_archive"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/trash"
+                android:title="@string/menu_trash"
+                app:showAsAction="never"/>
+
+            <item
+                android:id="@+id/settings"
+                android:title="@string/menu_settings"
+                app:showAsAction="never"/>
+        </menu>
+    </item>
 </menu>
