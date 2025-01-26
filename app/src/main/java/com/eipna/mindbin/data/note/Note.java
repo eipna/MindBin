@@ -77,13 +77,13 @@ public class Note implements Parcelable {
 
     public static final Comparator<Note> SORT_TITLE_DESCENDING = (firstNote, secondNote) -> secondNote.getTitle().compareToIgnoreCase(firstNote.getTitle());
 
-    public static final Comparator<Note> SORT_DATE_CREATED_LATEST = Comparator.comparingLong(Note::getDateCreated);
+    public static final Comparator<Note> SORT_DATE_CREATED_OLDEST = Comparator.comparingLong(Note::getDateCreated);
 
-    public static final Comparator<Note> SORT_DATE_CREATED_OLDEST = (firstNote, secondNote) -> Long.compare(secondNote.getDateCreated(), firstNote.getDateCreated());
+    public static final Comparator<Note> SORT_DATE_CREATED_LATEST = (firstNote, secondNote) -> Long.compare(secondNote.getDateCreated(), firstNote.getDateCreated());
 
-    public static final Comparator<Note> SORT_LAST_UPDATED_LATEST = Comparator.comparingLong(Note::getLastUpdated);
+    public static final Comparator<Note> SORT_LAST_UPDATED_OLDEST = Comparator.comparingLong(Note::getLastUpdated);
 
-    public static final Comparator<Note> SORT_LAST_UPDATED_OLDEST = (firstNote, secondNote) -> Long.compare(secondNote.getLastUpdated(), firstNote.getLastUpdated());
+    public static final Comparator<Note> SORT_LAST_UPDATED_LATEST = (firstNote, secondNote) -> Long.compare(secondNote.getLastUpdated(), firstNote.getLastUpdated());
 
     protected Note(Parcel in) {
         ID = in.readInt();
