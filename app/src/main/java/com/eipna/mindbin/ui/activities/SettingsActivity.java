@@ -2,7 +2,6 @@ package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -225,8 +223,8 @@ public class SettingsActivity extends BaseActivity {
                     .setTitle(requireContext().getResources().getString(R.string.dialog_third_party_libraries_title))
                     .setPositiveButton("Close", null)
                     .setItems(Library.toStringArrayName(), (dialogInterface, index) -> {
-                        String clickedLibrary = Library.toStringArrayURL()[index];
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(clickedLibrary));
+                        String selectedLibrary = Library.toStringArrayURL()[index];
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedLibrary));
                         startActivity(browserIntent);
                     });
 
