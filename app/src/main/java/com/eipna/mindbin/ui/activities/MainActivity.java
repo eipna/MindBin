@@ -52,9 +52,8 @@ public class MainActivity extends BaseActivity implements NoteListener {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
-        Comparator<Note> selectedSort = NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-        noteList.sort(selectedSort);
+        noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -193,6 +192,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 createdNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.create(createdNote);
                 noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 noteAdapter.update(noteList);
             }
@@ -211,6 +211,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
                 noteRepository.update(updatedNote);
                 noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
                 binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                 noteAdapter.update(noteList);
             }
