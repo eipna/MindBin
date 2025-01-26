@@ -41,6 +41,8 @@
     <string name="indicator_notes_empty">No notes to show here</string>
     <string name="indicator_folders_empty">No folders to show here</string>
 
+    <string name="empty_note_content">Nothing to read here…</string>
+
     <!-- General Preference Category -->
     <string name="preference_category_general">App</string>
     <string name="preference_list_theme">Theme</string>

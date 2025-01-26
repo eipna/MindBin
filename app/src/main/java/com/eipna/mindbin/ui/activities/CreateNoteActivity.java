@@ -1,8 +1,5 @@
 package com.eipna.mindbin.ui.activities;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,10 +9,15 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
+import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -67,9 +69,10 @@ public class CreateNoteActivity extends BaseActivity {
     private void createNewNote() {
         String titleFromInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
         String contentFromInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
+        String emptyTitlePlaceholder = String.format("Note %s", DateUtil.getStringByPattern(DatePattern.MM_DD_YYYY, System.currentTimeMillis()));
 
-        String title = (titleFromInput.isEmpty()) ? "Empty Note" : titleFromInput;
-        String content = (contentFromInput.isEmpty()) ? "Empty Note" : contentFromInput;
+        String title = (titleFromInput.isEmpty()) ? emptyTitlePlaceholder : titleFromInput;
+        String content = (contentFromInput.isEmpty()) ? getString(R.string.empty_note_content) : contentFromInput;
 
         Intent resultIntent = new Intent();
         resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, title);
