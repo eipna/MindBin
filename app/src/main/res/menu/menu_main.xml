@@ -12,6 +12,49 @@
         tools:ignore="AlwaysShowAction" />
 
     <item
+        android:id="@+id/sort"
+        android:title="@string/menu_sort"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="always">
+
+        <menu>
+            <group
+                android:id="@+id/group1"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sort_title_asc"
+                    android:title="@string/menu_sort_title_asc"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_title_desc"
+                    android:title="@string/menu_sort_title_desc"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_created_latest"
+                    android:title="@string/menu_sort_created_latest"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_created_oldest"
+                    android:title="@string/menu_sort_created_oldest"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_updated_latest"
+                    android:title="@string/menu_sort_updated_latest"
+                    app:showAsAction="never"/>
+
+                <item
+                    android:id="@+id/sort_updated_oldest"
+                    android:title="@string/menu_sort_updated_oldest"
+                    app:showAsAction="never"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
         android:title="@string/menu_overflow"
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_more_vertical">
