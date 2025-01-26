@@ -79,7 +79,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.trash, menu);
+        inflater.inflate(R.menu.menu_trash, menu);
 
         menu.findItem(R.id.clear).setVisible(!noteList.isEmpty());
         return true;

@@ -80,7 +80,7 @@ public class UpdateNoteActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.update_note, menu);
+        inflater.inflate(R.menu.menu_update_note, menu);
 
         if (noteStateExtra == NoteState.NORMAL.value) {
             menu.findItem(R.id.unarchive).setVisible(false);

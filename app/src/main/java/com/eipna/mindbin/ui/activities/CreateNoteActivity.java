@@ -55,7 +55,7 @@ public class CreateNoteActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.create_note, menu);
+        inflater.inflate(R.menu.menu_create_note, menu);
         return true;
     }
 
