@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
 
     private void sortNotes(NoteSort sort) {
         if (noteList.isEmpty()) {
-            Toast.makeText(this, "Nothing to sort here", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_decline_sort), Toast.LENGTH_SHORT).show();
         } else {
             ArrayList<Note> sortedList = new ArrayList<>(noteList);
             sortedList.sort(sort.ORDER);

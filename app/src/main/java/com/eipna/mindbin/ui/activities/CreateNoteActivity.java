@@ -87,7 +87,7 @@ public class CreateNoteActivity extends BaseActivity {
     private void showShareIntent() {
         String noteContent = Objects.requireNonNull(binding.contentInput.getText()).toString();
         if (noteContent.isEmpty()) {
-            Toast.makeText(this, "Nothing to share here", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_decline_share), Toast.LENGTH_SHORT).show();
         } else {
            Intent sendIntent = new Intent();
            sendIntent.setAction(Intent.ACTION_SEND);

@@ -49,6 +49,9 @@
     <string name="indicator_folders_empty">No folders to show here</string>
 
     <string name="empty_note_content">Nothing to read here…</string>
+    
+    <string name="toast_decline_share">Nothing to share here</string>
+    <string name="toast_decline_sort">Nothing to sort here</string>
 
     <!-- General Preference Category -->
     <string name="preference_category_general">App</string>
