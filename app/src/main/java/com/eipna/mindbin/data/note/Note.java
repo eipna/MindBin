@@ -1,6 +1,11 @@
 package com.eipna.mindbin.data.note;
 
-public class Note {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Note implements Parcelable {
 
     private int ID;
     private String title;
@@ -64,5 +69,41 @@ public class Note {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    protected Note(Parcel in) {
+        ID = in.readInt();
+        title = in.readString();
+        content = in.readString();
+        dateCreated = in.readLong();
+        lastUpdated = in.readLong();
+        state = in.readInt();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel parcel) {
+            return new Note(parcel);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel destination, int flags) {
+        destination.writeInt(ID);
+        destination.writeString(title);
+        destination.writeString(content);
+        destination.writeLong(dateCreated);
+        destination.writeLong(lastUpdated);
+        destination.writeInt(state);
     }
 }
