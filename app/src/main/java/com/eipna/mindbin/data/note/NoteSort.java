@@ -8,7 +8,7 @@ public enum NoteSort {
     DATE_CREATED_LATEST("date_created_latest", Note.SORT_DATE_CREATED_LATEST),
     DATE_CREATED_OLDEST("date_created_oldest", Note.SORT_DATE_CREATED_OLDEST),
     LAST_UPDATED_LATEST("last_updated_latest", Note.SORT_LAST_UPDATED_LATEST),
-    LAST_UPDATES_OLDEST("last_updated_oldest", Note.SORT_LAST_UPDATED_OLDEST);
+    LAST_UPDATED_OLDEST("last_updated_oldest", Note.SORT_LAST_UPDATED_OLDEST);
 
     public static final NoteSort[] sorts;
     public final String NAME;
