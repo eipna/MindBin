@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.Comparator;
+
 public class Note implements Parcelable {
 
     private int ID;
@@ -70,6 +72,18 @@ public class Note implements Parcelable {
     public void setState(int state) {
         this.state = state;
     }
+
+    public static final Comparator<Note> SORT_TITLE_ASCENDING = (firstNote, secondNote) -> firstNote.getTitle().compareToIgnoreCase(secondNote.getTitle());
+
+    public static final Comparator<Note> SORT_TITLE_DESCENDING = (firstNote, secondNote) -> secondNote.getTitle().compareToIgnoreCase(firstNote.getTitle());
+
+    public static final Comparator<Note> SORT_DATE_CREATED_LATEST = Comparator.comparingLong(Note::getDateCreated);
+
+    public static final Comparator<Note> SORT_DATE_CREATED_OLDEST = (firstNote, secondNote) -> Long.compare(secondNote.getDateCreated(), firstNote.getDateCreated());
+
+    public static final Comparator<Note> SORT_LAST_UPDATED_LATEST = Comparator.comparingLong(Note::getLastUpdated);
+
+    public static final Comparator<Note> SORT_LAST_UPDATED_OLDEST = (firstNote, secondNote) -> Long.compare(secondNote.getLastUpdated(), firstNote.getLastUpdated());
 
     protected Note(Parcel in) {
         ID = in.readInt();
