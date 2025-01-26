@@ -101,11 +101,11 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     private void showClearDialog() {
         @SuppressLint("UseCompatLoadingForDrawables")
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-                .setTitle(getResources().getString(R.string.dialog_note_clear_all_title))
-                .setMessage(getResources().getString(R.string.dialog_note_clear_all_message))
-                .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Clear", (dialogInterface, i) -> {
+                .setTitle(R.string.dialog_note_clear_all_title)
+                .setMessage(R.string.dialog_note_clear_all_message)
+                .setIcon(R.drawable.ic_warning_filled)
+                .setNegativeButton(R.string.dialog_button_close, null)
+                .setPositiveButton(R.string.dialog_button_clear, (dialogInterface, i) -> {
                     noteRepository.clearByState(NoteState.TRASH);
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                     noteAdapter.update(noteList);

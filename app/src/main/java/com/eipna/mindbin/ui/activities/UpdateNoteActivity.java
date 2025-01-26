@@ -121,11 +121,11 @@ public class UpdateNoteActivity extends BaseActivity {
     private void showDeleteDialog() {
         @SuppressLint("UseCompatLoadingForDrawables")
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-                .setTitle(getResources().getString(R.string.dialog_note_delete_title))
-                .setMessage(getResources().getString(R.string.dialog_note_delete_message))
+                .setTitle(R.string.dialog_note_delete_title)
+                .setMessage(R.string.dialog_note_delete_message)
                 .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Delete", (dialogInterface, i) -> {
+                .setNegativeButton(R.string.dialog_button_close, null)
+                .setPositiveButton(R.string.dialog_button_delete, (dialogInterface, i) -> {
                     Intent deleteIntent = new Intent();
                     deleteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
                     setResult(RESULT_DELETE, deleteIntent);

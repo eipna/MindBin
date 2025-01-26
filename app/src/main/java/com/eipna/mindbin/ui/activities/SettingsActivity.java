@@ -220,8 +220,8 @@ public class SettingsActivity extends BaseActivity {
 
         private void showLibrariesDialog() {
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(requireContext().getResources().getString(R.string.dialog_third_party_libraries_title))
-                    .setPositiveButton("Close", null)
+                    .setTitle(R.string.dialog_third_party_libraries_title)
+                    .setPositiveButton(R.string.dialog_button_close, null)
                     .setItems(Library.toStringArrayName(), (dialogInterface, index) -> {
                         String selectedLibrary = Library.toStringArrayURL()[index];
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedLibrary));
