@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public enum NoteSort {
     TITLE_ASCENDING("title_ascending", Note.SORT_TITLE_ASCENDING),
-    TITLE_DESCENGING("title_descending", Note.SORT_TITLE_DESCENDING),
+    TITLE_DESCENDING("title_descending", Note.SORT_TITLE_DESCENDING),
     DATE_CREATED_LATEST("date_created_latest", Note.SORT_DATE_CREATED_LATEST),
     DATE_CREATED_OLDEST("date_created_oldest", Note.SORT_DATE_CREATED_OLDEST),
     LAST_UPDATED_LATEST("last_updated_latest", Note.SORT_LAST_UPDATED_LATEST),
