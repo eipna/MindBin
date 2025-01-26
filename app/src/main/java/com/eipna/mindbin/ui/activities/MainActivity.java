@@ -31,7 +31,6 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class MainActivity extends BaseActivity implements NoteListener {
 
@@ -53,7 +52,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
         noteRepository = new NoteRepository(this);
 
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-        noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+        noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
