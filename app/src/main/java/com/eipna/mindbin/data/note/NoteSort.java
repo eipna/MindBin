@@ -22,4 +22,13 @@ public enum NoteSort {
         this.NAME = name;
         this.ORDER = order;
     }
+
+    public static Comparator<Note> getComparator(String name) {
+        for (NoteSort sort : sorts) {
+            if (name.equals(sort.name())) {
+                return sort.ORDER;
+            }
+        }
+        return null;
+    }
 }
