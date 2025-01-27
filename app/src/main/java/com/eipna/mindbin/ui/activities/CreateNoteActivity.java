@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.DatePattern;
-import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
@@ -74,13 +74,16 @@ public class CreateNoteActivity extends BaseActivity {
         String title = (titleFromInput.isEmpty()) ? emptyTitlePlaceholder : titleFromInput;
         String content = (contentFromInput.isEmpty()) ? getString(R.string.empty_note_content) : contentFromInput;
 
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, title);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, content);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, NoteState.NORMAL.value);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, System.currentTimeMillis());
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
-        setResult(RESULT_OK, resultIntent);
+        Note createdNote = new Note();
+        createdNote.setTitle(title);
+        createdNote.setContent(content);
+        createdNote.setState(NoteState.NORMAL.value);
+        createdNote.setDateCreated(System.currentTimeMillis());
+        createdNote.setLastUpdated(System.currentTimeMillis());
+
+        Intent createIntent = new Intent();
+        createIntent.putExtra("created_note", createdNote);
+        setResult(RESULT_OK, createIntent);
         finish();
     }
 
