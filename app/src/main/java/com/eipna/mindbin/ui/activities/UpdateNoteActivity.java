@@ -14,7 +14,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -25,13 +25,7 @@ import java.util.Objects;
 public class UpdateNoteActivity extends BaseActivity {
 
     private ActivityUpdateNoteBinding binding;
-
-    private int noteIDExtra;
-    private String noteTitleExtra;
-    private String noteContentExtra;
-    private long noteDateCreatedExtra;
-    private long noteLastUpdatedExtra;
-    private int noteStateExtra;
+    private Note noteExtra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,29 +42,28 @@ public class UpdateNoteActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        noteIDExtra = getIntent().getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
-        noteTitleExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE);
-        noteContentExtra = getIntent().getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT);
-        noteDateCreatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1);
-        noteLastUpdatedExtra = getIntent().getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1);
-        noteStateExtra = getIntent().getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
-
-        binding.titleInput.setText(noteTitleExtra);
-        binding.contentInput.setText(noteContentExtra);
+        noteExtra = getIntent().getParcelableExtra("selected_note");
+        if (noteExtra != null) {
+            binding.titleInput.setText(noteExtra.getTitle());
+            binding.contentInput.setText(noteExtra.getContent());
+        }
     }
 
     private void updateNote() {
         String noteTitleInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
         String noteContentInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
-        if (!noteTitleInput.equals(noteTitleExtra) || !noteContentInput.equals(noteContentExtra)) {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, noteTitleInput);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, noteContentInput);
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, System.currentTimeMillis());
-            resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, noteStateExtra);
-            setResult(RESULT_OK, resultIntent);
+        if (!noteTitleInput.equals(noteExtra.getTitle()) || !noteContentInput.equals(noteExtra.getContent())) {
+            Note updatedNote = new Note();
+            updatedNote.setID(noteExtra.getID());
+            updatedNote.setTitle(noteTitleInput);
+            updatedNote.setContent(noteContentInput);
+            updatedNote.setLastUpdated(System.currentTimeMillis());
+            updatedNote.setState(noteExtra.getState());
+
+            Intent updateIntent = new Intent();
+            updateIntent.putExtra("updated_note", updatedNote);
+            setResult(RESULT_OK, updateIntent);
             finish();
         } else {
             finish();
@@ -82,15 +75,15 @@ public class UpdateNoteActivity extends BaseActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_update_note, menu);
 
-        if (noteStateExtra == NoteState.NORMAL.value) {
+        if (noteExtra.getState() == NoteState.NORMAL.value) {
             menu.findItem(R.id.unarchive).setVisible(false);
             menu.findItem(R.id.restore).setVisible(false);
             menu.findItem(R.id.delete_forever).setVisible(false);
-        } else if (noteStateExtra == NoteState.ARCHIVE.value) {
+        } else if (noteExtra.getState() == NoteState.ARCHIVE.value) {
             menu.findItem(R.id.archive).setVisible(false);
             menu.findItem(R.id.restore).setVisible(false);
             menu.findItem(R.id.delete_forever).setVisible(false);
-        } else if (noteStateExtra == NoteState.TRASH.value) {
+        } else if (noteExtra.getState() == NoteState.TRASH.value) {
             menu.findItem(R.id.trash).setVisible(false);
             menu.findItem(R.id.unarchive).setVisible(false);
         }
@@ -111,10 +104,13 @@ public class UpdateNoteActivity extends BaseActivity {
     }
 
     private void updateNoteState(NoteState updatedState) {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
-        resultIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, updatedState.value);
-        setResult(RESULT_UPDATE_STATE, resultIntent);
+        Note updatedNote = new Note();
+        updatedNote.setID(noteExtra.getID());
+        updatedNote.setState(updatedState.value);
+
+        Intent updateIntent = new Intent();
+        updateIntent.putExtra("updated_note", updatedNote);
+        setResult(RESULT_UPDATE_STATE, updateIntent);
         finish();
     }
 
@@ -126,8 +122,11 @@ public class UpdateNoteActivity extends BaseActivity {
                 .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
                 .setNegativeButton(R.string.dialog_button_close, null)
                 .setPositiveButton(R.string.dialog_button_delete, (dialogInterface, i) -> {
+                    Note deletedNote = new Note();
+                    deletedNote.setID(noteExtra.getID());
+
                     Intent deleteIntent = new Intent();
-                    deleteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, noteIDExtra);
+                    deleteIntent.putExtra("deleted_note", deletedNote);
                     setResult(RESULT_DELETE, deleteIntent);
                     finish();
                 });
