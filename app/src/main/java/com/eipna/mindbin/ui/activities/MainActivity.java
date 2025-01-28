@@ -30,6 +30,7 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity implements NoteListener {
 
@@ -50,7 +51,9 @@ public class MainActivity extends BaseActivity implements NoteListener {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -183,7 +186,9 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note createdNote = resultIntent.getParcelableExtra("created_note");
                 if (createdNote != null) {
                     noteRepository.create(createdNote);
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }
@@ -198,7 +203,9 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.update(updatedNote);
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }
@@ -211,7 +218,9 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }
