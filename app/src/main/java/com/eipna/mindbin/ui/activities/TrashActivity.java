@@ -55,7 +55,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
         noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
@@ -127,7 +127,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.update(updatedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.DATE_CREATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.DATE_CREATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
@@ -144,7 +144,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note deletedNote = deleteIntent.getParcelableExtra("deleted_note");
                 if (deletedNote != null) {
                     noteRepository.delete(deletedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
@@ -161,7 +161,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.DATE_CREATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.DATE_CREATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
