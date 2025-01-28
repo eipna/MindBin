@@ -50,7 +50,7 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_archive", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
         noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
@@ -87,7 +87,7 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
             if (resultIntent != null) {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_archive", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteRepository.update(updatedNote);
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
