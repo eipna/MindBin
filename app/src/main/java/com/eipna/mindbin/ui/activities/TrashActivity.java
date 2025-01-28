@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
@@ -178,12 +177,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
         Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateNoteActivity.class);
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, selectedNote.getID());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, selectedNote.getTitle());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, selectedNote.getContent());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, selectedNote.getDateCreated());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, selectedNote.getLastUpdated());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, selectedNote.getState());
+        updateNoteIntent.putExtra("selected_note", selectedNote);
         updateNoteLauncher.launch(updateNoteIntent);
     }
 
