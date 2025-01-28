@@ -11,11 +11,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
+import com.eipna.mindbin.data.note.NoteSort;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityArchiveBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -23,6 +23,7 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ArchiveActivity extends BaseActivity implements NoteListener {
 
@@ -46,8 +47,10 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
+        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -72,28 +75,28 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                Note updatedNote = new Note();
-                updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
-                updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
-                updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
-                updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
-                noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    noteRepository.update(updatedNote);
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    noteAdapter.update(noteList);
+                }
             }
         }
 
         if (result.getResultCode() == RESULT_UPDATE_STATE) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                int noteID = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
-                int updatedState = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
-                noteRepository.updateState(noteID, updatedState);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    noteAdapter.update(noteList);
+                }
             }
         }
     });
@@ -102,12 +105,7 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
         Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateNoteActivity.class);
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_ID, selectedNote.getID());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_TITLE, selectedNote.getTitle());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_CONTENT, selectedNote.getContent());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, selectedNote.getDateCreated());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, selectedNote.getLastUpdated());
-        updateNoteIntent.putExtra(MindBinDatabase.COLUMN_NOTE_STATE, selectedNote.getState());
+        updateNoteIntent.putExtra("selected_note", selectedNote);
         updateNoteLauncher.launch(updateNoteIntent);
     }
 
