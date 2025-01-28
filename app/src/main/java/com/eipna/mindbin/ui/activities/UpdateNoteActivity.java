@@ -137,7 +137,7 @@ public class UpdateNoteActivity extends BaseActivity {
 
     private void showShareIntent() {
         String noteContent = Objects.requireNonNull(binding.contentInput.getText()).toString();
-        if (noteContent.isEmpty()) {
+        if (noteContent.isEmpty() || noteContent.equals(getString(R.string.empty_note_content))) {
             Toast.makeText(this, getString(R.string.toast_decline_share), Toast.LENGTH_SHORT).show();
         } else {
             Intent sendIntent = new Intent();
