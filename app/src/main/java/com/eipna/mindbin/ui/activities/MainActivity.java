@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
         noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
             }
         });
 
-        String selectedSort = sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME);
+        String selectedSort = sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME);
         if (selectedSort.equals(NoteSort.TITLE_ASCENDING.NAME)) {
             menu.findItem(R.id.sort_title_asc).setChecked(true);
         } else if (selectedSort.equals(NoteSort.TITLE_DESCENDING.NAME)) {
@@ -169,7 +169,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
             ArrayList<Note> sortedList = new ArrayList<>(noteList);
             sortedList.sort(sort.ORDER);
             noteAdapter.update(sortedList);
-            sharedPreferenceUtil.setString("sort_notes", sort.NAME);
+            sharedPreferenceUtil.setString("sort_notes_normal", sort.NAME);
         }
     }
 
@@ -186,7 +186,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note createdNote = resultIntent.getParcelableExtra("created_note");
                 if (createdNote != null) {
                     noteRepository.create(createdNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.update(updatedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -218,7 +218,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
                     noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
