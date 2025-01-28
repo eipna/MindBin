@@ -85,6 +85,21 @@ public class TrashActivity extends BaseActivity implements NoteListener {
         inflater.inflate(R.menu.menu_trash, menu);
 
         menu.findItem(R.id.clear).setVisible(!noteList.isEmpty());
+
+        String selectedSort = sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME);
+        if (selectedSort.equals(NoteSort.TITLE_ASCENDING.NAME)) {
+            menu.findItem(R.id.sort_title_asc).setChecked(true);
+        } else if (selectedSort.equals(NoteSort.TITLE_DESCENDING.NAME)) {
+            menu.findItem(R.id.sort_title_desc).setChecked(true);
+        } else if (selectedSort.equals(NoteSort.DATE_CREATED_LATEST.NAME)) {
+            menu.findItem(R.id.sort_created_latest).setChecked(true);
+        } else if (selectedSort.equals(NoteSort.DATE_CREATED_OLDEST.NAME)) {
+            menu.findItem(R.id.sort_created_oldest).setChecked(true);
+        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_LATEST.NAME)) {
+            menu.findItem(R.id.sort_updated_latest).setChecked(true);
+        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_OLDEST.NAME)) {
+            menu.findItem(R.id.sort_updated_oldest).setChecked(true);
+        }
         return true;
     }
 
