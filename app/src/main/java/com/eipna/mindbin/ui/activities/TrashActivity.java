@@ -23,6 +23,7 @@ import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
+import com.eipna.mindbin.data.note.NoteSort;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityTrashBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -31,6 +32,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TrashActivity extends BaseActivity implements NoteListener {
 
@@ -54,8 +56,10 @@ public class TrashActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
+        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -121,43 +125,51 @@ public class TrashActivity extends BaseActivity implements NoteListener {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                Note updatedNote = new Note();
-                updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
-                updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
-                updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
-                updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
-                noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                invalidateOptionsMenu();
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    noteRepository.update(updatedNote);
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.DATE_CREATED_LATEST.NAME));
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
+                    noteAdapter.update(noteList);
+
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    invalidateOptionsMenu();
+                }
             }
         }
 
         if (result.getResultCode() == RESULT_DELETE) {
             Intent deleteIntent = result.getData();
             if (deleteIntent != null) {
-                Note deletedNote = new Note();
-                deletedNote.setID(deleteIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
-                noteRepository.delete(deletedNote);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                invalidateOptionsMenu();
-                noteAdapter.update(noteList);
+                Note deletedNote = deleteIntent.getParcelableExtra("deleted_note");
+                if (deletedNote != null) {
+                    noteRepository.delete(deletedNote);
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME));
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
+                    noteAdapter.update(noteList);
+
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    invalidateOptionsMenu();
+                }
             }
         }
 
         if (result.getResultCode() == RESULT_UPDATE_STATE) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                int noteID = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
-                int updatedState = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
-                noteRepository.updateState(noteID, updatedState);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                invalidateOptionsMenu();
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
+                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes", NoteSort.DATE_CREATED_LATEST.NAME));
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
+                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
+                    noteAdapter.update(noteList);
+
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    invalidateOptionsMenu();
+                }
             }
         }
     });
