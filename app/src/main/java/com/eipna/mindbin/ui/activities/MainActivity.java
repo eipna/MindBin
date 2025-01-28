@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.MindBinDatabase;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
@@ -52,7 +51,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
         noteRepository = new NoteRepository(this);
 
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-        noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
@@ -83,7 +81,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
         assert searchView != null;
         searchView.setQueryHint(getString(R.string.menu_search_note));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
@@ -183,17 +180,13 @@ public class MainActivity extends BaseActivity implements NoteListener {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                Note createdNote = new Note();
-                createdNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
-                createdNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                createdNote.setDateCreated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_DATE_CREATED, -1));
-                createdNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
-                createdNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
-                noteRepository.create(createdNote);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                noteAdapter.update(noteList);
+                Note createdNote = resultIntent.getParcelableExtra("created_note");
+                if (createdNote != null) {
+                    noteRepository.create(createdNote);
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    noteAdapter.update(noteList);
+                }
             }
         }
     });
@@ -202,29 +195,26 @@ public class MainActivity extends BaseActivity implements NoteListener {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                Note updatedNote = new Note();
-                updatedNote.setID(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1));
-                updatedNote.setTitle(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_TITLE));
-                updatedNote.setContent(resultIntent.getStringExtra(MindBinDatabase.COLUMN_NOTE_CONTENT));
-                updatedNote.setLastUpdated(resultIntent.getLongExtra(MindBinDatabase.COLUMN_NOTE_LAST_UPDATED, -1));
-                updatedNote.setState(resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2));
-                noteRepository.update(updatedNote);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                noteList.sort(NoteSort.getComparator(sharedPreferenceUtil.getString("sort_notes", NoteSort.LAST_UPDATED_LATEST.NAME)));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    noteRepository.update(updatedNote);
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    noteAdapter.update(noteList);
+                }
             }
         }
 
         if (result.getResultCode() == RESULT_UPDATE_STATE) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
-                int noteID = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_ID, -1);
-                int updatedState = resultIntent.getIntExtra(MindBinDatabase.COLUMN_NOTE_STATE, -2);
-                noteRepository.updateState(noteID, updatedState);
-                noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                noteAdapter.update(noteList);
+                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
+                if (updatedNote != null) {
+                    noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
+                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
+                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+                    noteAdapter.update(noteList);
+                }
             }
         }
     });
