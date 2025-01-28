@@ -23,10 +23,10 @@ public enum NoteSort {
         this.ORDER = order;
     }
 
-    public static Comparator<Note> getComparator(String name) {
+    public static NoteSort getSort(String selectedSort) {
         for (NoteSort sort : sorts) {
-            if (name.equals(sort.name())) {
-                return sort.ORDER;
+            if (selectedSort.equals(sort.NAME)) {
+                return sort;
             }
         }
         return null;
