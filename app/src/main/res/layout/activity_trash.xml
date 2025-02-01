@@ -31,10 +31,11 @@
 
         <ImageView
             android:src="@drawable/ic_trash"
-            app:tint="?attr/colorPrimary"
+            app:tint="?attr/colorTertiary"
             android:layout_gravity="center"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
             android:text="@string/indicator_notes_empty"

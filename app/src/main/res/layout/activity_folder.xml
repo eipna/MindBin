@@ -31,10 +31,11 @@
 
         <ImageView
             android:src="@drawable/ic_folder"
-            app:tint="?attr/colorPrimary"
+            app:tint="?attr/colorTertiary"
             android:layout_gravity="center"
             android:layout_width="125dp"
-            android:layout_height="125dp"/>
+            android:layout_height="125dp"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
             android:text="@string/indicator_folders_empty"
