@@ -37,7 +37,14 @@
             android:name=".ui.activities.CreateNoteActivity"
             android:exported="true"
             android:parentActivityName=".ui.activities.CreateNoteActivity"
-            android:windowSoftInputMode="adjustResize|stateVisible" />
+            android:windowSoftInputMode="adjustResize|stateVisible">
+
+            <intent-filter>
+                <data android:mimeType="text/plain"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.SEND"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">

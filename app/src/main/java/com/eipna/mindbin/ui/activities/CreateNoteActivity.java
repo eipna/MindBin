@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
@@ -41,6 +42,12 @@ public class CreateNoteActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        if (Intent.ACTION_SEND.equals(getIntent().getAction()) && getIntent().getType() != null) {
+            if (getIntent().getType().equals("text/plain")) {
+                handleSharedText(getIntent());
+            }
+        }
+
         binding.contentInput.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(binding.contentInput, InputMethodManager.SHOW_IMPLICIT);
@@ -50,6 +57,13 @@ public class CreateNoteActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    private void handleSharedText(Intent sharedIntent) {
+        String sharedText = sharedIntent.getStringExtra(Intent.EXTRA_TEXT);
+        if (sharedText != null) {
+            binding.contentInput.setText(sharedText);
+        }
     }
 
     @Override
@@ -81,10 +95,17 @@ public class CreateNoteActivity extends BaseActivity {
         createdNote.setDateCreated(System.currentTimeMillis());
         createdNote.setLastUpdated(System.currentTimeMillis());
 
-        Intent createIntent = new Intent();
-        createIntent.putExtra("created_note", createdNote);
-        setResult(RESULT_OK, createIntent);
-        finish();
+        if (Intent.ACTION_SEND.equals(getIntent().getAction())) {
+            NoteRepository noteRepository = new NoteRepository(this);
+            noteRepository.create(createdNote);
+            noteRepository.close();
+            finish();
+        } else {
+            Intent createIntent = new Intent();
+            createIntent.putExtra("created_note", createdNote);
+            setResult(RESULT_OK, createIntent);
+            finish();
+        }
     }
 
     private void showShareIntent() {
