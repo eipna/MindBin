@@ -236,6 +236,7 @@ public class SettingsActivity extends BaseActivity {
             @SuppressLint("UseCompatLoadingForDrawables")
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
                     .setTitle(requireContext().getResources().getString(R.string.preference_license))
+                    .setIcon(R.drawable.ic_license)
                     .setMessage(readLicenseFromFile())
                     .setIcon(requireContext().getResources().getDrawable(R.drawable.ic_key, requireContext().getTheme()))
                     .setPositiveButton("Close", null);
