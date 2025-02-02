@@ -12,3 +12,6 @@ MindBin is an offline note-taking app for Android. Perfect for capturing ideas a
 
 This project is licensed under the GNU General Public License v3.0. See the
 [LICENSE](LICENSE) file for details.
+
+A couple of libraries vendored in Aegis' repository are licensed under a different license:
+- [prettytime](https://github.com/ocpsoft/prettytime)
