@@ -33,8 +33,8 @@
             android:src="@drawable/ic_trash"
             app:tint="?attr/colorTertiary"
             android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
