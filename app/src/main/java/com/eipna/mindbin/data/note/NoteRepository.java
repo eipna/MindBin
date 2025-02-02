@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.Nullable;
 
-import com.eipna.mindbin.data.MindBinDatabase;
+import com.eipna.mindbin.data.Database;
 
 import java.util.ArrayList;
 
-public class NoteRepository extends MindBinDatabase {
+public class NoteRepository extends Database {
     public NoteRepository(@Nullable Context context) {
         super(context);
     }

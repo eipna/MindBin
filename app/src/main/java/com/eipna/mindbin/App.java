@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.util.SharedPreferenceUtil;
 
-public class MindBinApp extends Application {
+public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

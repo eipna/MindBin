@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class MindBinDatabase extends SQLiteOpenHelper {
+public class Database extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "mindbin.db";
     private static final int DATABASE_VERSION = 1;
@@ -19,7 +19,7 @@ public class MindBinDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_NOTE_LAST_UPDATED = "last_updated";
     public static final String COLUMN_NOTE_STATE = "state";
 
-    public MindBinDatabase(@Nullable Context context) {
+    public Database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
