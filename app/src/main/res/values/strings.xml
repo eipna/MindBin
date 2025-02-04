@@ -53,6 +53,9 @@
     <string name="toast_decline_share">Nothing to share here</string>
     <string name="toast_decline_sort">Nothing to sort here</string>
 
+    <!-- Application Shortcuts -->
+    <string name="shortcut_new_note">New Note</string>
+
     <!-- General Preference Category -->
     <string name="preference_category_general">App</string>
     <string name="preference_list_theme">Theme</string>
