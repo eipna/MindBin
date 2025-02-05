@@ -51,7 +51,7 @@
         <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
         <item name="alertDialogTheme">@style/Theme.MindBin.AlertDialog</item>
-        <item name="popupTheme">@style/Widget.Material3.PopupMenu.Overflow</item>
+        <item name="popupTheme">@style/Widget.Material3.PopupMenu</item>
     </style>
 
     <style name="Theme.MindBin.AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog.Centered">
