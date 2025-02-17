@@ -43,7 +43,10 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textColor="?attr/colorOnSurface"
-            android:textSize="20sp"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            app:fontFamily="sans-serif-medium"
+            android:alpha="0.8"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
