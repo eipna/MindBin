@@ -39,10 +39,9 @@
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:text="@string/indicator_notes_empty"
+            android:text="@string/indicator_trash_empty"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:layout_marginTop="8dp"
             android:textColor="?attr/colorOnSurface"
             android:textAppearance="?attr/textAppearanceBodyLarge"
             app:fontFamily="sans-serif-medium"
