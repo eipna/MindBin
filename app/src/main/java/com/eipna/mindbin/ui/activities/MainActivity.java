@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -22,7 +21,6 @@ import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
-import com.eipna.mindbin.data.note.NoteSort;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -113,16 +111,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
         if (item.getItemId() == R.id.archive) startActivity(new Intent(getApplicationContext(), ArchiveActivity.class));
         if (item.getItemId() == R.id.trash) startActivity(new Intent(getApplicationContext(), TrashActivity.class));
         return true;
-    }
-
-    private void sortNotes(NoteSort sort) {
-        if (noteList.isEmpty()) {
-            Toast.makeText(this, getString(R.string.toast_decline_sort), Toast.LENGTH_SHORT).show();
-        } else {
-            ArrayList<Note> sortedList = new ArrayList<>(noteList);
-            sortedList.sort(sort.ORDER);
-            noteAdapter.update(sortedList);
-        }
     }
 
     @Override

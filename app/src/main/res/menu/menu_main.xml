@@ -19,36 +19,37 @@
 
         <menu>
             <group
-                android:id="@+id/group1"
+                android:id="@+id/sort_note_criteria"
                 android:checkableBehavior="single">
+
                 <item
-                    android:id="@+id/sort_title_asc"
-                    android:title="@string/menu_sort_title_asc"
+                    android:id="@+id/sort_note_title"
+                    android:title="@string/menu_sort_title"
                     app:showAsAction="never"/>
 
                 <item
-                    android:id="@+id/sort_title_desc"
-                    android:title="@string/menu_sort_title_desc"
+                    android:id="@+id/sort_note_date_created"
+                    android:title="@string/menu_sort_date_created"
                     app:showAsAction="never"/>
 
                 <item
-                    android:id="@+id/sort_created_latest"
-                    android:title="@string/menu_sort_created_latest"
+                    android:id="@+id/sort_note_last_updated"
+                    android:title="@string/menu_sort_last_updated"
+                    app:showAsAction="never"/>
+            </group>
+
+            <group
+                android:id="@+id/sort_note_order"
+                android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/sort_note_ascending"
+                    android:title="@string/menu_sort_ascending"
                     app:showAsAction="never"/>
 
                 <item
-                    android:id="@+id/sort_created_oldest"
-                    android:title="@string/menu_sort_created_oldest"
-                    app:showAsAction="never"/>
-
-                <item
-                    android:id="@+id/sort_updated_latest"
-                    android:title="@string/menu_sort_updated_latest"
-                    app:showAsAction="never"/>
-
-                <item
-                    android:id="@+id/sort_updated_oldest"
-                    android:title="@string/menu_sort_updated_oldest"
+                    android:id="@+id/sort_note_descending"
+                    android:title="@string/menu_sort_descending"
                     app:showAsAction="never"/>
             </group>
         </menu>

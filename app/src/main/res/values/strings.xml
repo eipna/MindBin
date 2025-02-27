@@ -12,12 +12,11 @@
     <string name="input_hint_note_content">Jot something down here…</string>
 
     <string name="menu_sort">Sort By</string>
-    <string name="menu_sort_title_asc">Title (A - Z)</string>
-    <string name="menu_sort_title_desc">Title (Z - A)</string>
-    <string name="menu_sort_created_latest">Created (Latest)</string>
-    <string name="menu_sort_created_oldest">Created (Oldest)</string>
-    <string name="menu_sort_updated_latest">Updated (Latest)</string>
-    <string name="menu_sort_updated_oldest">Updated (Oldest)</string>
+    <string name="menu_sort_title">Title</string>
+    <string name="menu_sort_date_created">Date Created</string>
+    <string name="menu_sort_last_updated">Last Updated</string>
+    <string name="menu_sort_ascending">Ascending</string>
+    <string name="menu_sort_descending">Descending</string>
     <string name="menu_share">Share Note</string>
     <string name="menu_overflow">More Options</string>
     <string name="menu_settings">Settings</string>
