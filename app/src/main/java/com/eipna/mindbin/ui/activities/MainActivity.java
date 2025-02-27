@@ -30,7 +30,6 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class MainActivity extends BaseActivity implements NoteListener {
 
@@ -51,16 +50,14 @@ public class MainActivity extends BaseActivity implements NoteListener {
         setSupportActionBar(binding.toolbar);
         noteRepository = new NoteRepository(this);
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
-        String selectedViewMode = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
-        if (selectedViewMode.equals(ViewMode.LIST.value)) {
+        String viewMode = preferences.getViewMode();
+        if (viewMode.equals(ViewMode.LIST.value)) {
             binding.noteList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
+        } else if (viewMode.equals(ViewMode.TILES.value)) {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
@@ -95,20 +92,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
             }
         });
 
-        String selectedSort = sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME);
-        if (selectedSort.equals(NoteSort.TITLE_ASCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_asc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.TITLE_DESCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_desc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_created_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_created_oldest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_updated_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_updated_oldest).setChecked(true);
-        }
         return true;
     }
 
@@ -129,36 +112,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
         if (item.getItemId() == R.id.folder) startActivity(new Intent(getApplicationContext(), FolderActivity.class));
         if (item.getItemId() == R.id.archive) startActivity(new Intent(getApplicationContext(), ArchiveActivity.class));
         if (item.getItemId() == R.id.trash) startActivity(new Intent(getApplicationContext(), TrashActivity.class));
-
-        if (item.getItemId() == R.id.sort_title_asc) {
-            item.setChecked(true);
-            sortNotes(NoteSort.TITLE_ASCENDING);
-        }
-
-        if (item.getItemId() == R.id.sort_title_desc) {
-            item.setChecked(true);
-            sortNotes(NoteSort.TITLE_DESCENDING);
-        }
-
-        if (item.getItemId() == R.id.sort_created_latest) {
-            item.setChecked(true);
-            sortNotes(NoteSort.DATE_CREATED_LATEST);
-        }
-
-        if (item.getItemId() == R.id.sort_created_oldest) {
-            item.setChecked(true);
-            sortNotes(NoteSort.DATE_CREATED_OLDEST);
-        }
-
-        if (item.getItemId() == R.id.sort_updated_latest) {
-            item.setChecked(true);
-            sortNotes(NoteSort.LAST_UPDATED_LATEST);
-        }
-
-        if (item.getItemId() == R.id.sort_updated_oldest) {
-            item.setChecked(true);
-            sortNotes(NoteSort.LAST_UPDATED_OLDEST);
-        }
         return true;
     }
 
@@ -169,7 +122,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
             ArrayList<Note> sortedList = new ArrayList<>(noteList);
             sortedList.sort(sort.ORDER);
             noteAdapter.update(sortedList);
-            sharedPreferenceUtil.setString("sort_notes_normal", sort.NAME);
         }
     }
 
@@ -186,9 +138,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note createdNote = resultIntent.getParcelableExtra("created_note");
                 if (createdNote != null) {
                     noteRepository.create(createdNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }
@@ -203,9 +153,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.update(updatedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }
@@ -218,9 +166,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }

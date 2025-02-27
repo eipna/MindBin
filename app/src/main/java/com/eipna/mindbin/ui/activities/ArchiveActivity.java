@@ -3,8 +3,6 @@ package com.eipna.mindbin.ui.activities;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -13,12 +11,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
-import com.eipna.mindbin.data.note.NoteSort;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityArchiveBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -26,7 +22,6 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ArchiveActivity extends BaseActivity implements NoteListener {
 
@@ -50,17 +45,15 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_archive", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
-        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
-        String selectedViewMode = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
-        if (selectedViewMode.equals(ViewMode.LIST.value)) {
+        String viewMode = preferences.getViewMode();
+        if (viewMode.equals(ViewMode.LIST.value)) {
             binding.noteList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
+        } else if (viewMode.equals(ViewMode.TILES.value)) {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
@@ -74,38 +67,14 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
         binding = null;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_archive, menu);
-
-        String selectedSort = sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME);
-        if (selectedSort.equals(NoteSort.TITLE_ASCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_asc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.TITLE_DESCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_desc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_created_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_created_oldest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_updated_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_updated_oldest).setChecked(true);
-        }
-        return true;
-    }
-
     private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
             Intent resultIntent = result.getData();
             if (resultIntent != null) {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_archive", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteRepository.update(updatedNote);
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.ARCHIVE));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
                     noteAdapter.update(noteList);
                 }

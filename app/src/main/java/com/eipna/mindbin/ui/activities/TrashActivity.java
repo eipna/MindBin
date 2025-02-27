@@ -22,7 +22,6 @@ import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
-import com.eipna.mindbin.data.note.NoteSort;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityTrashBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
@@ -31,7 +30,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class TrashActivity extends BaseActivity implements NoteListener {
 
@@ -55,17 +53,15 @@ public class TrashActivity extends BaseActivity implements NoteListener {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.LAST_UPDATED_LATEST.NAME));
         noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-        noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
-        String selectedViewMode = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
-        if (selectedViewMode.equals(ViewMode.LIST.value)) {
+        String viewMode = preferences.getViewMode();
+        if (viewMode.equals(ViewMode.LIST.value)) {
             binding.noteList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
+        } else if (viewMode.equals(ViewMode.TILES.value)) {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
@@ -83,23 +79,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_trash, menu);
-
         menu.findItem(R.id.clear).setVisible(!noteList.isEmpty());
-
-        String selectedSort = sharedPreferenceUtil.getString("sort_notes_normal", NoteSort.LAST_UPDATED_LATEST.NAME);
-        if (selectedSort.equals(NoteSort.TITLE_ASCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_asc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.TITLE_DESCENDING.NAME)) {
-            menu.findItem(R.id.sort_title_desc).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_created_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.DATE_CREATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_created_oldest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_LATEST.NAME)) {
-            menu.findItem(R.id.sort_updated_latest).setChecked(true);
-        } else if (selectedSort.equals(NoteSort.LAST_UPDATED_OLDEST.NAME)) {
-            menu.findItem(R.id.sort_updated_oldest).setChecked(true);
-        }
         return true;
     }
 
@@ -142,9 +122,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.update(updatedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.DATE_CREATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
 
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -159,9 +137,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note deletedNote = deleteIntent.getParcelableExtra("deleted_note");
                 if (deletedNote != null) {
                     noteRepository.delete(deletedNote);
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.LAST_UPDATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
 
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
@@ -176,9 +152,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
                 Note updatedNote = resultIntent.getParcelableExtra("updated_note");
                 if (updatedNote != null) {
                     noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    NoteSort selectedSort = NoteSort.getSort(sharedPreferenceUtil.getString("sort_notes_trash", NoteSort.DATE_CREATED_LATEST.NAME));
                     noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteList.sort(Objects.requireNonNull(selectedSort).ORDER);
                     noteAdapter.update(noteList);
 
                     binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);

@@ -25,7 +25,7 @@ import com.eipna.mindbin.data.Library;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
-import com.eipna.mindbin.util.SharedPreferenceUtil;
+import com.eipna.mindbin.util.PreferenceUtil;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -64,17 +64,7 @@ public class SettingsActivity extends BaseActivity {
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
-        private SharedPreferenceUtil sharedPreferenceUtil;
-
-        private String listThemeVal;
-        private String listViewModeVal;
-        private String listDateFormatVal;
-        private int seekBarMaxNoteTitleVal;
-        private int seekBarMaxNoteContentVal;
-        private boolean switchDynamicColorsVal;
-        private boolean switchRoundedCornersVal;
-        private boolean switchShowDateCreatedVal;
-        private boolean switchShowLastUpdatedVal;
+        private PreferenceUtil preferences;
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
@@ -115,105 +105,78 @@ public class SettingsActivity extends BaseActivity {
                 return true;
             });
 
-            switchShowLastUpdated.setChecked(switchShowLastUpdatedVal);
+            switchShowLastUpdated.setChecked(preferences.isNoteLastUpdatedEnabled());
             switchShowLastUpdated.setOnPreferenceChangeListener((preference, newValue) -> {
-                sharedPreferenceUtil.setBoolean("show_last_updated", (boolean) newValue);
+                preferences.setNoteLastUpdated((boolean) newValue);
                 return true;
             });
 
-            switchShowDateCreated.setChecked(switchShowDateCreatedVal);
+            switchShowDateCreated.setChecked(preferences.isNoteDateCreatedEnabled());
             switchShowDateCreated.setOnPreferenceChangeListener((preference, newValue) -> {
                 listDateFormat.setVisible((boolean) newValue);
-                sharedPreferenceUtil.setBoolean("show_date_created", (boolean) newValue);
+                preferences.setNoteDateCreated((boolean) newValue);
                 return true;
             });
 
-            listDateFormat.setVisible(switchShowDateCreatedVal);
+            listDateFormat.setVisible(preferences.isNoteDateCreatedEnabled());
             listDateFormat.setEntries(DatePattern.toStringArrayEntries());
             listDateFormat.setEntryValues(DatePattern.toStringArray());
-            listDateFormat.setValue(listDateFormatVal);
-            listDateFormat.setSummary(listDateFormatVal);
+            listDateFormat.setValue(preferences.getNoteDateCreatedFormat());
+            listDateFormat.setSummary(preferences.getNoteDateCreatedFormat());
             listDateFormat.setOnPreferenceChangeListener((preference, newValue) -> {
-                String selectedDateFormat = (String) newValue;
-                if (selectedDateFormat.equals(DatePattern.LONG_DAY_NAME.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.LONG_DAY_NAME.value);
-                } else if (selectedDateFormat.equals(DatePattern.SHORT_DAY_NAME.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.SHORT_DAY_NAME.value);
-                } else if (selectedDateFormat.equals(DatePattern.DD_MM_YYYY.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.DD_MM_YYYY.value);
-                } else if (selectedDateFormat.equals(DatePattern.MM_DD_YYYY.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.MM_DD_YYYY.value);
-                } else if (selectedDateFormat.equals(DatePattern.YYYY_DD_MM.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.YYYY_DD_MM.value);
-                } else if (selectedDateFormat.equals(DatePattern.YYYY_MM_DD.value)) {
-                    sharedPreferenceUtil.setString("date_format", DatePattern.YYYY_MM_DD.value);
-                }
-                listDateFormat.setSummary(selectedDateFormat);
+                preferences.setNoteDateCreatedFormat((String) newValue);
+                listDateFormat.setSummary((String) newValue);
                 return true;
             });
 
-            seekBarMaxNoteTitle.setValue(seekBarMaxNoteTitleVal);
+            seekBarMaxNoteTitle.setValue(preferences.getMaxNoteTitleLines());
             seekBarMaxNoteTitle.setOnPreferenceChangeListener((preference, newValue) -> {
-                sharedPreferenceUtil.setInt("max_note_title", (int) newValue);
+                preferences.setMaxNoteTitleLines((int) newValue);
                 return true;
             });
 
-            seekBarMaxNoteContent.setValue(seekBarMaxNoteContentVal);
+            seekBarMaxNoteContent.setValue(preferences.getMaxNoteContentLines());
             seekBarMaxNoteContent.setOnPreferenceChangeListener((preference, newValue) -> {
-                sharedPreferenceUtil.setInt("max_note_content", (int) newValue);
+                preferences.setMaxNoteContentLines((int) newValue);
                 return true;
             });
 
-            listViewMode.setValue(listViewModeVal);
-            listViewMode.setSummary(listViewModeVal);
+            listViewMode.setValue(preferences.getViewMode());
+            listViewMode.setSummary(preferences.getViewMode());
             listViewMode.setEntries(ViewMode.toStringArray());
             listViewMode.setEntryValues(ViewMode.toStringArray());
             listViewMode.setOnPreferenceChangeListener((preference, newValue) -> {
-                String selectedViewMode = (String) newValue;
-                if (selectedViewMode.equals(ViewMode.LIST.value)) {
-                    sharedPreferenceUtil.setString("view_mode", ViewMode.LIST.value);
-                } else if (selectedViewMode.equals(ViewMode.TILES.value)) {
-                    sharedPreferenceUtil.setString("view_mode", ViewMode.TILES.value);
-                }
-                listViewMode.setSummary(selectedViewMode);
+                preferences.setViewMode((String) newValue);
+                listViewMode.setSummary((String) newValue);
                 return true;
             });
 
-            listTheme.setValue(listThemeVal);
-            listTheme.setSummary(listThemeVal);
+            listTheme.setValue(preferences.getTheme());
+            listTheme.setSummary(preferences.getTheme());
             listTheme.setEntries(Theme.toStringArray());
             listTheme.setEntryValues(Theme.toStringArray());
             listTheme.setOnPreferenceChangeListener((preference, newValue) -> {
                 String selectedTheme = (String) newValue;
-                if (selectedTheme.equals(Theme.SYSTEM.value)) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                    sharedPreferenceUtil.setString("theme", Theme.SYSTEM.value);
-                } else if (selectedTheme.equals(Theme.LIGHT.value)) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sharedPreferenceUtil.setString("theme", Theme.LIGHT.value);
-                } else if (selectedTheme.equals(Theme.DARK.value)) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sharedPreferenceUtil.setString("theme", Theme.DARK.value);
-                } else if (selectedTheme.equals(Theme.BATTERY_SAVING.value)) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-                    sharedPreferenceUtil.setString("theme", Theme.BATTERY_SAVING.value);
-                }
+                if (selectedTheme.equals(Theme.SYSTEM.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                if (selectedTheme.equals(Theme.LIGHT.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                if (selectedTheme.equals(Theme.DARK.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                if (selectedTheme.equals(Theme.BATTERY_SAVING.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+                preferences.setTheme(selectedTheme);
                 listTheme.setSummary(selectedTheme);
                 return true;
             });
 
             switchDynamicColors.setEnabled(DynamicColors.isDynamicColorAvailable());
-            switchDynamicColors.setChecked(switchDynamicColorsVal);
+            switchDynamicColors.setChecked(preferences.isDynamicColorsEnabled());
             switchDynamicColors.setOnPreferenceChangeListener((preference, newValue) -> {
-                boolean isChecked = (boolean) newValue;
-                sharedPreferenceUtil.setBoolean("dynamic_colors", isChecked);
+                preferences.setDynamicColors((boolean) newValue);
                 requireActivity().recreate();
                 return true;
             });
 
-            switchRoundedCorners.setChecked(switchRoundedCornersVal);
+            switchRoundedCorners.setChecked(preferences.isRoundedNotes());
             switchRoundedCorners.setOnPreferenceChangeListener((preference, newValue) -> {
-                sharedPreferenceUtil.setBoolean("rounded_corners", (boolean) newValue);
+                preferences.setRoundedNotes((boolean) newValue);
                 return true;
             });
         }
@@ -261,17 +224,7 @@ public class SettingsActivity extends BaseActivity {
         }
 
         private void setPreferences() {
-            sharedPreferenceUtil = new SharedPreferenceUtil(requireContext());
-
-            listThemeVal = sharedPreferenceUtil.getString("theme", Theme.SYSTEM.value);
-            listViewModeVal = sharedPreferenceUtil.getString("view_mode", ViewMode.LIST.value);
-            listDateFormatVal = sharedPreferenceUtil.getString("date_format", DatePattern.LONG_DAY_NAME.value);
-            seekBarMaxNoteTitleVal = sharedPreferenceUtil.getInt("max_note_title", 1);
-            seekBarMaxNoteContentVal = sharedPreferenceUtil.getInt("max_note_content", 1);
-            switchDynamicColorsVal = sharedPreferenceUtil.getBoolean("dynamic_colors", false);
-            switchRoundedCornersVal = sharedPreferenceUtil.getBoolean("rounded_corners", true);
-            switchShowDateCreatedVal = sharedPreferenceUtil.getBoolean("show_date_created", true);
-            switchShowLastUpdatedVal = sharedPreferenceUtil.getBoolean("show_last_updated", true);
+            preferences = new PreferenceUtil(requireContext());
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");

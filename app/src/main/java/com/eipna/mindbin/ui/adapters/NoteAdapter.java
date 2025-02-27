@@ -10,11 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.util.DateUtil;
-import com.eipna.mindbin.util.SharedPreferenceUtil;
+import com.eipna.mindbin.util.PreferenceUtil;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -75,7 +74,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        SharedPreferenceUtil sharedPreferenceUtil;
+        PreferenceUtil preferences;
         PrettyTime prettyTime;
 
         MaterialCardView parent;
@@ -86,7 +85,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            sharedPreferenceUtil = new SharedPreferenceUtil(itemView.getContext());
+            preferences = new PreferenceUtil(itemView.getContext());
             prettyTime = new PrettyTime();
             parent = itemView.findViewById(R.id.recyclerNoteParent);
             title = itemView.findViewById(R.id.recyclerNoteTitle);
@@ -96,22 +95,15 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         }
 
         public void bind(Note note) {
-            String dateCreatedFormat = sharedPreferenceUtil.getString("date_format", DatePattern.LONG_DAY_NAME.value);
-            boolean isRoundedCorners = sharedPreferenceUtil.getBoolean("rounded_corners", true);
-            boolean isShowDateCreated = sharedPreferenceUtil.getBoolean("show_date_created", true);
-            boolean isShowLastUpdated = sharedPreferenceUtil.getBoolean("show_last_updated", true);
-            int maxNoteTitleLines = sharedPreferenceUtil.getInt("max_note_title", 1);
-            int maxNoteContentLines = sharedPreferenceUtil.getInt("max_note_content", 1);
-
-            parent.setRadius(isRoundedCorners ? 32.0f : 0.0f);
-            title.setMaxLines(maxNoteTitleLines);
-            content.setMaxLines(maxNoteContentLines);
-            dateCreated.setVisibility(isShowDateCreated ? View.VISIBLE : View.GONE);
-            lastUpdated.setVisibility(isShowLastUpdated ? View.VISIBLE : View.GONE);
+            parent.setRadius(preferences.isRoundedNotes() ? 32.0f : 0.0f);
+            title.setMaxLines(preferences.getMaxNoteTitleLines());
+            content.setMaxLines(preferences.getMaxNoteContentLines());
+            dateCreated.setVisibility(preferences.isNoteDateCreatedEnabled() ? View.VISIBLE : View.GONE);
+            lastUpdated.setVisibility(preferences.isNoteLastUpdatedEnabled() ? View.VISIBLE : View.GONE);
 
             title.setText(note.getTitle());
             content.setText(note.getContent());
-            dateCreated.setText(DateUtil.getString(dateCreatedFormat, note.getDateCreated()));
+            dateCreated.setText(DateUtil.getString(preferences.getNoteDateCreatedFormat(), note.getDateCreated()));
             lastUpdated.setText(prettyTime.format(new Date(note.getLastUpdated())));
         }
     }
