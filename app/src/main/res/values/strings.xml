@@ -25,7 +25,7 @@
     <string name="menu_archive">Archive</string>
     <string name="menu_restore">Restore</string>
     <string name="menu_trash">Trash</string>
-    <string name="menu_folder">Folder</string>
+    <string name="menu_folder">Folders</string>
     <string name="menu_delete_forever">Delete Forever</string>
     <string name="menu_clear_all">Clear All</string>
     <string name="menu_search_note">Search Notes</string>
