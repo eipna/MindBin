@@ -3,6 +3,7 @@ package com.eipna.mindbin.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.eipna.mindbin.data.Contrast;
 import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
@@ -14,6 +15,14 @@ public class PreferenceUtil {
 
     public PreferenceUtil(Context context) {
         sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+    }
+
+    public String getContrast() {
+        return sharedPreferences.getString("contrast", Contrast.LOW.value);
+    }
+
+    public void setContrast(String value) {
+        sharedPreferences.edit().putString("contrast", value).apply();
     }
 
     public String getTheme() {

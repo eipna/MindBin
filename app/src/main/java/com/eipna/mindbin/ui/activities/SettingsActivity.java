@@ -20,6 +20,7 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.Contrast;
 import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.Library;
 import com.eipna.mindbin.data.Theme;
@@ -69,6 +70,7 @@ public class SettingsActivity extends BaseActivity {
         private ListPreference listTheme;
         private ListPreference listViewMode;
         private ListPreference listDateFormat;
+        private ListPreference listContrast;
 
         private SwitchPreferenceCompat switchDynamicColors;
         private SwitchPreferenceCompat switchRoundedCorners;
@@ -115,6 +117,16 @@ public class SettingsActivity extends BaseActivity {
             switchShowDateCreated.setOnPreferenceChangeListener((preference, newValue) -> {
                 listDateFormat.setVisible((boolean) newValue);
                 preferences.setNoteDateCreated((boolean) newValue);
+                return true;
+            });
+
+            listContrast.setEntries(Contrast.toNameArray());
+            listContrast.setEntryValues(Contrast.toValueArray());
+            listContrast.setValue(preferences.getContrast());
+            listContrast.setSummary(Contrast.getNameFromValue(preferences.getContrast()));
+            listContrast.setOnPreferenceChangeListener((preference, newValue) -> {
+                preferences.setContrast((String) newValue);
+                listContrast.setSummary(Contrast.getNameFromValue(preferences.getContrast()));
                 return true;
             });
 
@@ -229,6 +241,7 @@ public class SettingsActivity extends BaseActivity {
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
             listDateFormat = findPreference("date_format");
+            listContrast = findPreference("contrast");
             seekBarMaxNoteTitle = findPreference("max_note_title");
             seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");

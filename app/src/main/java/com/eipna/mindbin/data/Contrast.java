@@ -33,4 +33,13 @@ public enum Contrast {
         }
         return strings;
     }
+
+    public static String getNameFromValue(String value) {
+        for (Contrast contrast : contrasts) {
+            if (contrast.value.equals(value)) {
+                return contrast.name;
+            }
+        }
+        return contrasts[0].name;
+    }
 }
