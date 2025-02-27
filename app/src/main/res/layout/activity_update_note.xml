@@ -31,7 +31,8 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingHorizontal="21dp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:layout_width="match_parent"
@@ -41,11 +42,11 @@
                 android:id="@+id/title_input"
                 android:background="@null"
                 android:hint="@string/input_hint_note_title"
-                android:textSize="22sp"
                 android:inputType="textAutoComplete"
                 android:maxLines="1"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp"
+                android:layout_marginBottom="16dp"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -53,9 +54,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/content_input"
                 android:background="@null"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:inputType="textAutoComplete|textMultiLine"
-                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 android:hint="@string/input_hint_note_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
