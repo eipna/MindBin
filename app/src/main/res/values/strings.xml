@@ -26,7 +26,7 @@
     <string name="menu_trash">Trash</string>
     <string name="menu_folder">Folders</string>
     <string name="menu_delete_forever">Delete Forever</string>
-    <string name="menu_clear_all">Clear All</string>
+    <string name="menu_clear_trash">Clear Trash</string>
     <string name="menu_search_note">Search Notes</string>
 
     <string name="dialog_note_delete_title">Permanent Deletion</string>
