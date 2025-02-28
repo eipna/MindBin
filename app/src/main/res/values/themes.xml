@@ -54,6 +54,20 @@
         <item name="alertDialogTheme">@style/Theme.MindBin.AlertDialog</item>
     </style>
 
+    <style name="Theme.MindBin.MediumContrast" parent="ThemeOverlay.MindBin.MediumContrast">
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="popupTheme">@style/Widget.Material3.PopupMenu</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
+        <item name="alertDialogTheme">@style/Theme.MindBin.AlertDialog</item>
+    </style>
+
+    <style name="Theme.MindBin.HighContrast" parent="ThemeOverlay.MindBin.HighContrast">
+        <item name="homeAsUpIndicator">@drawable/ic_arrow_back</item>
+        <item name="popupTheme">@style/Widget.Material3.PopupMenu</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Material3.MaterialAlertDialog.Centered</item>
+        <item name="alertDialogTheme">@style/Theme.MindBin.AlertDialog</item>
+    </style>
+
     <style name="Theme.MindBin.AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="android:textColor">?attr/colorOnSurface</item>

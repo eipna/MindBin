@@ -32,8 +32,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         String selectedContrast = preferences.getContrast();
         if (selectedContrast.equals(Contrast.LOW.value)) setTheme(R.style.Theme_MindBin);
-        if (selectedContrast.equals(Contrast.MEDIUM.value)) setTheme(R.style.ThemeOverlay_AppTheme_MediumContrast);
-        if (selectedContrast.equals(Contrast.HIGH.value)) setTheme(R.style.ThemeOverlay_AppTheme_HighContrast);
+        if (selectedContrast.equals(Contrast.MEDIUM.value)) setTheme(R.style.Theme_MindBin_MediumContrast);
+        if (selectedContrast.equals(Contrast.HIGH.value)) setTheme(R.style.Theme_MindBin_HighContrast);
 
         if (preferences.isDynamicColorsEnabled()) DynamicColors.applyToActivityIfAvailable(this);
     }

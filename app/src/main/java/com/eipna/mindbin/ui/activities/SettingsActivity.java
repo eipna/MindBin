@@ -127,8 +127,8 @@ public class SettingsActivity extends BaseActivity {
             listContrast.setOnPreferenceChangeListener((preference, newValue) -> {
                 String selectedContrast = (String) newValue;
                 if (selectedContrast.equals(Contrast.LOW.value)) requireActivity().setTheme(R.style.Theme_MindBin);
-                if (selectedContrast.equals(Contrast.MEDIUM.value)) requireActivity().setTheme(R.style.ThemeOverlay_AppTheme_MediumContrast);
-                if (selectedContrast.equals(Contrast.HIGH.value)) requireActivity().setTheme(R.style.ThemeOverlay_AppTheme_HighContrast);
+                if (selectedContrast.equals(Contrast.MEDIUM.value)) requireActivity().setTheme(R.style.Theme_MindBin_MediumContrast);
+                if (selectedContrast.equals(Contrast.HIGH.value)) requireActivity().setTheme(R.style.Theme_MindBin_HighContrast);
 
                 preferences.setContrast(selectedContrast);
                 listContrast.setSummary(Contrast.getNameFromValue(preferences.getContrast()));
