@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.Contrast;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.util.PreferenceUtil;
 import com.google.android.material.color.DynamicColors;
@@ -27,6 +29,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (theme.equals(Theme.LIGHT.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         if (theme.equals(Theme.DARK.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         if (theme.equals(Theme.BATTERY_SAVING.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+
+        String selectedContrast = preferences.getContrast();
+        if (selectedContrast.equals(Contrast.LOW.value)) setTheme(R.style.Theme_MindBin);
+        if (selectedContrast.equals(Contrast.MEDIUM.value)) setTheme(R.style.ThemeOverlay_AppTheme_MediumContrast);
+        if (selectedContrast.equals(Contrast.HIGH.value)) setTheme(R.style.ThemeOverlay_AppTheme_HighContrast);
 
         if (preferences.isDynamicColorsEnabled()) DynamicColors.applyToActivityIfAvailable(this);
     }
