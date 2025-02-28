@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
-import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
@@ -95,17 +94,10 @@ public class CreateNoteActivity extends BaseActivity {
         createdNote.setDateCreated(System.currentTimeMillis());
         createdNote.setLastUpdated(System.currentTimeMillis());
 
-        if (Intent.ACTION_SEND.equals(getIntent().getAction())) {
-            NoteRepository noteRepository = new NoteRepository(this);
-            noteRepository.create(createdNote);
-            noteRepository.close();
-            finish();
-        } else {
-            Intent createIntent = new Intent();
-            createIntent.putExtra("created_note", createdNote);
-            setResult(RESULT_OK, createIntent);
-            finish();
-        }
+        Intent createIntent = new Intent();
+        createIntent.putExtra("created_note", createdNote);
+        setResult(RESULT_OK, createIntent);
+        finish();
     }
 
     private void showShareIntent() {
