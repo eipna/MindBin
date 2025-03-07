@@ -49,7 +49,7 @@ public class PreferenceUtil {
         sharedPreferences.edit().putBoolean("dynamic_colors", value).apply();
     }
     public boolean isNoteDateCreatedEnabled() {
-        return sharedPreferences.getBoolean("note_date_created", true);
+        return sharedPreferences.getBoolean("note_date_created", false);
     }
 
     public void setNoteDateCreated(boolean value) {
@@ -65,7 +65,7 @@ public class PreferenceUtil {
     }
 
     public boolean isNoteLastUpdatedEnabled() {
-        return sharedPreferences.getBoolean("note_last_updated", true);
+        return sharedPreferences.getBoolean("note_last_updated", false);
     }
 
     public void setNoteLastUpdated(boolean value) {
