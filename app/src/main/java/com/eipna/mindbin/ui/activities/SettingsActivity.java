@@ -63,6 +63,12 @@ public class SettingsActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
         private PreferenceUtil preferences;
