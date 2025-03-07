@@ -15,11 +15,6 @@
             app:title="@string/preference_list_contrast"
             app:iconSpaceReserved="false"/>
 
-        <ListPreference
-            app:key="view_mode"
-            app:title="@string/preference_list_view_mode"
-            app:iconSpaceReserved="false"/>
-
         <SwitchPreferenceCompat
             app:key="dynamic_colors"
             app:title="@string/preference_switch_dynamic_colors_title"
@@ -32,6 +27,11 @@
         app:iconSpaceReserved="false"
         app:title="@string/preference_category_notes"
         app:allowDividerAbove="true">
+
+        <ListPreference
+            app:key="view_mode"
+            app:title="@string/preference_list_view_mode"
+            app:iconSpaceReserved="false"/>
 
         <SeekBarPreference
             app:title="@string/preference_seekbar_max_note_title"
