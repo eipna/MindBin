@@ -1,9 +1,9 @@
 package com.eipna.mindbin.ui.activities;
 
-import androidx.activity.EdgeToEdge;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
 
 import com.eipna.mindbin.databinding.ActivityFolderBinding;
 import com.google.android.material.shape.MaterialShapeDrawable;

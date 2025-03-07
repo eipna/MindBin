@@ -8,9 +8,13 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteListener;
