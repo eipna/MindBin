@@ -7,18 +7,14 @@
     android:focusable="true"
     android:checkable="true"
     app:cardCornerRadius="12dp"
-    app:cardElevation="0dp"
-    style="@style/Widget.Material3.CardView.Outlined"
-    app:cardBackgroundColor="?attr/colorSurface"
+    style="@style/Widget.Material3.CardView.Elevated"
+    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
