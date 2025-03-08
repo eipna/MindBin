@@ -7,8 +7,9 @@
     android:focusable="true"
     android:checkable="true"
     app:cardCornerRadius="12dp"
-    style="@style/Widget.Material3.CardView.Elevated"
-    app:cardBackgroundColor="?attr/colorSurfaceContainerLow"
+    app:cardElevation="0dp"
+    style="@style/Widget.Material3.CardView.Outlined"
+    app:cardBackgroundColor="?attr/colorSurface"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
