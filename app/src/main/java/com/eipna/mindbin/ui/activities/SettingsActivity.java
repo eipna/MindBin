@@ -150,12 +150,18 @@ public class SettingsActivity extends BaseActivity {
                 return true;
             });
 
+            seekBarMaxNoteTitle.setMin(1);
+            seekBarMaxNoteTitle.setMax(10);
+            seekBarMaxNoteTitle.setShowSeekBarValue(true);
             seekBarMaxNoteTitle.setValue(preferences.getMaxNoteTitleLines());
             seekBarMaxNoteTitle.setOnPreferenceChangeListener((preference, newValue) -> {
                 preferences.setMaxNoteTitleLines((int) newValue);
                 return true;
             });
 
+            seekBarMaxNoteContent.setMin(1);
+            seekBarMaxNoteContent.setMax(10);
+            seekBarMaxNoteContent.setShowSeekBarValue(true);
             seekBarMaxNoteContent.setValue(preferences.getMaxNoteContentLines());
             seekBarMaxNoteContent.setOnPreferenceChangeListener((preference, newValue) -> {
                 preferences.setMaxNoteContentLines((int) newValue);

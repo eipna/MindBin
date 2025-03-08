@@ -2,91 +2,85 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        app:title="@string/preference_category_appearance"
+        android:title="@string/preference_category_appearance"
         app:iconSpaceReserved="false">
 
         <ListPreference
-            app:key="theme"
-            app:title="@string/preference_list_theme"
+            android:key="theme"
+            android:title="@string/preference_list_theme"
             app:iconSpaceReserved="false"/>
 
         <ListPreference
-            app:key="contrast"
-            app:title="@string/preference_list_contrast"
+            android:key="contrast"
+            android:title="@string/preference_list_contrast"
             app:iconSpaceReserved="false"/>
 
         <SwitchPreferenceCompat
-            app:key="dynamic_colors"
-            app:title="@string/preference_switch_dynamic_colors_title"
-            app:summary="@string/preference_switch_dynamic_colors_summary"
-            app:iconSpaceReserved="false"
-            app:widgetLayout="@layout/view_preference_switch"/>
+            android:key="dynamic_colors"
+            android:title="@string/preference_switch_dynamic_colors_title"
+            android:summary="@string/preference_switch_dynamic_colors_summary"
+            android:widgetLayout="@layout/view_preference_switch"
+            app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:iconSpaceReserved="false"
-        app:title="@string/preference_category_notes"
-        app:allowDividerAbove="true">
+        android:title="@string/preference_category_notes"
+        app:allowDividerAbove="true"
+        app:iconSpaceReserved="false">
 
         <ListPreference
-            app:key="view_mode"
-            app:title="@string/preference_list_view_mode"
+            android:key="view_mode"
+            android:title="@string/preference_list_view_mode"
             app:iconSpaceReserved="false"/>
 
         <SeekBarPreference
-            app:title="@string/preference_seekbar_max_note_title"
-            app:iconSpaceReserved="false"
-            app:min="1"
-            android:max="10"
-            app:showSeekBarValue="true"
-            app:key="max_note_title"/>
+            android:key="max_note_title"
+            android:title="@string/preference_seekbar_max_note_title"
+            app:iconSpaceReserved="false"/>
 
         <SeekBarPreference
-            app:title="@string/preference_seekbar_max_note_content"
-            app:iconSpaceReserved="false"
-            app:min="1"
-            android:max="10"
-            app:showSeekBarValue="true"
-            app:key="max_note_content"/>
+            android:key="max_note_content"
+            android:title="@string/preference_seekbar_max_note_content"
+            app:iconSpaceReserved="false"/>
 
         <SwitchPreferenceCompat
-            app:key="rounded_corners"
-            app:title="@string/preference_switch_rounded_corners"
+            android:key="rounded_corners"
+            android:title="@string/preference_switch_rounded_corners"
             app:iconSpaceReserved="false"
-            app:widgetLayout="@layout/view_preference_switch"/>
+            android:widgetLayout="@layout/view_preference_switch"/>
 
         <SwitchPreferenceCompat
-            app:key="show_last_updated"
+            android:key="show_last_updated"
             android:title="@string/preference_switch_last_updated"
             app:iconSpaceReserved="false"
-            app:widgetLayout="@layout/view_preference_switch"/>
+            android:widgetLayout="@layout/view_preference_switch"/>
 
         <SwitchPreferenceCompat
-            app:key="show_date_created"
-            app:title="@string/preference_switch_date_created"
+            android:key="show_date_created"
+            android:title="@string/preference_switch_date_created"
             app:iconSpaceReserved="false"
-            app:widgetLayout="@layout/view_preference_switch"/>
+            android:widgetLayout="@layout/view_preference_switch"/>
 
         <ListPreference
-            app:key="date_format"
-            app:title="@string/preference_list_date_format"
+            android:key="date_format"
+            android:title="@string/preference_list_date_format"
             app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:title="@string/preference_category_about"
+        android:title="@string/preference_category_about"
         app:iconSpaceReserved="false"
         app:allowDividerAbove="true">
 
         <Preference
-            app:key="license"
-            app:title="@string/preference_license"
-            app:summary="@string/app_license"
+            android:key="license"
+            android:title="@string/preference_license"
+            android:summary="@string/app_license"
             app:iconSpaceReserved="false"/>
 
         <Preference
-            app:title="@string/preference_source_code_title"
-            app:summary="@string/preference_source_code_summary"
+            android:title="@string/preference_source_code_title"
+            android:summary="@string/preference_source_code_summary"
             app:iconSpaceReserved="false">
 
             <intent
@@ -95,14 +89,14 @@
         </Preference>
 
         <Preference
-            app:key="third_party_libraries"
+            android:key="third_party_libraries"
             android:title="@string/preference_list_third_party_libraries_title"
             android:summary="@string/preference_list_third_party_libraries_summary"
             app:iconSpaceReserved="false"/>
 
         <Preference
-            app:title="@string/preference_author"
-            app:summary="@string/app_author"
+            android:title="@string/preference_author"
+            android:summary="@string/app_author"
             app:iconSpaceReserved="false">
 
             <intent
@@ -111,8 +105,8 @@
         </Preference>
 
         <Preference
-            app:key="version"
-            app:title="@string/preference_version"
+            android:key="version"
+            android:title="@string/preference_version"
             app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 
