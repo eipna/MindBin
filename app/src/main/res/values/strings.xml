@@ -11,6 +11,7 @@
     <string name="input_hint_note_title">Your title goes here</string>
     <string name="input_hint_note_content">Jot something down here…</string>
 
+    <string name="menu_save">Save</string>
     <string name="menu_sort">Sort By</string>
     <string name="menu_sort_title">Title</string>
     <string name="menu_sort_date_created">Date Created</string>
