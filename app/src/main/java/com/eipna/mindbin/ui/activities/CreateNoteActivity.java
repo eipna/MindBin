@@ -74,7 +74,8 @@ public class CreateNoteActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) createNewNote();
+        if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.save) createNewNote();
         if (item.getItemId() == R.id.share) showShareIntent();
         return true;
     }

@@ -92,7 +92,8 @@ public class UpdateNoteActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) updateNote();
+        if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.save) updateNote();
         if (item.getItemId() == R.id.share) showShareIntent();
 
         if (item.getItemId() == R.id.unarchive || item.getItemId() == R.id.restore) updateNoteState(NoteState.NORMAL);
