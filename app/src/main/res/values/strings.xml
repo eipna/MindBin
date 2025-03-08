@@ -52,8 +52,6 @@
     <string name="indicator_trash_empty">No trashed notes found</string>
     <string name="indicator_folders_empty">No folders found</string>
 
-    <string name="empty_note_content">Nothing to read here…</string>
-    
     <string name="toast_decline_share">Nothing to share here</string>
     <string name="toast_decline_sort">Nothing to sort here</string>
 

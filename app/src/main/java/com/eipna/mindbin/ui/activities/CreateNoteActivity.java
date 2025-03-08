@@ -13,11 +13,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
-import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
-import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
@@ -81,12 +79,8 @@ public class CreateNoteActivity extends BaseActivity {
     }
 
     private void createNewNote() {
-        String titleFromInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
-        String contentFromInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
-        String emptyTitlePlaceholder = String.format("Note %s", DateUtil.getStringByPattern(DatePattern.MM_DD_YYYY, System.currentTimeMillis()));
-
-        String title = (titleFromInput.isEmpty()) ? emptyTitlePlaceholder : titleFromInput;
-        String content = (contentFromInput.isEmpty()) ? getString(R.string.empty_note_content) : contentFromInput;
+        String title = Objects.requireNonNull(binding.titleInput.getText()).toString();
+        String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
         Note createdNote = new Note();
         createdNote.setTitle(title);

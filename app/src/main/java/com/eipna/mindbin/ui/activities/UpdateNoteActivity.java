@@ -50,14 +50,14 @@ public class UpdateNoteActivity extends BaseActivity {
     }
 
     private void updateNote() {
-        String noteTitleInput = Objects.requireNonNull(binding.titleInput.getText()).toString();
-        String noteContentInput = Objects.requireNonNull(binding.contentInput.getText()).toString();
+        String title = Objects.requireNonNull(binding.titleInput.getText()).toString();
+        String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
-        if (!noteTitleInput.equals(noteExtra.getTitle()) || !noteContentInput.equals(noteExtra.getContent())) {
+        if (!title.equals(noteExtra.getTitle()) || !content.equals(noteExtra.getContent())) {
             Note updatedNote = new Note();
             updatedNote.setID(noteExtra.getID());
-            updatedNote.setTitle(noteTitleInput);
-            updatedNote.setContent(noteContentInput);
+            updatedNote.setTitle(title);
+            updatedNote.setContent(content);
             updatedNote.setLastUpdated(System.currentTimeMillis());
             updatedNote.setState(noteExtra.getState());
 
@@ -137,12 +137,12 @@ public class UpdateNoteActivity extends BaseActivity {
     }
 
     private void showShareIntent() {
-        String noteContent = Objects.requireNonNull(binding.contentInput.getText()).toString();
-        if (noteContent.isEmpty() || noteContent.equals(getString(R.string.empty_note_content))) {
+        String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
+        if (content.isEmpty()) {
             Toast.makeText(this, getString(R.string.toast_decline_share), Toast.LENGTH_SHORT).show();
         } else {
             Intent sendIntent = new Intent();
-            sendIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, content);
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.setType("text/plain");
 

@@ -101,8 +101,8 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
             dateCreated.setVisibility(preferences.isNoteDateCreatedEnabled() ? View.VISIBLE : View.GONE);
             lastUpdated.setVisibility(preferences.isNoteLastUpdatedEnabled() ? View.VISIBLE : View.GONE);
 
-            title.setText(note.getTitle());
-            content.setText(note.getContent());
+            title.setText(note.getTitle().isEmpty() ? "Empty note" : note.getTitle());
+            content.setText(note.getContent().isEmpty() ? "Empty note" : note.getContent());
             dateCreated.setText(DateUtil.getString(preferences.getNoteDateCreatedFormat(), note.getDateCreated()));
             lastUpdated.setText(prettyTime.format(new Date(note.getLastUpdated())));
         }
