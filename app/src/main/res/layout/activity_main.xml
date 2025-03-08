@@ -55,10 +55,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/new_note"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_add_note"
+        app:icon="@drawable/ic_outline_edit"
+        android:text="@string/fab_new_note"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
