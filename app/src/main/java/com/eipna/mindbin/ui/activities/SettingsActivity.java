@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -27,6 +26,7 @@ import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
 import com.eipna.mindbin.util.PreferenceUtil;
+import com.eipna.mindbin.util.ThemeUtil;
 import com.google.android.material.color.DynamicColors;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.shape.MaterialShapeDrawable;
@@ -72,6 +72,7 @@ public class SettingsActivity extends BaseActivity {
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
         private PreferenceUtil preferences;
+        private ThemeUtil themeUtil;
 
         private ListPreference listTheme;
         private ListPreference listViewMode;
@@ -131,13 +132,9 @@ public class SettingsActivity extends BaseActivity {
             listContrast.setValue(preferences.getContrast());
             listContrast.setSummary(Contrast.getNameFromValue(preferences.getContrast()));
             listContrast.setOnPreferenceChangeListener((preference, newValue) -> {
-                String selectedContrast = (String) newValue;
-                if (selectedContrast.equals(Contrast.LOW.value)) requireActivity().setTheme(R.style.Theme_MindBin);
-                if (selectedContrast.equals(Contrast.MEDIUM.value)) requireActivity().setTheme(R.style.Theme_MindBin_MediumContrast);
-                if (selectedContrast.equals(Contrast.HIGH.value)) requireActivity().setTheme(R.style.Theme_MindBin_HighContrast);
-
-                preferences.setContrast(selectedContrast);
+                preferences.setContrast((String) newValue);
                 listContrast.setSummary(Contrast.getNameFromValue(preferences.getContrast()));
+                themeUtil.setContrast();
                 requireActivity().recreate();
                 return true;
             });
@@ -180,13 +177,9 @@ public class SettingsActivity extends BaseActivity {
             listTheme.setEntries(Theme.toStringArray());
             listTheme.setEntryValues(Theme.toStringArray());
             listTheme.setOnPreferenceChangeListener((preference, newValue) -> {
-                String selectedTheme = (String) newValue;
-                if (selectedTheme.equals(Theme.SYSTEM.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                if (selectedTheme.equals(Theme.LIGHT.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                if (selectedTheme.equals(Theme.DARK.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                if (selectedTheme.equals(Theme.BATTERY_SAVING.value)) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
-                preferences.setTheme(selectedTheme);
-                listTheme.setSummary(selectedTheme);
+                preferences.setTheme((String) newValue);
+                listTheme.setSummary((String) newValue);
+                themeUtil.setTheme();
                 return true;
             });
 
@@ -249,6 +242,7 @@ public class SettingsActivity extends BaseActivity {
 
         private void setPreferences() {
             preferences = new PreferenceUtil(requireContext());
+            themeUtil = new ThemeUtil(requireActivity());
 
             listTheme = findPreference("theme");
             listViewMode = findPreference("view_mode");
