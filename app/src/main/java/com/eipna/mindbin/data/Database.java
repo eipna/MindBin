@@ -12,7 +12,7 @@ public class Database extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_NOTE = "notes";
-    public static final String COLUMN_NOTE_ID = "note_id";
+    public static final String COLUMN_NOTE_ID = "note_uuid";
     public static final String COLUMN_NOTE_TITLE = "title";
     public static final String COLUMN_NOTE_CONTENT = "content";
     public static final String COLUMN_NOTE_DATE_CREATED = "date_created";
@@ -25,7 +25,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createNoteTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "(" +
-                COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOTE_ID + " TEXT PRIMARY KEY, " +
                 COLUMN_NOTE_TITLE + " TEXT, " +
                 COLUMN_NOTE_CONTENT + " TEXT, " +
                 COLUMN_NOTE_DATE_CREATED + " INTEGER NOT NULL, " +

@@ -19,6 +19,7 @@ import com.eipna.mindbin.databinding.ActivityCreateBinding;
 import com.eipna.mindbin.util.DateUtil;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class CreateActivity extends BaseActivity {
 
@@ -84,6 +85,7 @@ public class CreateActivity extends BaseActivity {
         String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
         Note createdNote = new Note();
+        createdNote.setUUID(UUID.randomUUID().toString());
         createdNote.setTitle(title);
         createdNote.setContent(content);
         createdNote.setState(NoteState.NORMAL.value);

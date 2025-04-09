@@ -20,6 +20,7 @@ public class NoteRepository extends Database {
     public void create(Note createdNote) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_NOTE_ID, createdNote.getUUID());
         values.put(COLUMN_NOTE_TITLE, createdNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, createdNote.getContent());
         values.put(COLUMN_NOTE_DATE_CREATED, createdNote.getDateCreated());
@@ -34,21 +35,21 @@ public class NoteRepository extends Database {
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, updatedNote.getContent());
         values.put(COLUMN_NOTE_STATE, updatedNote.getState());
-        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(updatedNote.getID())});
+        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(updatedNote.getUUID())});
         database.close();
     }
 
-    public void updateState(int noteID, int updatedState) {
+    public void updateState(String noteUUID, int updatedState) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_STATE, updatedState);
-        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{String.valueOf(noteID)});
+        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{String.valueOf(noteUUID)});
         database.close();
     }
 
-    public void delete(int noteID) {
+    public void delete(String noteUUID) {
         SQLiteDatabase database = getWritableDatabase();
-        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(noteID)});
+        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(noteUUID)});
         database.close();
     }
 
@@ -63,7 +64,7 @@ public class NoteRepository extends Database {
         if (cursor.moveToFirst()) {
             do {
                 Note queriedNote = new Note();
-                queriedNote.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)));
+                queriedNote.setUUID(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_ID)));
                 queriedNote.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)));
                 queriedNote.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)));
                 queriedNote.setDateCreated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_DATE_CREATED)));

@@ -57,7 +57,7 @@ public class EditActivity extends BaseActivity {
 
         if (!title.equals(noteExtra.getTitle()) || !content.equals(noteExtra.getContent())) {
             Note editedNote = new Note();
-            editedNote.setID(noteExtra.getID());
+            editedNote.setUUID(noteExtra.getUUID());
             editedNote.setTitle(title);
             editedNote.setContent(content);
             editedNote.setState(noteExtra.getState());
@@ -105,7 +105,7 @@ public class EditActivity extends BaseActivity {
     }
 
     private void updateNoteState(NoteState updatedState) {
-        noteRepository.updateState(noteExtra.getID(), updatedState.value);
+        noteRepository.updateState(noteExtra.getUUID(), updatedState.value);
         setResult(RESULT_OK);
         finish();
     }
@@ -118,7 +118,7 @@ public class EditActivity extends BaseActivity {
                 .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
                 .setNegativeButton(R.string.dialog_button_close, null)
                 .setPositiveButton(R.string.dialog_button_delete, (dialogInterface, i) -> {
-                    noteRepository.delete(noteExtra.getID());
+                    noteRepository.delete(noteExtra.getUUID());
                     setResult(RESULT_OK);
                     finish();
                 });
