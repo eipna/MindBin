@@ -46,18 +46,27 @@
                android:inputType="textAutoComplete"
                android:maxLines="1"
                android:textAppearance="?attr/textAppearanceTitleLarge"
-               android:layout_marginBottom="12dp"
                android:fontFamily="sans-serif-medium"
                android:textColor="?attr/colorOnSurface"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>
 
+           <com.google.android.material.textview.MaterialTextView
+               android:text="Wednesday, April 09 2025"
+               android:layout_marginTop="4dp"
+               android:textAppearance="?attr/textAppearanceBodySmall"
+               android:textColor="?attr/colorOnSurfaceVariant"
+               android:alpha="0.6"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+
            <com.google.android.material.textfield.TextInputEditText
                android:id="@+id/content_input"
                android:background="@null"
+               android:layout_marginTop="16dp"
                android:textColor="?attr/colorOnSurfaceVariant"
                android:inputType="textAutoComplete|textMultiLine"
-               android:textAppearance="?attr/textAppearanceBodyMedium"
+               android:textAppearance="?attr/textAppearanceBodyLarge"
                android:hint="@string/input_hint_note_content"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>

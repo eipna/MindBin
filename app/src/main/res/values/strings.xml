@@ -11,8 +11,8 @@
     <string name="toolbar_trash">Trash</string>
     <string name="toolbar_folder">Folders</string>
 
-    <string name="input_hint_note_title">Your title goes here</string>
-    <string name="input_hint_note_content">Jot something down here…</string>
+    <string name="input_hint_note_title">Title</string>
+    <string name="input_hint_note_content">Content</string>
 
     <string name="menu_save">Save</string>
     <string name="menu_sort">Sort By</string>
