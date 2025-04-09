@@ -1,15 +1,19 @@
 package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.Database;
 import com.eipna.mindbin.data.folder.Folder;
 import com.eipna.mindbin.data.folder.FolderRepository;
 import com.eipna.mindbin.databinding.ActivityFolderBinding;
@@ -28,6 +32,13 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
     private ArrayList<Folder> folders;
     private FolderRepository folderRepository;
     private FolderAdapter folderAdapter;
+
+    private final ActivityResultLauncher<Intent> editFolderLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    refreshList();
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +121,12 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
 
     @Override
     public void onClick(int position) {
-        // Open edit folder dialog
+        Folder selectedFolder = folders.get(position);
+        Intent folderIntent = new Intent(FolderActivity.this, NotesActivity.class);
+        folderIntent.putExtra(Database.COLUMN_FOLDER_ID, selectedFolder.getUUID());
+        folderIntent.putExtra(Database.COLUMN_FOLDER_NAME, selectedFolder.getName());
+        folderIntent.putExtra(Database.COLUMN_FOLDER_DESCRIPTION, selectedFolder.getDescription());
+        folderIntent.putExtra(Database.COLUMN_FOLDER_PINNED, selectedFolder.getIsPinned());
+        editFolderLauncher.launch(folderIntent);
     }
 }
