@@ -49,13 +49,13 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/folder_list"
+        android:id="@+id/recycler_view"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_folder"
+        android:id="@+id/fab"
         android:src="@drawable/ic_add_folder"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
