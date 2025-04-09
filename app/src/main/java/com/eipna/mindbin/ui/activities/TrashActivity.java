@@ -67,7 +67,7 @@ public class TrashActivity extends BaseActivity implements NoteListener {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
-        binding.noteList.addItemDecoration(new NoteItemDecoration(16));
+        binding.noteList.addItemDecoration(new NoteItemDecoration(32));
         binding.noteList.setAdapter(noteAdapter);
     }
 

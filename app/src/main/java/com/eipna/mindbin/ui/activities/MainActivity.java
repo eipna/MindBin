@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
             binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
-        binding.recyclerView.addItemDecoration(new NoteItemDecoration(16));
+        binding.recyclerView.addItemDecoration(new NoteItemDecoration(32));
         binding.recyclerView.setAdapter(noteAdapter);
 
         binding.fab.setOnClickListener(v -> createNoteLauncher.launch(new Intent(MainActivity.this, CreateActivity.class)));
