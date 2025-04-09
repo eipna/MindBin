@@ -87,7 +87,12 @@ public class CreateActivity extends BaseActivity {
         createdNote.setLastUpdated(System.currentTimeMillis());
 
         noteRepository.create(createdNote);
-        setResult(RESULT_OK);
-        finish();
+        if (Intent.ACTION_SEND.equals(getIntent().getAction()) && getIntent().getType() != null) {
+            startActivity(new Intent(CreateActivity.this, MainActivity.class));
+            finish();
+        } else {
+            setResult(RESULT_OK);
+            finish();
+        }
     }
 }
