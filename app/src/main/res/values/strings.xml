@@ -50,6 +50,9 @@
     <string name="recycler_folder_name">Personal</string>
     <string name="recycler_folder_description">A folder for my personal space.</string>
 
+    <string name="field_error_required">*required</string>
+    <string name="field_error_folder_exists">Folder already exists</string>
+
     <string name="indicator_notes_empty">No notes found</string>
     <string name="indicator_archive_empty">Archive is empty</string>
     <string name="indicator_trash_empty">Trash is empty</string>

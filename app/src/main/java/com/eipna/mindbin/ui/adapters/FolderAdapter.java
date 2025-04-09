@@ -62,7 +62,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         public void bind(Folder folder) {
             name.setText(folder.getName());
-            name.setText(folder.getDescription());
+            description.setText(folder.getDescription());
         }
     }
 }

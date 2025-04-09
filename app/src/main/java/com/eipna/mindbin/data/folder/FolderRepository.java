@@ -20,7 +20,7 @@ public class FolderRepository extends Database {
     public boolean create(Folder createdFolder) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_FOLDER_ID, createdFolder.getIsPinned());
+        values.put(COLUMN_FOLDER_ID, createdFolder.getUUID());
         values.put(COLUMN_FOLDER_NAME, createdFolder.getName());
         values.put(COLUMN_FOLDER_DESCRIPTION, createdFolder.getDescription());
         values.put(COLUMN_FOLDER_PINNED, createdFolder.getIsPinned());
