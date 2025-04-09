@@ -1,5 +1,7 @@
 package com.eipna.mindbin.ui.activities;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -154,8 +156,26 @@ public class NotesActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.edit) showEditFolderDialog();
+        if (item.getItemId() == R.id.delete) showDeleteFolderDialog();
         if (item.getItemId() == R.id.pin) togglePin();
         return true;
+    }
+
+    private void showDeleteFolderDialog() {
+        @SuppressLint("UseCompatLoadingForDrawables")
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.dialog_folder_delete_title)
+                .setMessage(R.string.dialog_folder_delete_message)
+                .setIcon(R.drawable.ic_warning_filled)
+                .setNegativeButton(R.string.dialog_button_close, null)
+                .setPositiveButton(R.string.dialog_button_delete, (dialogInterface, i) -> {
+                    folderRepository.delete(UUIDExtra);
+                    setResult(RESULT_OK);
+                    finish();
+                });
+
+        Dialog clearDialog = builder.create();
+        clearDialog.show();
     }
 
     private void togglePin() {
