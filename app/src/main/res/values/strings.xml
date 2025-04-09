@@ -48,8 +48,8 @@
     <string name="recycler_note_last_updated">a few moments ago</string>
 
     <string name="indicator_notes_empty">No notes found</string>
-    <string name="indicator_archive_empty">No archived notes found</string>
-    <string name="indicator_trash_empty">No trashed notes found</string>
+    <string name="indicator_archive_empty">Archive is empty</string>
+    <string name="indicator_trash_empty">Trash is empty</string>
     <string name="indicator_folders_empty">No folders found</string>
 
     <string name="toast_decline_share">Nothing to share here</string>

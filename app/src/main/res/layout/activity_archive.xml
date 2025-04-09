@@ -31,11 +31,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@drawable/ic_inventory"
+            android:src="@drawable/ic_archive"
             app:tint="?attr/colorTertiary"
             android:layout_gravity="center"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -43,8 +43,8 @@
             android:layout_gravity="center"
             android:textAlignment="center"
             android:layout_marginTop="8dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
