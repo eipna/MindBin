@@ -45,7 +45,7 @@ public class CreateActivity extends BaseActivity {
             }
         }
 
-        binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.value, System.currentTimeMillis()));
+        binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.PATTERN, System.currentTimeMillis()));
 
         binding.contentInput.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

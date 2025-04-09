@@ -47,7 +47,7 @@ public class EditActivity extends BaseActivity {
         if (noteExtra != null) {
             binding.titleInput.setText(noteExtra.getTitle());
             binding.contentInput.setText(noteExtra.getContent());
-            binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.value, noteExtra.getDateCreated()));
+            binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.PATTERN, noteExtra.getDateCreated()));
         }
     }
 

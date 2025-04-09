@@ -11,7 +11,7 @@ public class DateUtil {
 
     public static String getStringByPattern(DatePattern pattern, long timeStamp) {
         @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern.value);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern.PATTERN);
         return simpleDateFormat.format(new Date(timeStamp));
     }
 

@@ -123,10 +123,10 @@ public class SettingsActivity extends BaseActivity {
             listDateFormat.setEntries(DatePattern.toStringArrayEntries());
             listDateFormat.setEntryValues(DatePattern.toStringArray());
             listDateFormat.setValue(preferences.getNoteDateCreatedFormat());
-            listDateFormat.setSummary(preferences.getNoteDateCreatedFormat());
+            listDateFormat.setSummary(DatePattern.getNameByPattern(preferences.getNoteDateCreatedFormat()));
             listDateFormat.setOnPreferenceChangeListener((preference, newValue) -> {
                 preferences.setNoteDateCreatedFormat((String) newValue);
-                listDateFormat.setSummary((String) newValue);
+                listDateFormat.setSummary(DatePattern.getNameByPattern(preferences.getNoteDateCreatedFormat()));
                 return true;
             });
 

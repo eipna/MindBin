@@ -10,22 +10,22 @@ public enum DatePattern {
     YYYY_MM_DD("yyyy/mm/dd", "2025/01/20");
 
     public static final DatePattern[] datePatterns;
-    public final String value;
-    public final String entry;
+    public final String PATTERN;
+    public final String NAME;
 
     static {
         datePatterns = values();
     }
 
-    DatePattern(String value, String entry) {
-        this.value = value;
-        this.entry = entry;
+    DatePattern(String PATTERN, String NAME) {
+        this.PATTERN = PATTERN;
+        this.NAME = NAME;
     }
 
     public static String[] toStringArray() {
         String[] stringArray = new String[values().length];
         for (int i = 0; i < stringArray.length; i++) {
-            stringArray[i] = values()[i].value;
+            stringArray[i] = values()[i].PATTERN;
         }
         return stringArray;
     }
@@ -33,8 +33,17 @@ public enum DatePattern {
     public static String[] toStringArrayEntries() {
         String[] stringArray = new String[values().length];
         for (int i = 0; i < stringArray.length; i++) {
-            stringArray[i] = values()[i].entry;
+            stringArray[i] = values()[i].NAME;
         }
         return stringArray;
+    }
+
+    public static String getNameByPattern(String pattern) {
+        for (DatePattern datePattern : datePatterns) {
+            if (datePattern.PATTERN.equals(pattern)) {
+                return datePattern.NAME;
+            }
+        }
+        return null;
     }
 }

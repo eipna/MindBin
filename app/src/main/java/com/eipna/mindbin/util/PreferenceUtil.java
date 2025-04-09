@@ -57,7 +57,7 @@ public class PreferenceUtil {
     }
 
     public String getNoteDateCreatedFormat() {
-        return sharedPreferences.getString("note_date_created_format", DatePattern.MM_DD_YYYY.value);
+        return sharedPreferences.getString("note_date_created_format", DatePattern.MM_DD_YYYY.PATTERN);
     }
 
     public void setNoteDateCreatedFormat(String value) {
