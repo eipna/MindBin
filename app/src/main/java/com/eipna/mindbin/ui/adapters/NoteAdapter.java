@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.note.Note;
-import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.util.DateUtil;
 import com.eipna.mindbin.util.PreferenceUtil;
 import com.google.android.material.card.MaterialCardView;
@@ -24,13 +23,17 @@ import java.util.ArrayList;
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     private final Context context;
+    private final Listener listener;
     private ArrayList<Note> list;
-    private final NoteListener noteListener;
 
-    public NoteAdapter(@NotNull Context context, NoteListener noteListener, ArrayList<Note> list) {
+    public interface Listener {
+        void onClick(int position);
+    }
+
+    public NoteAdapter(@NotNull Context context, Listener listener, ArrayList<Note> list) {
         this.context = context;
         this.list = list;
-        this.noteListener = noteListener;
+        this.listener = listener;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -51,11 +54,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         Note currentNote = list.get(position);
         holder.bind(currentNote);
 
-        holder.itemView.setOnClickListener(view -> noteListener.OnNoteClick(position));
-        holder.itemView.setOnLongClickListener(view -> {
-            noteListener.OnNoteLongClick(position);
-            return true;
-        });
+        holder.itemView.setOnClickListener(view -> listener.onClick(position));
     }
 
     @Override

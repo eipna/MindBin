@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
-import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityArchiveBinding;
@@ -22,7 +21,7 @@ import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 
 import java.util.ArrayList;
 
-public class ArchiveActivity extends BaseActivity implements NoteListener {
+public class ArchiveActivity extends BaseActivity implements NoteAdapter.Listener {
 
     private ActivityArchiveBinding binding;
     private NoteRepository noteRepository;
@@ -79,15 +78,10 @@ public class ArchiveActivity extends BaseActivity implements NoteListener {
     }
 
     @Override
-    public void OnNoteClick(int position) {
+    public void onClick(int position) {
         Note selectedNote = noteList.get(position);
         Intent editNoteIntent = new Intent(getApplicationContext(), EditActivity.class);
         editNoteIntent.putExtra("selected_note", selectedNote);
         editNoteLauncher.launch(editNoteIntent);
-    }
-
-    @Override
-    public void OnNoteLongClick(int position) {
-
     }
 }

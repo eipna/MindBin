@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.note.Note;
-import com.eipna.mindbin.data.note.NoteListener;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityTrashBinding;
@@ -29,7 +28,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 
-public class TrashActivity extends BaseActivity implements NoteListener {
+public class TrashActivity extends BaseActivity implements NoteAdapter.Listener {
 
     private ActivityTrashBinding binding;
     private NoteRepository noteRepository;
@@ -126,15 +125,10 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     }
 
     @Override
-    public void OnNoteClick(int position) {
+    public void onClick(int position) {
         Note selectedNote = noteList.get(position);
         Intent editNoteIntent = new Intent(getApplicationContext(), EditActivity.class);
         editNoteIntent.putExtra("selected_note", selectedNote);
         editNoteLauncher.launch(editNoteIntent);
-    }
-
-    @Override
-    public void OnNoteLongClick(int position) {
-
     }
 }
