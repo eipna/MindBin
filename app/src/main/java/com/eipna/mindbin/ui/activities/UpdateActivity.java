@@ -13,10 +13,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
+import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
@@ -34,6 +36,7 @@ public class UpdateActivity extends BaseActivity {
         binding = ActivityUpdateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        noteExtra = getIntent().getParcelableExtra("selected_note");
         noteRepository = new NoteRepository(this);
 
         setSupportActionBar(binding.toolbar);
@@ -41,10 +44,10 @@ public class UpdateActivity extends BaseActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        noteExtra = getIntent().getParcelableExtra("selected_note");
         if (noteExtra != null) {
             binding.titleInput.setText(noteExtra.getTitle());
             binding.contentInput.setText(noteExtra.getContent());
+            binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.value, noteExtra.getDateCreated()));
         }
     }
 

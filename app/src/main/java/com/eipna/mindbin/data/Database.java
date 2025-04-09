@@ -26,8 +26,8 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String createNoteTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NOTE + "(" +
                 COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NOTE_TITLE + " TEXT NOT NULL, " +
-                COLUMN_NOTE_CONTENT + " TEXT NOT NULL, " +
+                COLUMN_NOTE_TITLE + " TEXT, " +
+                COLUMN_NOTE_CONTENT + " TEXT, " +
                 COLUMN_NOTE_DATE_CREATED + " INTEGER NOT NULL, " +
                 COLUMN_NOTE_STATE + " INTEGER NOT NULL)";
         sqLiteDatabase.execSQL(createNoteTable);

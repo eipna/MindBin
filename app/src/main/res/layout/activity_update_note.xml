@@ -31,10 +31,10 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingStart="21dp"
-            android:paddingEnd="21dp"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingStart="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -44,16 +44,26 @@
                 android:hint="@string/input_hint_note_title"
                 android:inputType="textAutoComplete"
                 android:maxLines="1"
-                android:layout_marginBottom="16dp"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/currentDate"
+                android:text="Wednesday, April 09 2025"
+                android:layout_marginTop="4dp"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:alpha="0.6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/content_input"
                 android:background="@null"
+                android:layout_marginTop="16dp"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:inputType="textAutoComplete|textMultiLine"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
