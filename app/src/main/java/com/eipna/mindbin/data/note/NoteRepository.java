@@ -46,9 +46,9 @@ public class NoteRepository extends Database {
         database.close();
     }
 
-    public void delete(Note deletedNote) {
+    public void delete(int noteID) {
         SQLiteDatabase database = getWritableDatabase();
-        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(deletedNote.getID())});
+        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(noteID)});
         database.close();
     }
 

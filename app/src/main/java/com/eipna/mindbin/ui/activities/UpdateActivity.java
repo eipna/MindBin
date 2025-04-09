@@ -3,7 +3,6 @@ package com.eipna.mindbin.ui.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,16 +14,17 @@ import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
 
 public class UpdateActivity extends BaseActivity {
 
     private ActivityUpdateNoteBinding binding;
+    private NoteRepository noteRepository;
     private Note noteExtra;
 
     @Override
@@ -34,8 +34,7 @@ public class UpdateActivity extends BaseActivity {
         binding = ActivityUpdateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
-        binding.appBar.setStatusBarForeground(drawable);
+        noteRepository = new NoteRepository(this);
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
@@ -60,9 +59,8 @@ public class UpdateActivity extends BaseActivity {
             updatedNote.setContent(content);
             updatedNote.setState(noteExtra.getState());
 
-            Intent updateIntent = new Intent();
-            updateIntent.putExtra("updated_note", updatedNote);
-            setResult(RESULT_OK, updateIntent);
+            noteRepository.update(updatedNote);
+            setResult(RESULT_OK);
             finish();
         } else {
             finish();
@@ -104,13 +102,8 @@ public class UpdateActivity extends BaseActivity {
     }
 
     private void updateNoteState(NoteState updatedState) {
-        Note updatedNote = new Note();
-        updatedNote.setID(noteExtra.getID());
-        updatedNote.setState(updatedState.value);
-
-        Intent updateIntent = new Intent();
-        updateIntent.putExtra("updated_note", updatedNote);
-        setResult(RESULT_UPDATE_STATE, updateIntent);
+        noteRepository.updateState(noteExtra.getID(), updatedState.value);
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -122,12 +115,8 @@ public class UpdateActivity extends BaseActivity {
                 .setIcon(getResources().getDrawable(R.drawable.ic_warning_filled, getTheme()))
                 .setNegativeButton(R.string.dialog_button_close, null)
                 .setPositiveButton(R.string.dialog_button_delete, (dialogInterface, i) -> {
-                    Note deletedNote = new Note();
-                    deletedNote.setID(noteExtra.getID());
-
-                    Intent deleteIntent = new Intent();
-                    deleteIntent.putExtra("deleted_note", deletedNote);
-                    setResult(RESULT_DELETE, deleteIntent);
+                    noteRepository.delete(noteExtra.getID());
+                    setResult(RESULT_OK);
                     finish();
                 });
 

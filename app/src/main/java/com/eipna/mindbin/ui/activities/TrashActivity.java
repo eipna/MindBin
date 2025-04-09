@@ -3,7 +3,6 @@ package com.eipna.mindbin.ui.activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,7 +26,6 @@ import com.eipna.mindbin.databinding.ActivityTrashBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
 
@@ -38,15 +36,19 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     private ArrayList<Note> noteList;
     private NoteAdapter noteAdapter;
 
+    private final ActivityResultLauncher<Intent> editNoteLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    refreshList();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityTrashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
-        binding.appBar.setStatusBarForeground(drawable);
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
@@ -73,6 +75,14 @@ public class TrashActivity extends BaseActivity implements NoteListener {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshList() {
+        noteList.clear();
+        noteList.addAll(noteRepository.getByState(NoteState.TRASH));
+        binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -115,59 +125,12 @@ public class TrashActivity extends BaseActivity implements NoteListener {
         clearDialog.show();
     }
 
-    private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == RESULT_OK) {
-            Intent resultIntent = result.getData();
-            if (resultIntent != null) {
-                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
-                if (updatedNote != null) {
-                    noteRepository.update(updatedNote);
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteAdapter.update(noteList);
-
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    invalidateOptionsMenu();
-                }
-            }
-        }
-
-        if (result.getResultCode() == RESULT_DELETE) {
-            Intent deleteIntent = result.getData();
-            if (deleteIntent != null) {
-                Note deletedNote = deleteIntent.getParcelableExtra("deleted_note");
-                if (deletedNote != null) {
-                    noteRepository.delete(deletedNote);
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteAdapter.update(noteList);
-
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    invalidateOptionsMenu();
-                }
-            }
-        }
-
-        if (result.getResultCode() == RESULT_UPDATE_STATE) {
-            Intent resultIntent = result.getData();
-            if (resultIntent != null) {
-                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
-                if (updatedNote != null) {
-                    noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.TRASH));
-                    noteAdapter.update(noteList);
-
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    invalidateOptionsMenu();
-                }
-            }
-        }
-    });
-
     @Override
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
-        updateNoteIntent.putExtra("selected_note", selectedNote);
-        updateNoteLauncher.launch(updateNoteIntent);
+        Intent editNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
+        editNoteIntent.putExtra("selected_note", selectedNote);
+        editNoteLauncher.launch(editNoteIntent);
     }
 
     @Override

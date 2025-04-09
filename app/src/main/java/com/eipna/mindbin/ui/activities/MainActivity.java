@@ -43,6 +43,13 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 }
             });
 
+    private final ActivityResultLauncher<Intent> editNoteLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    refreshList();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,40 +137,12 @@ public class MainActivity extends BaseActivity implements NoteListener {
         binding = null;
     }
 
-    private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == RESULT_OK) {
-            Intent resultIntent = result.getData();
-            if (resultIntent != null) {
-                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
-                if (updatedNote != null) {
-                    noteRepository.update(updatedNote);
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    noteAdapter.update(noteList);
-                }
-            }
-        }
-
-        if (result.getResultCode() == RESULT_UPDATE_STATE) {
-            Intent resultIntent = result.getData();
-            if (resultIntent != null) {
-                Note updatedNote = resultIntent.getParcelableExtra("updated_note");
-                if (updatedNote != null) {
-                    noteRepository.updateState(updatedNote.getID(), updatedNote.getState());
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    noteAdapter.update(noteList);
-                }
-            }
-        }
-    });
-
     @Override
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
-        updateNoteIntent.putExtra("selected_note", selectedNote);
-        updateNoteLauncher.launch(updateNoteIntent);
+        Intent editNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
+        editNoteIntent.putExtra("selected_note", selectedNote);
+        editNoteLauncher.launch(editNoteIntent);
     }
 
     @Override

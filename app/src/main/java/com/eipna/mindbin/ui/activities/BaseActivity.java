@@ -13,9 +13,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected PreferenceUtil preferences;
     protected ThemeUtil themeUtil;
 
-    protected final int RESULT_DELETE = 404;
-    protected final int RESULT_UPDATE_STATE = 101;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         preferences = new PreferenceUtil(this);
