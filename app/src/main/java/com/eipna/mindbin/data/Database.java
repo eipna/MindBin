@@ -40,7 +40,7 @@ public class Database extends SQLiteOpenHelper {
         String createFolderTable = "CREATE TABLE IF NOT EXISTS " + TABLE_FOLDER + "(" +
                 COLUMN_FOLDER_ID + " TEXT PRIMARY KEY, " +
                 COLUMN_FOLDER_PINNED + " INTEGER NOT NULL, " +
-                COLUMN_FOLDER_NAME + " TEXT NOT NULL, " +
+                COLUMN_FOLDER_NAME + " TEXT NOT NULL UNIQUE, " +
                 COLUMN_FOLDER_DESCRIPTION + " TEXT);";
 
         sqLiteDatabase.execSQL(createNoteTable);
