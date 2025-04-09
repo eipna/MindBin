@@ -35,7 +35,7 @@ public class NoteRepository extends Database {
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, updatedNote.getContent());
         values.put(COLUMN_NOTE_STATE, updatedNote.getState());
-        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(updatedNote.getUUID())});
+        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{updatedNote.getUUID()});
         database.close();
     }
 
@@ -43,13 +43,13 @@ public class NoteRepository extends Database {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_STATE, updatedState);
-        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{String.valueOf(noteUUID)});
+        database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?" , new String[]{noteUUID});
         database.close();
     }
 
     public void delete(String noteUUID) {
         SQLiteDatabase database = getWritableDatabase();
-        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(noteUUID)});
+        database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{noteUUID});
         database.close();
     }
 
