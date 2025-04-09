@@ -64,7 +64,7 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
     }
 
     private void showCreateFolderDialog() {
-        View createFolderDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_create_folder, null, false);
+        View createFolderDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_folder, null, false);
 
         TextInputLayout nameLayout = createFolderDialogView.findViewById(R.id.field_folder_name_layout);
 
