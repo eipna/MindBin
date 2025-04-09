@@ -18,7 +18,6 @@
     <string name="menu_sort">Sort By</string>
     <string name="menu_sort_title">Title</string>
     <string name="menu_sort_date_created">Date Created</string>
-    <string name="menu_sort_last_updated">Last Updated</string>
     <string name="menu_sort_ascending">Ascending</string>
     <string name="menu_sort_descending">Descending</string>
     <string name="menu_share">Share Note</string>
@@ -37,7 +36,6 @@
     <string name="dialog_note_delete_message">Are you sure you want to delete this note? Once deleted, it cannot be recovered.</string>
     <string name="dialog_note_clear_all_title">Permanent Deletion </string>
     <string name="dialog_note_clear_all_message">This action will permanently delete all notes in the trash. Are you sure you want to proceed?</string>
-    <string name="dialog_third_party_libraries_title">Third-party Libraries</string>
     <string name="dialog_button_close">Close</string>
     <string name="dialog_button_clear">Clear</string>
     <string name="dialog_button_delete">Delete</string>
@@ -45,7 +43,6 @@
     <string name="recycler_note_title">Lorem Ipsum.</string>
     <string name="recycler_note_content">Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu amet urna faucibus per eleifend, erat rutrum. Maximus eros tortor eget; sit metus tempus. Condimentum nibh litora velit augue fames. Ac consequat fames augue felis; sagittis vitae consectetur adipiscing. Finibus congue gravida litora dis amet. Dictumst elit ridiculus aenean suscipit fringilla placerat ante dictumst consequat. Diam adipiscing semper nunc massa sapien arcu consectetur praesent convallis. Ex ac cras nulla porttitor torquent bibendum.</string>
     <string name="recycler_note_date_created">Sunday, January 19 2025</string>
-    <string name="recycler_note_last_updated">a few moments ago</string>
 
     <string name="indicator_notes_empty">No notes found</string>
     <string name="indicator_archive_empty">Archive is empty</string>
@@ -69,7 +66,6 @@
     <!-- Notes Preference Category -->
     <string name="preference_category_notes">Notes</string>
     <string name="preference_switch_rounded_corners">Use rounded corners</string>
-    <string name="preference_switch_last_updated">Show last updated</string>
     <string name="preference_switch_date_created">Show creation date</string>
     <string name="preference_seekbar_max_note_title">Number of lines for title</string>
     <string name="preference_seekbar_max_note_content">Number of lines for content</string>

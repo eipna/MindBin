@@ -58,7 +58,6 @@ public class UpdateActivity extends BaseActivity {
             updatedNote.setID(noteExtra.getID());
             updatedNote.setTitle(title);
             updatedNote.setContent(content);
-            updatedNote.setLastUpdated(System.currentTimeMillis());
             updatedNote.setState(noteExtra.getState());
 
             Intent updateIntent = new Intent();

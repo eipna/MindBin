@@ -2,12 +2,10 @@ package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.Contrast;
 import com.eipna.mindbin.data.DatePattern;
-import com.eipna.mindbin.data.Library;
 import com.eipna.mindbin.data.Theme;
 import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.databinding.ActivitySettingsBinding;
@@ -82,11 +79,9 @@ public class SettingsActivity extends BaseActivity {
         private SwitchPreferenceCompat switchDynamicColors;
         private SwitchPreferenceCompat switchRoundedCorners;
         private SwitchPreferenceCompat switchShowDateCreated;
-        private SwitchPreferenceCompat switchShowLastUpdated;
 
         private Preference versionPrefs;
         private Preference licensePrefs;
-        private Preference thirdPartyLibraries;
 
         private SeekBarPreference seekBarMaxNoteTitle;
         private SeekBarPreference seekBarMaxNoteContent;
@@ -106,17 +101,6 @@ public class SettingsActivity extends BaseActivity {
 
             licensePrefs.setOnPreferenceClickListener(preference -> {
                 showLicenseDialog();
-                return true;
-            });
-
-            thirdPartyLibraries.setOnPreferenceClickListener(preference -> {
-                showLibrariesDialog();
-                return true;
-            });
-
-            switchShowLastUpdated.setChecked(preferences.isNoteLastUpdatedEnabled());
-            switchShowLastUpdated.setOnPreferenceChangeListener((preference, newValue) -> {
-                preferences.setNoteLastUpdated((boolean) newValue);
                 return true;
             });
 
@@ -204,20 +188,6 @@ public class SettingsActivity extends BaseActivity {
             });
         }
 
-        private void showLibrariesDialog() {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
-                    .setTitle(R.string.dialog_third_party_libraries_title)
-                    .setPositiveButton(R.string.dialog_button_close, null)
-                    .setItems(Library.toStringArrayName(), (dialogInterface, index) -> {
-                        String selectedLibrary = Library.toStringArrayURL()[index];
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(selectedLibrary));
-                        startActivity(browserIntent);
-                    });
-
-            Dialog librariesDialog = builder.create();
-            librariesDialog.show();
-        }
-
         private void showLicenseDialog() {
             @SuppressLint("UseCompatLoadingForDrawables")
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext())
@@ -254,16 +224,15 @@ public class SettingsActivity extends BaseActivity {
             listViewMode = findPreference("view_mode");
             listDateFormat = findPreference("date_format");
             listContrast = findPreference("contrast");
+
             seekBarMaxNoteTitle = findPreference("max_note_title");
             seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");
             switchRoundedCorners = findPreference("rounded_corners");
             switchShowDateCreated = findPreference("show_date_created");
-            switchShowLastUpdated = findPreference("show_last_updated");
 
             versionPrefs = findPreference("version");
             licensePrefs = findPreference("license");
-            thirdPartyLibraries = findPreference("third_party_libraries");
         }
     }
 }

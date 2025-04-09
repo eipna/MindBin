@@ -13,7 +13,6 @@ public class Note implements Parcelable {
     private String title;
     private String content;
     private long dateCreated;
-    private long lastUpdated;
     private int state;
 
     public Note() {
@@ -21,7 +20,6 @@ public class Note implements Parcelable {
         this.title = null;
         this.content = null;
         this.dateCreated = -1;
-        this.lastUpdated = -1;
         this.state = -2;
     }
 
@@ -57,14 +55,6 @@ public class Note implements Parcelable {
         this.dateCreated = dateCreated;
     }
 
-    public long getLastUpdated() {
-        return lastUpdated;
-    }
-
-    public void setLastUpdated(long lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-
     public int getState() {
         return state;
     }
@@ -77,14 +67,12 @@ public class Note implements Parcelable {
 
     public static final Comparator<Note> SORT_DATE_CREATED = Comparator.comparingLong(Note::getDateCreated);
 
-    public static final Comparator<Note> SORT_LAST_UPDATED = Comparator.comparingLong(Note::getLastUpdated);
 
     protected Note(Parcel in) {
         ID = in.readInt();
         title = in.readString();
         content = in.readString();
         dateCreated = in.readLong();
-        lastUpdated = in.readLong();
         state = in.readInt();
     }
 
@@ -111,7 +99,6 @@ public class Note implements Parcelable {
         destination.writeString(title);
         destination.writeString(content);
         destination.writeLong(dateCreated);
-        destination.writeLong(lastUpdated);
         destination.writeInt(state);
     }
 }

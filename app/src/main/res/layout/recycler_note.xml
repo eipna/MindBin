@@ -47,15 +47,5 @@
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/recyclerNoteLastUpdated"
-            android:text="@string/recycler_note_last_updated"
-            android:layout_gravity="end"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?attr/textAppearanceBodySmall"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

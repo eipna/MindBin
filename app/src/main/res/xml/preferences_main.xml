@@ -50,12 +50,6 @@
             android:widgetLayout="@layout/view_preference_switch"/>
 
         <SwitchPreferenceCompat
-            android:key="show_last_updated"
-            android:title="@string/preference_switch_last_updated"
-            app:iconSpaceReserved="false"
-            android:widgetLayout="@layout/view_preference_switch"/>
-
-        <SwitchPreferenceCompat
             android:key="show_date_created"
             android:title="@string/preference_switch_date_created"
             app:iconSpaceReserved="false"
@@ -87,12 +81,6 @@
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/eipna/MindBin"/>
         </Preference>
-
-        <Preference
-            android:key="third_party_libraries"
-            android:title="@string/preference_list_third_party_libraries_title"
-            android:summary="@string/preference_list_third_party_libraries_summary"
-            app:iconSpaceReserved="false"/>
 
         <Preference
             android:title="@string/preference_author"

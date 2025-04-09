@@ -64,14 +64,6 @@ public class PreferenceUtil {
         sharedPreferences.edit().putString("note_date_create_format", value).apply();
     }
 
-    public boolean isNoteLastUpdatedEnabled() {
-        return sharedPreferences.getBoolean("note_last_updated", false);
-    }
-
-    public void setNoteLastUpdated(boolean value) {
-        sharedPreferences.edit().putBoolean("note_last_updated", value).apply();
-    }
-
     public boolean isRoundedNotes() {
         return sharedPreferences.getBoolean("rounded_notes", true);
     }
