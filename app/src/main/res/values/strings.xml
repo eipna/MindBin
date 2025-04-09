@@ -47,6 +47,9 @@
     <string name="recycler_note_content">Lorem ipsum odor amet, consectetuer adipiscing elit. Sociosqu amet urna faucibus per eleifend, erat rutrum. Maximus eros tortor eget; sit metus tempus. Condimentum nibh litora velit augue fames. Ac consequat fames augue felis; sagittis vitae consectetur adipiscing. Finibus congue gravida litora dis amet. Dictumst elit ridiculus aenean suscipit fringilla placerat ante dictumst consequat. Diam adipiscing semper nunc massa sapien arcu consectetur praesent convallis. Ex ac cras nulla porttitor torquent bibendum.</string>
     <string name="recycler_note_date_created">Sunday, January 19 2025</string>
 
+    <string name="recycler_folder_name">Personal</string>
+    <string name="recycler_folder_description">A folder for my personal space.</string>
+
     <string name="indicator_notes_empty">No notes found</string>
     <string name="indicator_archive_empty">Archive is empty</string>
     <string name="indicator_trash_empty">Trash is empty</string>
