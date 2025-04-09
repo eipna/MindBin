@@ -30,22 +30,39 @@ public class FolderRepository extends Database {
         return result != -1;
     }
 
-    public boolean edit(Folder editedFolder) {
+    public void edit(Folder editedFolder) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_FOLDER_NAME, editedFolder.getName());
         values.put(COLUMN_FOLDER_DESCRIPTION, editedFolder.getDescription());
 
-        long result = database.update(TABLE_FOLDER, values, COLUMN_FOLDER_ID + " = ?", new String[]{editedFolder.getUUID()});
+        database.update(TABLE_FOLDER, values, COLUMN_FOLDER_ID + " = ?", new String[]{editedFolder.getUUID()});
         database.close();
-        return result != -1;
     }
 
-    public void togglePin(Folder folder) {
+    public void editDescription(Folder editedFolder) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_FOLDER_PINNED, folder.getIsPinned());
-        database.update(TABLE_FOLDER, values, COLUMN_FOLDER_ID + " = ?", new String[]{folder.getUUID()});
+        values.put(COLUMN_FOLDER_DESCRIPTION, editedFolder.getDescription());
+        database.update(TABLE_FOLDER, values, COLUMN_FOLDER_ID + " = ?", new String[]{editedFolder.getUUID()});
+        database.close();
+    }
+
+    public boolean alreadyExist(String name) {
+        ArrayList<Folder> folders = get();
+        for (Folder folder : folders) {
+            if (folder.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void togglePin(String folderUUID, int isPinned) {
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_FOLDER_PINNED, isPinned);
+        database.update(TABLE_FOLDER, values, COLUMN_FOLDER_ID + " = ?", new String[]{folderUUID});
         database.close();
     }
 

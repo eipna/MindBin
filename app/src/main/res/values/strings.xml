@@ -36,12 +36,14 @@
     <string name="menu_clear_trash">Clear Trash</string>
     <string name="menu_search_note">Search Notes</string>
 
+    <string name="dialog_folder_edit_title">Edit folder</string>
     <string name="dialog_folder_create_title">Create folder</string>
     <string name="dialog_note_delete_title">Permanent Deletion</string>
     <string name="dialog_note_delete_message">Are you sure you want to delete this note? Once deleted, it cannot be recovered.</string>
     <string name="dialog_note_clear_all_title">Permanent Deletion </string>
     <string name="dialog_note_clear_all_message">This action will permanently delete all notes in the trash. Are you sure you want to proceed?</string>
 
+    <string name="dialog_button_edit">Edit</string>
     <string name="dialog_button_create">Create</string>
     <string name="dialog_button_close">Close</string>
     <string name="dialog_button_clear">Clear</string>
