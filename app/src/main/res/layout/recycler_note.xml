@@ -27,6 +27,7 @@
             android:text="@string/recycler_note_title"
             android:textColor="?attr/colorPrimary"
             android:ellipsize="marquee"
+            android:maxLines="1"
             android:textAppearance="?attr/textAppearanceTitleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -45,6 +46,7 @@
             android:text="@string/recycler_note_content"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:layout_marginTop="12dp"
+            android:maxLines="5"
             android:textAppearance="?attr/textAppearanceBodySmall"
             android:ellipsize="marquee"
             android:layout_width="wrap_content"

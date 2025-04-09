@@ -90,8 +90,6 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
         public void bind(Note note) {
             parent.setRadius(preferences.isRoundedNotes() ? 32.0f : 0.0f);
-            title.setMaxLines(preferences.getMaxNoteTitleLines());
-            content.setMaxLines(preferences.getMaxNoteContentLines());
             dateCreated.setVisibility(preferences.isNoteDateCreatedEnabled() ? View.VISIBLE : View.GONE);
 
             title.setText(note.getTitle().isEmpty() ? "Empty note" : note.getTitle());

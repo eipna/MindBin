@@ -33,16 +33,6 @@
             android:title="@string/preference_list_view_mode"
             app:iconSpaceReserved="false"/>
 
-        <SeekBarPreference
-            android:key="max_note_title"
-            android:title="@string/preference_seekbar_max_note_title"
-            app:iconSpaceReserved="false"/>
-
-        <SeekBarPreference
-            android:key="max_note_content"
-            android:title="@string/preference_seekbar_max_note_content"
-            app:iconSpaceReserved="false"/>
-
         <SwitchPreferenceCompat
             android:key="rounded_corners"
             android:title="@string/preference_switch_rounded_corners"

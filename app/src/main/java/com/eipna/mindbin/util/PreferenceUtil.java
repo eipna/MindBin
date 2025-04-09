@@ -61,7 +61,7 @@ public class PreferenceUtil {
     }
 
     public void setNoteDateCreatedFormat(String value) {
-        sharedPreferences.edit().putString("note_date_create_format", value).apply();
+        sharedPreferences.edit().putString("note_date_created_format", value).apply();
     }
 
     public boolean isRoundedNotes() {
@@ -70,21 +70,5 @@ public class PreferenceUtil {
 
     public void setRoundedNotes(boolean value) {
         sharedPreferences.edit().putBoolean("rounded_notes", value).apply();
-    }
-
-    public int getMaxNoteTitleLines() {
-        return sharedPreferences.getInt("note_max_title_lines", 1);
-    }
-
-    public void setMaxNoteTitleLines(int value) {
-        sharedPreferences.edit().putInt("note_max_title_lines", value).apply();
-    }
-
-    public int getMaxNoteContentLines() {
-        return sharedPreferences.getInt("note_max_content_lines", 1);
-    }
-
-    public void setMaxNoteContentLines(int value) {
-        sharedPreferences.edit().putInt("note_max_content_lines", value).apply();
     }
 }

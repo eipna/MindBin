@@ -13,7 +13,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.eipna.mindbin.R;
@@ -83,9 +82,6 @@ public class SettingsActivity extends BaseActivity {
         private Preference versionPrefs;
         private Preference licensePrefs;
 
-        private SeekBarPreference seekBarMaxNoteTitle;
-        private SeekBarPreference seekBarMaxNoteContent;
-
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.preferences_main, rootKey);
@@ -131,24 +127,6 @@ public class SettingsActivity extends BaseActivity {
             listDateFormat.setOnPreferenceChangeListener((preference, newValue) -> {
                 preferences.setNoteDateCreatedFormat((String) newValue);
                 listDateFormat.setSummary((String) newValue);
-                return true;
-            });
-
-            seekBarMaxNoteTitle.setMin(1);
-            seekBarMaxNoteTitle.setMax(10);
-            seekBarMaxNoteTitle.setShowSeekBarValue(true);
-            seekBarMaxNoteTitle.setValue(preferences.getMaxNoteTitleLines());
-            seekBarMaxNoteTitle.setOnPreferenceChangeListener((preference, newValue) -> {
-                preferences.setMaxNoteTitleLines((int) newValue);
-                return true;
-            });
-
-            seekBarMaxNoteContent.setMin(1);
-            seekBarMaxNoteContent.setMax(10);
-            seekBarMaxNoteContent.setShowSeekBarValue(true);
-            seekBarMaxNoteContent.setValue(preferences.getMaxNoteContentLines());
-            seekBarMaxNoteContent.setOnPreferenceChangeListener((preference, newValue) -> {
-                preferences.setMaxNoteContentLines((int) newValue);
                 return true;
             });
 
@@ -225,8 +203,6 @@ public class SettingsActivity extends BaseActivity {
             listDateFormat = findPreference("date_format");
             listContrast = findPreference("contrast");
 
-            seekBarMaxNoteTitle = findPreference("max_note_title");
-            seekBarMaxNoteContent = findPreference("max_note_content");
             switchDynamicColors = findPreference("dynamic_colors");
             switchRoundedCorners = findPreference("rounded_corners");
             switchShowDateCreated = findPreference("show_date_created");
