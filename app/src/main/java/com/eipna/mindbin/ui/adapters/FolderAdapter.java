@@ -63,6 +63,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
         public void bind(Folder folder) {
             name.setText(folder.getName());
             description.setText(folder.getDescription());
+            description.setVisibility(folder.getDescription().isEmpty() ? View.GONE : View.VISIBLE);
         }
     }
 }
