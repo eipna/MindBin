@@ -1,7 +1,6 @@
 package com.eipna.mindbin.ui.activities;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,15 +12,16 @@ import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.note.Note;
+import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
-import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
 
 public class CreateActivity extends BaseActivity {
 
     private ActivityCreateNoteBinding binding;
+    private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +30,7 @@ public class CreateActivity extends BaseActivity {
         binding = ActivityCreateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
-        binding.appBar.setStatusBarForeground(drawable);
+        noteRepository = new NoteRepository(this);
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
@@ -87,9 +86,8 @@ public class CreateActivity extends BaseActivity {
         createdNote.setDateCreated(System.currentTimeMillis());
         createdNote.setLastUpdated(System.currentTimeMillis());
 
-        Intent createIntent = new Intent();
-        createIntent.putExtra("created_note", createdNote);
-        setResult(RESULT_OK, createIntent);
+        noteRepository.create(createdNote);
+        setResult(RESULT_OK);
         finish();
     }
 }

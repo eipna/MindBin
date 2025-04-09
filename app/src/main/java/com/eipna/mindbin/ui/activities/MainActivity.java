@@ -1,7 +1,7 @@
 package com.eipna.mindbin.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +26,6 @@ import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
-import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.ArrayList;
 
@@ -37,6 +36,13 @@ public class MainActivity extends BaseActivity implements NoteListener {
     private NoteAdapter noteAdapter;
     private ArrayList<Note> noteList;
 
+    private final ActivityResultLauncher<Intent> createNoteLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    refreshList();
+                }
+            });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,29 +50,32 @@ public class MainActivity extends BaseActivity implements NoteListener {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
-        Drawable drawable = MaterialShapeDrawable.createWithElevationOverlay(this);
-        binding.appBar.setStatusBarForeground(drawable);
         setSupportActionBar(binding.toolbar);
-        noteRepository = new NoteRepository(this);
 
+        noteRepository = new NoteRepository(this);
         noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
         noteAdapter = new NoteAdapter(this, this, noteList);
         binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
 
         String viewMode = preferences.getViewMode();
         if (viewMode.equals(ViewMode.LIST.value)) {
-            binding.noteList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         } else if (viewMode.equals(ViewMode.TILES.value)) {
-            binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+            binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
-        binding.noteList.addItemDecoration(new NoteItemDecoration(16));
-        binding.noteList.setAdapter(noteAdapter);
+        binding.recyclerView.addItemDecoration(new NoteItemDecoration(16));
+        binding.recyclerView.setAdapter(noteAdapter);
 
-        binding.newNote.setOnClickListener(view -> {
-            Intent createNoteIntent = new Intent(getApplicationContext(), CreateActivity.class);
-            createNoteLauncher.launch(createNoteIntent);
-        });
+        binding.fab.setOnClickListener(v -> createNoteLauncher.launch(new Intent(MainActivity.this, CreateActivity.class)));
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshList() {
+        noteList.clear();
+        noteList.addAll(noteRepository.getByState(NoteState.NORMAL));
+        binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -120,21 +129,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
         super.onDestroy();
         binding = null;
     }
-
-    private final ActivityResultLauncher<Intent> createNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-        if (result.getResultCode() == RESULT_OK) {
-            Intent resultIntent = result.getData();
-            if (resultIntent != null) {
-                Note createdNote = resultIntent.getParcelableExtra("created_note");
-                if (createdNote != null) {
-                    noteRepository.create(createdNote);
-                    noteList = new ArrayList<>(noteRepository.getByState(NoteState.NORMAL));
-                    binding.emptyIndicator.setVisibility(noteList.isEmpty() ? View.VISIBLE : View.GONE);
-                    noteAdapter.update(noteList);
-                }
-            }
-        }
-    });
 
     private final ActivityResultLauncher<Intent> updateNoteLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
