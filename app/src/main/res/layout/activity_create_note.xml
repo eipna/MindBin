@@ -52,6 +52,7 @@
                android:layout_height="wrap_content"/>
 
            <com.google.android.material.textview.MaterialTextView
+               android:id="@+id/currentDate"
                android:text="Wednesday, April 09 2025"
                android:layout_marginTop="4dp"
                android:textAppearance="?attr/textAppearanceBodySmall"

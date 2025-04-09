@@ -11,10 +11,12 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 
 import com.eipna.mindbin.R;
+import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
+import com.eipna.mindbin.util.DateUtil;
 
 import java.util.Objects;
 
@@ -42,6 +44,8 @@ public class CreateActivity extends BaseActivity {
                 handleSharedText(getIntent());
             }
         }
+
+        binding.currentDate.setText(DateUtil.getString(DatePattern.LONG_DAY_NAME.value, System.currentTimeMillis()));
 
         binding.contentInput.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
