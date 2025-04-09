@@ -28,7 +28,7 @@ public class NoteRepository extends Database {
         database.close();
     }
 
-    public void update(Note updatedNote) {
+    public void edit(Note updatedNote) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
@@ -50,30 +50,6 @@ public class NoteRepository extends Database {
         SQLiteDatabase database = getWritableDatabase();
         database.delete(TABLE_NOTE, COLUMN_NOTE_ID + " = ?", new String[]{String.valueOf(noteID)});
         database.close();
-    }
-
-    @SuppressLint("Range")
-    public ArrayList<Note> getAll() {
-        SQLiteDatabase database = getReadableDatabase();
-        ArrayList<Note> list = new ArrayList<>();
-        String query = "SELECT * FROM " + TABLE_NOTE;
-
-        @SuppressLint("Recycle")
-        Cursor cursor = database.rawQuery(query, null);
-        if (cursor.moveToFirst()) {
-            do {
-                Note queriedNote = new Note();
-                queriedNote.setID(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_ID)));
-                queriedNote.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_TITLE)));
-                queriedNote.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)));
-                queriedNote.setDateCreated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_DATE_CREATED)));
-                queriedNote.setState(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_STATE)));
-                list.add(queriedNote);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-        return list;
     }
 
     @SuppressLint("Range")

@@ -15,21 +15,21 @@ import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
-import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
+import com.eipna.mindbin.databinding.ActivityCreateBinding;
 import com.eipna.mindbin.util.DateUtil;
 
 import java.util.Objects;
 
 public class CreateActivity extends BaseActivity {
 
-    private ActivityCreateNoteBinding binding;
+    private ActivityCreateBinding binding;
     private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityCreateNoteBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         noteRepository = new NoteRepository(this);

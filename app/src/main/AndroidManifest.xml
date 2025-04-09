@@ -29,7 +29,7 @@
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".ui.activities.UpdateActivity"
+            android:name=".ui.activities.EditActivity"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity

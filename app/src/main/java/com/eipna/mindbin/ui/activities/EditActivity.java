@@ -17,15 +17,15 @@ import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
-import com.eipna.mindbin.databinding.ActivityUpdateNoteBinding;
+import com.eipna.mindbin.databinding.ActivityEditBinding;
 import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
-public class UpdateActivity extends BaseActivity {
+public class EditActivity extends BaseActivity {
 
-    private ActivityUpdateNoteBinding binding;
+    private ActivityEditBinding binding;
     private NoteRepository noteRepository;
     private Note noteExtra;
 
@@ -33,7 +33,7 @@ public class UpdateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityUpdateNoteBinding.inflate(getLayoutInflater());
+        binding = ActivityEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         noteExtra = getIntent().getParcelableExtra("selected_note");
@@ -56,13 +56,13 @@ public class UpdateActivity extends BaseActivity {
         String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
         if (!title.equals(noteExtra.getTitle()) || !content.equals(noteExtra.getContent())) {
-            Note updatedNote = new Note();
-            updatedNote.setID(noteExtra.getID());
-            updatedNote.setTitle(title);
-            updatedNote.setContent(content);
-            updatedNote.setState(noteExtra.getState());
+            Note editedNote = new Note();
+            editedNote.setID(noteExtra.getID());
+            editedNote.setTitle(title);
+            editedNote.setContent(content);
+            editedNote.setState(noteExtra.getState());
 
-            noteRepository.update(updatedNote);
+            noteRepository.edit(editedNote);
             setResult(RESULT_OK);
             finish();
         } else {

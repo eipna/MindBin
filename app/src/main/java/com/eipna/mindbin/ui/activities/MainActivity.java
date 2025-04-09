@@ -107,7 +107,6 @@ public class MainActivity extends BaseActivity implements NoteListener {
                 return true;
             }
         });
-
         return true;
     }
 
@@ -140,7 +139,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
     @Override
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent editNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
+        Intent editNoteIntent = new Intent(getApplicationContext(), EditActivity.class);
         editNoteIntent.putExtra("selected_note", selectedNote);
         editNoteLauncher.launch(editNoteIntent);
     }
