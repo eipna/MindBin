@@ -12,11 +12,17 @@ public class Database extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_NOTE = "notes";
-    public static final String COLUMN_NOTE_ID = "note_uuid";
+    public static final String COLUMN_NOTE_ID = "note_id";
     public static final String COLUMN_NOTE_TITLE = "title";
     public static final String COLUMN_NOTE_CONTENT = "content";
     public static final String COLUMN_NOTE_DATE_CREATED = "date_created";
     public static final String COLUMN_NOTE_STATE = "state";
+
+    public static final String TABLE_FOLDER = "folders";
+    public static final String COLUMN_FOLDER_ID = "folder_id";
+    public static final String COLUMN_FOLDER_PINNED = "is_pinned";
+    public static final String COLUMN_FOLDER_NAME = "name";
+    public static final String COLUMN_FOLDER_DESCRIPTION = "description";
 
     public Database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,12 +36,21 @@ public class Database extends SQLiteOpenHelper {
                 COLUMN_NOTE_CONTENT + " TEXT, " +
                 COLUMN_NOTE_DATE_CREATED + " INTEGER NOT NULL, " +
                 COLUMN_NOTE_STATE + " INTEGER NOT NULL)";
+
+        String createFolderTable = "CREATE TABLE IF NOT EXISTS " + TABLE_FOLDER + "(" +
+                COLUMN_FOLDER_ID + " TEXT PRIMARY KEY, " +
+                COLUMN_FOLDER_PINNED + " INTEGER NOT NULL, " +
+                COLUMN_FOLDER_NAME + " TEXT NOT NULL, " +
+                COLUMN_FOLDER_DESCRIPTION + " TEXT);";
+
         sqLiteDatabase.execSQL(createNoteTable);
+        sqLiteDatabase.execSQL(createFolderTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_FOLDER);
         onCreate(sqLiteDatabase);
     }
 }
