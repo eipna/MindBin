@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
         binding.noteList.setAdapter(noteAdapter);
 
         binding.newNote.setOnClickListener(view -> {
-            Intent createNoteIntent = new Intent(getApplicationContext(), CreateNoteActivity.class);
+            Intent createNoteIntent = new Intent(getApplicationContext(), CreateActivity.class);
             createNoteLauncher.launch(createNoteIntent);
         });
     }
@@ -167,7 +167,7 @@ public class MainActivity extends BaseActivity implements NoteListener {
     @Override
     public void OnNoteClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateNoteActivity.class);
+        Intent updateNoteIntent = new Intent(getApplicationContext(), UpdateActivity.class);
         updateNoteIntent.putExtra("selected_note", selectedNote);
         updateNoteLauncher.launch(updateNoteIntent);
     }

@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,7 +19,7 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
 
-public class CreateNoteActivity extends BaseActivity {
+public class CreateActivity extends BaseActivity {
 
     private ActivityCreateNoteBinding binding;
 
@@ -66,7 +65,7 @@ public class CreateNoteActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_create_note, menu);
+        inflater.inflate(R.menu.menu_create, menu);
         return true;
     }
 
@@ -74,7 +73,6 @@ public class CreateNoteActivity extends BaseActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
         if (item.getItemId() == R.id.save) createNewNote();
-        if (item.getItemId() == R.id.share) showShareIntent();
         return true;
     }
 
@@ -93,20 +91,5 @@ public class CreateNoteActivity extends BaseActivity {
         createIntent.putExtra("created_note", createdNote);
         setResult(RESULT_OK, createIntent);
         finish();
-    }
-
-    private void showShareIntent() {
-        String noteContent = Objects.requireNonNull(binding.contentInput.getText()).toString();
-        if (noteContent.isEmpty()) {
-            Toast.makeText(this, getString(R.string.toast_decline_share), Toast.LENGTH_SHORT).show();
-        } else {
-           Intent sendIntent = new Intent();
-           sendIntent.setAction(Intent.ACTION_SEND);
-           sendIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
-           sendIntent.setType("text/plain");
-
-           Intent shareIntent = Intent.createChooser(sendIntent, null);
-           startActivity(shareIntent);
-        }
     }
 }

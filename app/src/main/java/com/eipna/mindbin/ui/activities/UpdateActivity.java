@@ -22,7 +22,7 @@ import com.google.android.material.shape.MaterialShapeDrawable;
 
 import java.util.Objects;
 
-public class UpdateNoteActivity extends BaseActivity {
+public class UpdateActivity extends BaseActivity {
 
     private ActivityUpdateNoteBinding binding;
     private Note noteExtra;
@@ -73,7 +73,7 @@ public class UpdateNoteActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_update_note, menu);
+        inflater.inflate(R.menu.menu_update, menu);
 
         if (noteExtra.getState() == NoteState.NORMAL.value) {
             menu.findItem(R.id.unarchive).setVisible(false);
