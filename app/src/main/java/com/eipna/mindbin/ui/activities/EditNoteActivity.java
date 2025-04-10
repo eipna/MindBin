@@ -7,13 +7,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.DatePattern;
+import com.eipna.mindbin.data.folder.Folder;
+import com.eipna.mindbin.data.folder.FolderRepository;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
@@ -21,13 +25,18 @@ import com.eipna.mindbin.databinding.ActivityEditNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class EditNoteActivity extends BaseActivity {
 
     private ActivityEditNoteBinding binding;
     private NoteRepository noteRepository;
+    private FolderRepository folderRepository;
+    private ArrayList<Folder> folders;
     private Note noteExtra;
+    private String[] folderNames;
+    private int selectedFolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +48,18 @@ public class EditNoteActivity extends BaseActivity {
         noteExtra = getIntent().getParcelableExtra("selected_note");
         noteRepository = new NoteRepository(this);
 
+        folderRepository = new FolderRepository(this);
+        folders = new ArrayList<>(folderRepository.get());
+        folderNames = folderRepository.getNames();
+        selectedFolder = getSelectedFolderIndex();
+
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        binding.folder.setVisibility(selectedFolder == 0 ? View.GONE : View.VISIBLE);
+        binding.folder.setText(folderNames[selectedFolder]);
 
         if (noteExtra != null) {
             binding.titleInput.setText(noteExtra.getTitle());
@@ -51,23 +68,29 @@ public class EditNoteActivity extends BaseActivity {
         }
     }
 
+    private int getSelectedFolderIndex() {
+        for (int i = 0; i < folders.size(); i++) {
+            if (folders.get(i).getUUID().equals(noteExtra.getFolderUUID())) {
+                return (i + 1);
+            }
+        }
+        return 0;
+    }
+
     private void updateNote() {
         String title = Objects.requireNonNull(binding.titleInput.getText()).toString();
         String content = Objects.requireNonNull(binding.contentInput.getText()).toString();
 
-        if (!title.equals(noteExtra.getTitle()) || !content.equals(noteExtra.getContent())) {
-            Note editedNote = new Note();
-            editedNote.setUUID(noteExtra.getUUID());
-            editedNote.setTitle(title);
-            editedNote.setContent(content);
-            editedNote.setState(noteExtra.getState());
+        Note editedNote = new Note();
+        editedNote.setUUID(noteExtra.getUUID());
+        editedNote.setTitle(title);
+        editedNote.setContent(content);
+        editedNote.setState(noteExtra.getState());
+        editedNote.setFolderUUID((selectedFolder == 0) ? Note.NO_FOLDER : folderRepository.getID(folderNames[selectedFolder]));
 
-            noteRepository.edit(editedNote);
-            setResult(RESULT_OK);
-            finish();
-        } else {
-            finish();
-        }
+        noteRepository.edit(editedNote);
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
@@ -101,6 +124,7 @@ public class EditNoteActivity extends BaseActivity {
         if (item.getItemId() == R.id.trash) updateNoteState(NoteState.TRASH);
 
         if (item.getItemId() == R.id.delete_forever) showDeleteDialog();
+        if (item.getItemId() == R.id.folder) showSelectFolderDialog();
         return true;
     }
 
@@ -146,5 +170,28 @@ public class EditNoteActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    private void showSelectFolderDialog() {
+        if (folderNames.length == 1) {
+            Toast.makeText(this, "No folders to show", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.Theme_MindBin_AlertDialog)
+                .setTitle("Select folder")
+                .setSingleChoiceItems(folderNames, selectedFolder, (dialog, which) -> selectedFolder = which)
+                .setNegativeButton("Close", null)
+                .setPositiveButton("Select", (dialog, which) -> {
+                    if (selectedFolder == 0) {
+                        binding.folder.setVisibility(View.GONE);
+                    } else {
+                        binding.folder.setText(folderNames[selectedFolder]);
+                        binding.folder.setVisibility(View.VISIBLE);
+                    }
+                });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
