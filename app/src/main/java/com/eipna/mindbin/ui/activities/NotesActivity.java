@@ -157,7 +157,7 @@ public class NotesActivity extends AppCompatActivity {
 
     private boolean folderAlreadyExist(String name) {
         for (Folder folder : folders) {
-            if (folder.getName().equals(name)) {
+            if (folder.getName().trim().equalsIgnoreCase(name)) {
                 return true;
             }
         }

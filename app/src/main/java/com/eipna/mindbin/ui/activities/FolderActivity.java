@@ -94,12 +94,13 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
             createdFolder.setDescription(description);
             createdFolder.setIsPinned(Folder.NOT_PINNED);
 
-            if (folderRepository.create(createdFolder)) {
-                refreshList();
-                dialog.dismiss();
-            } else {
+            if (folderAlreadyExist(name)) {
                 nameInput.setText("");
                 nameLayout.setError(getString(R.string.field_error_folder_exists));
+            } else {
+                folderRepository.create(createdFolder);
+                refreshList();
+                dialog.dismiss();
             }
         }));
         dialog.show();
@@ -117,6 +118,15 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+    }
+
+    private boolean folderAlreadyExist(String name) {
+        for (Folder folder : folders) {
+            if (folder.getName().trim().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
