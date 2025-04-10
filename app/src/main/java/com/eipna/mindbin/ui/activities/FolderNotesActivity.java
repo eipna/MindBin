@@ -2,6 +2,7 @@ package com.eipna.mindbin.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +44,13 @@ public class FolderNotesActivity extends BaseActivity implements NoteAdapter.Lis
     private String nameExtra;
     private String descriptionExtra;
     private int isPinnedExtra;
+
+    private final ActivityResultLauncher<Intent> editNoteLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    refreshList();
+                }
+            });
 
     @Override
     protected void onDestroy() {
@@ -83,6 +93,14 @@ public class FolderNotesActivity extends BaseActivity implements NoteAdapter.Lis
 
         binding.toolbar.setTitle(nameExtra);
         binding.toolbar.setSubtitle(String.format("%s notes", notes.size()));
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshList() {
+        notes.clear();
+        notes.addAll(folderRepository.getNotes(UUIDExtra));
+        binding.emptyIndicator.setVisibility(notes.isEmpty() ? View.VISIBLE : View.GONE);
+        noteAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -218,6 +236,9 @@ public class FolderNotesActivity extends BaseActivity implements NoteAdapter.Lis
 
     @Override
     public void onClick(int position) {
-
+        Note selectedNote = notes.get(position);
+        Intent editNoteIntent = new Intent(getApplicationContext(), EditNoteActivity.class);
+        editNoteIntent.putExtra("selected_note", selectedNote);
+        editNoteLauncher.launch(editNoteIntent);
     }
 }

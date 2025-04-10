@@ -115,7 +115,7 @@ public class EditNoteActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) finish();
         if (item.getItemId() == R.id.save) updateNote();
         if (item.getItemId() == R.id.share) showShareIntent();
 
