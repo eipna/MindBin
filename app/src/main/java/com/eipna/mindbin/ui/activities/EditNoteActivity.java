@@ -17,15 +17,15 @@ import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
-import com.eipna.mindbin.databinding.ActivityEditBinding;
+import com.eipna.mindbin.databinding.ActivityEditNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
-public class EditActivity extends BaseActivity {
+public class EditNoteActivity extends BaseActivity {
 
-    private ActivityEditBinding binding;
+    private ActivityEditNoteBinding binding;
     private NoteRepository noteRepository;
     private Note noteExtra;
 
@@ -33,7 +33,7 @@ public class EditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityEditBinding.inflate(getLayoutInflater());
+        binding = ActivityEditNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         noteExtra = getIntent().getParcelableExtra("selected_note");
@@ -73,7 +73,7 @@ public class EditActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_update, menu);
+        inflater.inflate(R.menu.menu_edit_note, menu);
 
         if (noteExtra.getState() == NoteState.NORMAL.value) {
             menu.findItem(R.id.unarchive).setVisible(false);

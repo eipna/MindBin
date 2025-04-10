@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MindBin"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.NotesActivity"
+            android:name=".ui.activities.FolderNotesActivity"
             android:parentActivityName=".ui.activities.FolderActivity"
             android:exported="false" />
         <activity
@@ -33,13 +33,13 @@
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".ui.activities.EditActivity"
+            android:name=".ui.activities.EditNoteActivity"
             android:exported="false"
             android:parentActivityName=".ui.activities.MainActivity" />
         <activity
-            android:name=".ui.activities.CreateActivity"
+            android:name=".ui.activities.CreateNoteActivity"
             android:exported="true"
-            android:parentActivityName=".ui.activities.CreateActivity"
+            android:parentActivityName=".ui.activities.CreateNoteActivity"
             android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
                 <data android:mimeType="text/plain" />

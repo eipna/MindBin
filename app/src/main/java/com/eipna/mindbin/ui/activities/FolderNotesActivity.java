@@ -17,7 +17,7 @@ import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.Database;
 import com.eipna.mindbin.data.folder.Folder;
 import com.eipna.mindbin.data.folder.FolderRepository;
-import com.eipna.mindbin.databinding.ActivityNotesBinding;
+import com.eipna.mindbin.databinding.ActivityFolderNotesBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,9 +25,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class NotesActivity extends AppCompatActivity {
+public class FolderNotesActivity extends AppCompatActivity {
 
-    private ActivityNotesBinding binding;
+    private ActivityFolderNotesBinding binding;
     private FolderRepository folderRepository;
     private ArrayList<Folder> folders;
 
@@ -45,7 +45,7 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityNotesBinding.inflate(getLayoutInflater());
+        binding = ActivityFolderNotesBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 

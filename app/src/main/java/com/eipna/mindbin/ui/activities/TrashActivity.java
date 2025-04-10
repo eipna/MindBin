@@ -127,7 +127,7 @@ public class TrashActivity extends BaseActivity implements NoteAdapter.Listener 
     @Override
     public void onClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent editNoteIntent = new Intent(getApplicationContext(), EditActivity.class);
+        Intent editNoteIntent = new Intent(getApplicationContext(), EditNoteActivity.class);
         editNoteIntent.putExtra("selected_note", selectedNote);
         editNoteLauncher.launch(editNoteIntent);
     }

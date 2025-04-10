@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity implements NoteAdapter.Listener {
         binding.recyclerView.addItemDecoration(new NoteItemDecoration(32));
         binding.recyclerView.setAdapter(noteAdapter);
 
-        binding.fab.setOnClickListener(v -> createNoteLauncher.launch(new Intent(MainActivity.this, CreateActivity.class)));
+        binding.fab.setOnClickListener(v -> createNoteLauncher.launch(new Intent(MainActivity.this, CreateNoteActivity.class)));
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -138,7 +138,7 @@ public class MainActivity extends BaseActivity implements NoteAdapter.Listener {
     @Override
     public void onClick(int position) {
         Note selectedNote = noteList.get(position);
-        Intent editNoteIntent = new Intent(getApplicationContext(), EditActivity.class);
+        Intent editNoteIntent = new Intent(getApplicationContext(), EditNoteActivity.class);
         editNoteIntent.putExtra("selected_note", selectedNote);
         editNoteLauncher.launch(editNoteIntent);
     }

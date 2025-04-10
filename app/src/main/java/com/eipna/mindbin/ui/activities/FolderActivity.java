@@ -132,7 +132,7 @@ public class FolderActivity extends BaseActivity implements FolderAdapter.Listen
     @Override
     public void onClick(int position) {
         Folder selectedFolder = folders.get(position);
-        Intent folderIntent = new Intent(FolderActivity.this, NotesActivity.class);
+        Intent folderIntent = new Intent(FolderActivity.this, FolderNotesActivity.class);
         folderIntent.putExtra(Database.COLUMN_FOLDER_ID, selectedFolder.getUUID());
         folderIntent.putExtra(Database.COLUMN_FOLDER_NAME, selectedFolder.getName());
         folderIntent.putExtra(Database.COLUMN_FOLDER_DESCRIPTION, selectedFolder.getDescription());

@@ -15,22 +15,22 @@ import com.eipna.mindbin.data.DatePattern;
 import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
-import com.eipna.mindbin.databinding.ActivityCreateBinding;
+import com.eipna.mindbin.databinding.ActivityCreateNoteBinding;
 import com.eipna.mindbin.util.DateUtil;
 
 import java.util.Objects;
 import java.util.UUID;
 
-public class CreateActivity extends BaseActivity {
+public class CreateNoteActivity extends BaseActivity {
 
-    private ActivityCreateBinding binding;
+    private ActivityCreateNoteBinding binding;
     private NoteRepository noteRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivityCreateBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateNoteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         noteRepository = new NoteRepository(this);
@@ -69,7 +69,7 @@ public class CreateActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_create, menu);
+        inflater.inflate(R.menu.menu_create_note, menu);
         return true;
     }
 
@@ -93,7 +93,7 @@ public class CreateActivity extends BaseActivity {
 
         noteRepository.create(createdNote);
         if (Intent.ACTION_SEND.equals(getIntent().getAction()) && getIntent().getType() != null) {
-            startActivity(new Intent(CreateActivity.this, MainActivity.class));
+            startActivity(new Intent(CreateNoteActivity.this, MainActivity.class));
             finish();
         } else {
             setResult(RESULT_OK);
