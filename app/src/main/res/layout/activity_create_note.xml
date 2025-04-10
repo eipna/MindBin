@@ -76,6 +76,22 @@
                android:hint="@string/input_hint_note_content"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"/>
+
+           <com.google.android.material.chip.ChipGroup
+               android:layout_marginTop="16dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+
+               <com.google.android.material.chip.Chip
+                   android:id="@+id/folder"
+                   android:text="Folder"
+                   android:textColor="?attr/colorOnSurface"
+                   app:chipIconTint="?attr/colorOnSurface"
+                   app:chipIcon="@drawable/ic_folder"
+                   app:chipBackgroundColor="?attr/colorSurface"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"/>
+           </com.google.android.material.chip.ChipGroup>
        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
   </androidx.coordinatorlayout.widget.CoordinatorLayout>

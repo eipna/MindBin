@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import androidx.annotation.Nullable;
 
 import com.eipna.mindbin.data.Database;
+import com.eipna.mindbin.data.note.Note;
 
 import java.util.ArrayList;
 
@@ -76,9 +77,35 @@ public class FolderRepository extends Database {
         return list;
     }
 
+    public String[] getNames() {
+        ArrayList<Folder> folders = get();
+        String[] names = new String[folders.size() + 1];
+
+        names[0] = "None";
+        for (int i = 0; i < folders.size(); i++) {
+            names[i + 1] = folders.get(i).getName();
+        }
+        return names;
+    }
+
     public void delete(String folderUUID) {
         SQLiteDatabase database = getWritableDatabase();
         database.delete(TABLE_FOLDER, COLUMN_FOLDER_ID + " = ?", new String[]{folderUUID});
         database.close();
+    }
+
+    public String getID(String name) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FOLDER + " WHERE " + COLUMN_FOLDER_NAME + " = ?", new String[]{name});
+
+        if (cursor.moveToFirst()) {
+            String folderID = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FOLDER_ID));
+            cursor.close();
+            database.close();
+            return folderID;
+        }
+        cursor.close();
+        database.close();
+        return Note.NO_FOLDER;
     }
 }

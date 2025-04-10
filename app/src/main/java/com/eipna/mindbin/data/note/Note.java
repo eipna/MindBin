@@ -16,7 +16,7 @@ public class Note implements Parcelable {
     private long dateCreated;
     private int state;
 
-    public static String NO_FOLDER = "undefined";
+    public static final String NO_FOLDER = "UNDEFINED";
 
     public Note() {
         this.UUID = null;
