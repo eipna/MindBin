@@ -10,17 +10,29 @@ import java.util.Comparator;
 public class Note implements Parcelable {
 
     private String UUID;
+    private String folderUUID;
     private String title;
     private String content;
     private long dateCreated;
     private int state;
 
+    public static String NO_FOLDER = "undefined";
+
     public Note() {
         this.UUID = null;
+        this.folderUUID = null;
         this.title = null;
         this.content = null;
         this.dateCreated = -1;
         this.state = -2;
+    }
+
+    public String getFolderUUID() {
+        return folderUUID;
+    }
+
+    public void setFolderUUID(String folderUUID) {
+        this.folderUUID = folderUUID;
     }
 
     public String getUUID() {
@@ -70,6 +82,7 @@ public class Note implements Parcelable {
 
     protected Note(Parcel in) {
         UUID = in.readString();
+        folderUUID = in.readString();
         title = in.readString();
         content = in.readString();
         dateCreated = in.readLong();
@@ -96,6 +109,7 @@ public class Note implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel destination, int flags) {
         destination.writeString(UUID);
+        destination.writeString(folderUUID);
         destination.writeString(title);
         destination.writeString(content);
         destination.writeLong(dateCreated);

@@ -25,6 +25,7 @@ public class NoteRepository extends Database {
         values.put(COLUMN_NOTE_CONTENT, createdNote.getContent());
         values.put(COLUMN_NOTE_DATE_CREATED, createdNote.getDateCreated());
         values.put(COLUMN_NOTE_STATE, createdNote.getState());
+        values.put(COLUMN_NOTE_FOLDER_ID, createdNote.getFolderUUID());
         database.insert(TABLE_NOTE, null, values);
         database.close();
     }
@@ -35,6 +36,7 @@ public class NoteRepository extends Database {
         values.put(COLUMN_NOTE_TITLE, updatedNote.getTitle());
         values.put(COLUMN_NOTE_CONTENT, updatedNote.getContent());
         values.put(COLUMN_NOTE_STATE, updatedNote.getState());
+        values.put(COLUMN_NOTE_FOLDER_ID, updatedNote.getFolderUUID());
         database.update(TABLE_NOTE, values, COLUMN_NOTE_ID + " = ?", new String[]{updatedNote.getUUID()});
         database.close();
     }
@@ -69,6 +71,7 @@ public class NoteRepository extends Database {
                 queriedNote.setContent(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_CONTENT)));
                 queriedNote.setDateCreated(cursor.getLong(cursor.getColumnIndex(COLUMN_NOTE_DATE_CREATED)));
                 queriedNote.setState(cursor.getInt(cursor.getColumnIndex(COLUMN_NOTE_STATE)));
+                queriedNote.setFolderUUID(cursor.getString(cursor.getColumnIndex(COLUMN_NOTE_FOLDER_ID)));
                 list.add(queriedNote);
             } while (cursor.moveToNext());
         }
