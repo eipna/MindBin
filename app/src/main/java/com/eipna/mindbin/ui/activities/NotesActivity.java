@@ -22,12 +22,14 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class NotesActivity extends AppCompatActivity {
 
     private ActivityNotesBinding binding;
     private FolderRepository folderRepository;
+    private ArrayList<Folder> folders;
 
     private String UUIDExtra;
     private String nameExtra;
@@ -48,6 +50,7 @@ public class NotesActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         folderRepository = new FolderRepository(this);
+        folders = new ArrayList<>(folderRepository.get());
 
         UUIDExtra = getIntent().getStringExtra(Database.COLUMN_FOLDER_ID);
         nameExtra = getIntent().getStringExtra(Database.COLUMN_FOLDER_NAME);
@@ -137,7 +140,7 @@ public class NotesActivity extends AppCompatActivity {
                 editedFolder.setName(name);
                 editedFolder.setDescription(description);
 
-                if (folderRepository.alreadyExist(name)) {
+                if (folderAlreadyExist(name)) {
                     nameInput.setText("");
                     nameLayout.setError(getString(R.string.field_error_folder_exists));
                 } else {
@@ -150,6 +153,15 @@ public class NotesActivity extends AppCompatActivity {
             });
         });
         dialog.show();
+    }
+
+    private boolean folderAlreadyExist(String name) {
+        for (Folder folder : folders) {
+            if (folder.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

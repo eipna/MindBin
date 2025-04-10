@@ -48,16 +48,6 @@ public class FolderRepository extends Database {
         database.close();
     }
 
-    public boolean alreadyExist(String name) {
-        ArrayList<Folder> folders = get();
-        for (Folder folder : folders) {
-            if (folder.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void togglePin(String folderUUID, int isPinned) {
         SQLiteDatabase database = getWritableDatabase();
         ContentValues values = new ContentValues();
