@@ -90,6 +90,7 @@ public class CreateNoteActivity extends BaseActivity {
         createdNote.setContent(content);
         createdNote.setState(NoteState.NORMAL.value);
         createdNote.setDateCreated(System.currentTimeMillis());
+        createdNote.setFolderUUID(Note.NO_FOLDER);
 
         noteRepository.create(createdNote);
         if (Intent.ACTION_SEND.equals(getIntent().getAction()) && getIntent().getType() != null) {
