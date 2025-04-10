@@ -108,4 +108,26 @@ public class FolderRepository extends Database {
         database.close();
         return Note.NO_FOLDER;
     }
+
+    public ArrayList<Note> getNotes(String folderID) {
+        ArrayList<Note> list = new ArrayList<>();
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NOTE + " WHERE " + COLUMN_NOTE_FOLDER_ID + " = ?", new String[]{folderID});
+
+        if (cursor.moveToFirst()) {
+            do {
+                Note note = new Note();
+                note.setUUID(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID)));
+                note.setTitle(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE)));
+                note.setContent(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT)));
+                note.setState(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_STATE)));
+                note.setFolderUUID(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_FOLDER_ID)));
+                note.setDateCreated(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE_CREATED)));
+                list.add(note);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return list;
+    }
 }

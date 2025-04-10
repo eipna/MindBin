@@ -11,13 +11,17 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.eipna.mindbin.R;
 import com.eipna.mindbin.data.Database;
+import com.eipna.mindbin.data.ViewMode;
 import com.eipna.mindbin.data.folder.Folder;
 import com.eipna.mindbin.data.folder.FolderRepository;
+import com.eipna.mindbin.data.note.Note;
 import com.eipna.mindbin.databinding.ActivityFolderNotesBinding;
+import com.eipna.mindbin.ui.adapters.NoteAdapter;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -25,11 +29,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FolderNotesActivity extends AppCompatActivity {
+public class FolderNotesActivity extends BaseActivity implements NoteAdapter.Listener {
 
     private ActivityFolderNotesBinding binding;
     private FolderRepository folderRepository;
     private ArrayList<Folder> folders;
+    private ArrayList<Note> notes;
+    private NoteAdapter noteAdapter;
 
     private String UUIDExtra;
     private String nameExtra;
@@ -49,20 +55,34 @@ public class FolderNotesActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
-        folderRepository = new FolderRepository(this);
-        folders = new ArrayList<>(folderRepository.get());
-
         UUIDExtra = getIntent().getStringExtra(Database.COLUMN_FOLDER_ID);
         nameExtra = getIntent().getStringExtra(Database.COLUMN_FOLDER_NAME);
         descriptionExtra = getIntent().getStringExtra(Database.COLUMN_FOLDER_DESCRIPTION);
         isPinnedExtra = getIntent().getIntExtra(Database.COLUMN_FOLDER_PINNED, Folder.NOT_PINNED);
+
+        folderRepository = new FolderRepository(this);
+        folders = new ArrayList<>(folderRepository.get());
+
+        notes = new ArrayList<>(folderRepository.getNotes(UUIDExtra));
+        noteAdapter = new NoteAdapter(this, this, notes);
 
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        String viewMode = preferences.getViewMode();
+        if (viewMode.equals(ViewMode.LIST.value)) {
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        } else if (viewMode.equals(ViewMode.TILES.value)) {
+            binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        }
+
+        binding.emptyIndicator.setVisibility(notes.isEmpty() ? View.VISIBLE : View.GONE);
+        binding.recyclerView.setAdapter(noteAdapter);
+
         binding.toolbar.setTitle(nameExtra);
+        binding.toolbar.setSubtitle(String.format("%s notes", notes.size()));
     }
 
     @Override
@@ -194,5 +214,10 @@ public class FolderNotesActivity extends AppCompatActivity {
         isPinnedExtra = (isPinnedExtra == Folder.IS_PINNED) ? Folder.NOT_PINNED : Folder.IS_PINNED;
         folderRepository.togglePin(UUIDExtra, isPinnedExtra);
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onClick(int position) {
+
     }
 }
