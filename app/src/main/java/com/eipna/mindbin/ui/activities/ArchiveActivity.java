@@ -17,7 +17,6 @@ import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityArchiveBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
-import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 
 import java.util.ArrayList;
 
@@ -58,8 +57,6 @@ public class ArchiveActivity extends BaseActivity implements NoteAdapter.Listene
         } else if (viewMode.equals(ViewMode.TILES.value)) {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
-
-        binding.noteList.addItemDecoration(new NoteItemDecoration(32));
         binding.noteList.setAdapter(noteAdapter);
     }
 

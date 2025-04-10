@@ -8,6 +8,7 @@
     android:checkable="true"
     app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
+    app:cardUseCompatPadding="true"
     style="@style/Widget.Material3.CardView.Filled"
     app:cardBackgroundColor="?attr/colorSurfaceContainer"
     android:layout_width="match_parent"

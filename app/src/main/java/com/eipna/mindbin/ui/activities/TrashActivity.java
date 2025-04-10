@@ -23,7 +23,6 @@ import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityTrashBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
-import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -65,8 +64,6 @@ public class TrashActivity extends BaseActivity implements NoteAdapter.Listener 
         } else if (viewMode.equals(ViewMode.TILES.value)) {
             binding.noteList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
-
-        binding.noteList.addItemDecoration(new NoteItemDecoration(32));
         binding.noteList.setAdapter(noteAdapter);
     }
 

@@ -24,7 +24,6 @@ import com.eipna.mindbin.data.note.NoteRepository;
 import com.eipna.mindbin.data.note.NoteState;
 import com.eipna.mindbin.databinding.ActivityMainBinding;
 import com.eipna.mindbin.ui.adapters.NoteAdapter;
-import com.eipna.mindbin.ui.adapters.NoteItemDecoration;
 
 import java.util.ArrayList;
 
@@ -70,9 +69,7 @@ public class MainActivity extends BaseActivity implements NoteAdapter.Listener {
             binding.recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         }
 
-        binding.recyclerView.addItemDecoration(new NoteItemDecoration(32));
         binding.recyclerView.setAdapter(noteAdapter);
-
         binding.fab.setOnClickListener(v -> createNoteLauncher.launch(new Intent(MainActivity.this, CreateNoteActivity.class)));
     }
 
