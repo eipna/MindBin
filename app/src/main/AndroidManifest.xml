@@ -14,8 +14,8 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.activities.FolderNotesActivity"
-            android:parentActivityName=".ui.activities.FolderActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activities.FolderActivity" />
         <activity
             android:name=".ui.activities.FolderActivity"
             android:exported="false"

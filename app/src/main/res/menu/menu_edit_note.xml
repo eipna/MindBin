@@ -9,9 +9,9 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/share"
-        android:title="@string/menu_share"
-        android:icon="@drawable/ic_share"
+        android:id="@+id/folder"
+        android:title="Folder"
+        android:icon="@drawable/ic_add_folder"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -21,6 +21,11 @@
         app:showAsAction="always">
 
         <menu>
+            <item
+                android:id="@+id/share"
+                android:title="@string/menu_share"
+                app:showAsAction="never"/>
+
             <item
                 android:id="@+id/unarchive"
                 android:title="@string/menu_unarchive"/>
