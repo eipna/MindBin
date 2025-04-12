@@ -22,7 +22,7 @@
     <string name="menu_sort_date_created">Date Created</string>
     <string name="menu_sort_ascending">Ascending</string>
     <string name="menu_sort_descending">Descending</string>
-    <string name="menu_share">Share Note</string>
+    <string name="menu_share">Share</string>
     <string name="menu_overflow">More Options</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_unarchive">Unarchive</string>
