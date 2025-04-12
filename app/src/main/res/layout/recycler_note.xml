@@ -52,5 +52,19 @@
             android:ellipsize="marquee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/recyclerNoteFolder"
+                android:text="@string/recycler_note_folder"
+                android:textColor="?attr/colorOnSurface"
+                app:chipBackgroundColor="?attr/colorSurfaceContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.chip.ChipGroup>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

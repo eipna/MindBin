@@ -130,4 +130,19 @@ public class FolderRepository extends Database {
         database.close();
         return list;
     }
+
+    public String getName(String folderID) {
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FOLDER + " WHERE " + COLUMN_FOLDER_ID + " = ?", new String[]{folderID});
+
+        if (cursor.moveToFirst()) {
+            String folderName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_FOLDER_NAME));
+            cursor.close();
+            database.close();
+            return folderName;
+        }
+        cursor.close();
+        database.close();
+        return Note.NO_FOLDER;
+    }
 }
