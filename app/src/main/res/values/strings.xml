@@ -4,8 +4,6 @@
     <string name="app_author">eipna</string>
 
     <string name="toolbar_main">Notes</string>
-    <string name="toolbar_create">New note</string>
-    <string name="toolbar_edit">Edit note</string>
     <string name="toolbar_settings">Settings</string>
     <string name="toolbar_archive">Archive</string>
     <string name="toolbar_trash">Trash</string>
